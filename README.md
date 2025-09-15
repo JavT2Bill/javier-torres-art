@@ -1,1 +1,494 @@
-# javier-torres-art
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javier Torres | INTER-SIDE - Pintura Intermural</title>
+    <style>
+        :root {
+            --neon-primary: #ff3e00;
+            --neon-secondary: #00ffc8;
+            --neon-accent: #ff00d4;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            background-color: var(--bg-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 62, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .logo span {
+            color: var(--neon-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7));
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-primary);
+            text-shadow: 0 0 15px rgba(255, 62, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--neon-secondary);
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--neon-accent);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--neon-primary);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 62, 0, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px var(--neon-primary);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Audio Section */
+        .audio-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--neon-primary);
+        }
+
+        .audio-title {
+            color: var(--neon-secondary);
+            margin-bottom: 15px;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--neon-primary);
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--neon-primary);
+            border-radius: 5px;
+            transition: width 0.1s ease;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info h3 {
+            color: var(--neon-primary);
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details i {
+            margin-right: 15px;
+            color: var(--neon-primary);
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0 15px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">JAVIER <span>TORRES</span></div>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#statement">Statement</a></li>
+                <li><a href="#portfolio">Portafolio</a></li>
+                <li><a href="#audio">Audio</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title">INTER - SIDE</h1>
+            <h2 class="hero-subtitle">PINTURA INTERMURAL</h2>
+            <p>Este proyecto toma toda la influencia de la pintura de la calle, el grafiti y el arte urbano para crear una metáfora de lo que representa la pintura inter-muros.</p>
+        </div>
+    </section>
+
+    <!-- Statement Section -->
+    <section id="statement" class="section">
+        <div class="container">
+            <h2 class="section-title">Statement</h2>
+            <div class="statement-content">
+                <p>Inter-side es un proyecto en el que reflexiono acerca de la naturaleza y el actuar del espacio pictórico entre muros y lienzos.</p>
+                <p>Me interesa plantear un dialogo abordando en primera instancia el concepto de límite entre diferentes espacios pictóricos, el de la urbe y el de la pintura dentro de los formatos clásicos de bastidor, con el fin de reflexionar sobre la posición de la pintura en el entorno, la expectación y el sentido de pertenencia del espacio que prevalece en el consciente colectivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <h2 class="section-title">Portafolio</h2>
+            
+            <div class="portfolio-grid">
+                <!-- Obra 1 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Banqueta" alt="Banqueta" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Banqueta</h3>
+                        <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
+                    </div>
+                </div>
+                
+                <!-- Obra 2 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=WiFi" alt="WiFi" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>WiFi</h3>
+                        <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
+                    </div>
+                </div>
+                
+                <!-- Obra 3 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Sunny+Day" alt="Sunny Day" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Sunny Day</h3>
+                        <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
+                    </div>
+                </div>
+                
+                <!-- Obra 4 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Ciudad+Futurista" alt="Ciudad Futurista" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Ciudad Futurista</h3>
+                        <p>Esmalte en aerosol y óleo sobre tela - 162 x 152 cm</p>
+                    </div>
+                </div>
+                
+                <!-- Obra 5 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=In+Your+Face" alt="In Your Face" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>In Your Face</h3>
+                        <p>Mixta sobre madera - 244 x 108 cm</p>
+                    </div>
+                </div>
+                
+                <!-- Obra 6 -->
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Post-Truth+Era" alt="Post-Truth Era" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Post-Truth Era</h3>
+                        <p>Mixta sobre madera - 244 x 122 cm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Section -->
+    <section id="audio" class="section">
+        <div class="container">
+            <h2 class="section-title">Audio</h2>
+            <p>Explora mis creaciones sonoras que complementan mi obra visual.</p>
+            
+            <div class="audio-section">
+                <h3 class="audio-title">Composición Urbana #1</h3>
+                <p>Una pieza sonora que refleja la esencia de la ciudad y el arte callejero.</p>
+                
+                <div class="audio-player">
+                    <div class="audio-controls">
+                        <button class="play
