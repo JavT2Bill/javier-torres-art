@@ -224,40 +224,6 @@
             margin-bottom: 15px;
         }
 
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .play-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--neon-primary);
-            border: none;
-            color: white;
-            cursor: pointer;
-            margin-right: 15px;
-        }
-
-        .progress-container {
-            flex-grow: 1;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--neon-primary);
-            border-radius: 5px;
-            transition: width 0.1s ease;
-        }
-
         footer {
             padding: 60px 0 30px;
             background: var(--bg-dark);
@@ -367,6 +333,10 @@
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .audio-section {
+                padding: 20px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -411,7 +381,7 @@
             
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Banqueta" alt="Banqueta" class="portfolio-img">
+                    <img src="images/banqueta.jpg" alt="Banqueta" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3>Banqueta</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
@@ -419,42 +389,58 @@
                 </div>
                 
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=WiFi" alt="WiFi" class="portfolio-img">
+                    <img src="images/cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle en ciudad futurista" class="portfolio-img">
                     <div class="portfolio-overlay">
-                        <h3>WiFi</h3>
+                        <h3>Cruzando la calle en ciudad futurista</h3>
+                        <p>Esmalte en aerosol y óleo sobre tela - 170 x 180 cm</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="images/delirio-de-persecucion.JPG" alt="Delirio de persecución" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Delirio de persecución</h3>
+                        <p>Mixta sobre tela - 150.5 x 105 cm</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="images/down-town.jpg" alt="Down Town 3019" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Down Town 3019</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
                 
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Sunny+Day" alt="Sunny Day" class="portfolio-img">
+                    <img src="images/el-dia-que-quise-cambiar-al-mundo.jpg" alt="El día que quise cambiar al mundo" class="portfolio-img">
                     <div class="portfolio-overlay">
-                        <h3>Sunny Day</h3>
+                        <h3>El día que quise cambiar al mundo</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
                 
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Ciudad+Futurista" alt="Ciudad Futurista" class="portfolio-img">
+                    <img src="images/im-the-most-normal-person-i-know.jpg" alt="I'm the most normal person I know" class="portfolio-img">
                     <div class="portfolio-overlay">
-                        <h3>Ciudad Futurista</h3>
-                        <p>Esmalte en aerosol y óleo sobre tela - 162 x 152 cm</p>
+                        <h3>I'm the most normal person I know</h3>
+                        <p>Mixta sobre tela - 159 x 125 cm</p>
                     </div>
                 </div>
-                
+
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=In+Your+Face" alt="In Your Face" class="portfolio-img">
+                    <img src="images/fragmento-de-alice.jpg" alt="Fragmento de Alice" class="portfolio-img">
                     <div class="portfolio-overlay">
-                        <h3>In Your Face</h3>
-                        <p>Mixta sobre madera - 244 x 108 cm</p>
+                        <h3>Fragmento de Alice</h3>
+                        <p>Serigrafía sobre papel - 35 x 35 cm</p>
                     </div>
                 </div>
-                
+
                 <div class="portfolio-item">
-                    <img src="https://placehold.co/600x400/2a2a2a/ffffff?text=Post-Truth+Era" alt="Post-Truth Era" class="portfolio-img">
+                    <img src="image:la aparicion de un nuevo buda.jpg" alt="La aparición de un nuevo buda" class="portfolio-img">
                     <div class="portfolio-overlay">
-                        <h3>Post-Truth Era</h3>
-                        <p>Mixta sobre madera - 244 x 122 cm</p>
+                        <h3>La aparición de un nuevo buda</h3>
+                        <p>Obra especial</p>
                     </div>
                 </div>
             </div>
@@ -467,31 +453,28 @@
             <p>Explora mis creaciones sonoras que complementan mi obra visual.</p>
             
             <div class="audio-section">
-                <h3 class="audio-title">Composición Urbana #1</h3>
+                <h3 class="audio-title">Callejón sin salida</h3>
                 <p>Una pieza sonora que refleja la esencia de la ciudad y el arte callejero.</p>
                 
-                <div class="audio-player">
-                    <div class="audio-controls">
-                        <button class="play-btn"><i class="fas fa-play"></i></button>
-                        <div class="progress-container">
-                            <div class="progress-bar"></div>
-                        </div>
-                    </div>
-                </div>
+                <audio controls class="audio-player">
+                    <source src="audio/callejon-sin-salida.wav" type="audio/wav">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
             </div>
             
             <div class="audio-section">
-                <h3 class="audio-title">Ritmo Inter-mural</h3>
+                <h3 class="audio-title">Hypothesis Series</h3>
                 <p>Experimentación sonora que dialoga con la pintura intermural.</p>
                 
-                <div class="audio-player">
-                    <div class="audio-controls">
-                        <button class="play-btn"><i class="fas fa-play"></i></button>
-                        <div class="progress-container">
-                            <div class="progress-bar"></div>
-                        </div>
-                    </div>
-                </div>
+                <audio controls class="audio-player">
+                    <source src="audio/hypothesis-3.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+
+                <audio controls class="audio-player">
+                    <source src="audio/hypothesis-4.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
             </div>
         </div>
     </section>
@@ -504,7 +487,7 @@
                 <div class="contact-info">
                     <h3>Información de Contacto</h3>
                     <ul class="contact-details">
-                        <li><i class="fas fa-envelope"></i> jtmorboland@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> jtmorbolland@gmail.com</li>
                         <li><i class="fas fa-phone"></i> +52 33 1790 4857</li>
                         <li><i class="fas fa-map-marker-alt"></i> Guadalajara, Jalisco, México</li>
                     </ul>
@@ -525,21 +508,5 @@
             <p>&copy; 2023 Javier Torres. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <script>
-        // Funcionalidad básica para los reproductores de audio
-        document.querySelectorAll('.play-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-play')) {
-                    icon.classList.remove('fa-play');
-                    icon.classList.add('fa-pause');
-                } else {
-                    icon.classList.remove('fa-pause');
-                    icon.classList.add('fa-play');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
