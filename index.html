@@ -6,14 +6,15 @@
     <title>Javier Torres | INTER-SIDE - Pintura Intermural</title>
     <style>
         :root {
-            --primary: #FF6B35; /* Naranja terroso - menos vibrante que el anterior */
-            --secondary: #4ECDC4; /* Verde azulado suave */
-            --accent: #FF8A65; /* Coral anaranjado */
-            --dark: #1A1A1A; /* Fondo oscuro ligeramente más claro */
-            --darker: #0D0D0D; /* Fondo más oscuro */
-            --text: #F5F5F5; /* Texto blanco ligeramente suavizado */
-            --text-secondary: #AAAAAA; /* Texto secundario */
-            --error-bg: #2D2D2D; /* Fondo para imágenes con error */
+            --primary: #FF0A3F; /* Rojo vibrante post-punk */
+            --secondary: #00FFC8; /* Verde azulado neón */
+            --accent: #FFDD00; /* Amarillo ácido */
+            --dark: #0A0A0A; /* Fondo negro puro */
+            --darker: #000000; /* Fondo más oscuro */
+            --text: #F0F0F0; /* Texto blanco ligeramente suavizado */
+            --text-secondary: #A0A0A0; /* Texto secundario */
+            --error-bg: #1A1A1A; /* Fondo para imágenes con error */
+            --glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
         }
 
         * {
@@ -28,6 +29,9 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(10, 10, 10, 0.97), rgba(10, 10, 10, 0.97)),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='none'/%3E%3Cpath d='M20 20h60v60H20z' stroke='%23FF0A3F' stroke-width='1' fill='none'/%3E%3C/svg%3E");
         }
 
         .container {
@@ -40,11 +44,11 @@
         /* Header */
         header {
             padding: 25px 0;
-            background-color: rgba(26, 26, 26, 0.95);
+            background-color: rgba(10, 10, 10, 0.95);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+            border-bottom: 1px solid var(--primary);
             backdrop-filter: blur(10px);
         }
 
@@ -59,7 +63,8 @@
             font-size: 2rem;
             font-weight: 700;
             color: var(--text);
-            text-shadow: 0 0 10px var(--primary);
+            text-shadow: var(--glow);
+            letter-spacing: 2px;
         }
 
         .logo span {
@@ -80,10 +85,11 @@
             text-decoration: none;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             transition: all 0.3s ease;
             padding: 5px 0;
             position: relative;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .nav-links a:after {
@@ -101,19 +107,43 @@
             width: 100%;
         }
 
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--glow);
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.7));
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 98%, var(--primary) 100%) 0 0,
+                linear-gradient(360deg, transparent 98%, var(--primary) 100%) 0 0;
+            background-repeat: repeat;
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
         }
 
         .hero-content {
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-title {
@@ -123,18 +153,33 @@
             margin-bottom: 20px;
             color: transparent;
             -webkit-text-stroke: 2px var(--primary);
-            text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+            text-shadow: var(--glow);
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
         .hero-subtitle {
             font-size: 1.8rem;
             margin-bottom: 40px;
             color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+            font-family: 'Orbitron', sans-serif;
         }
 
         /* Sections */
         .section {
             padding: 100px 0;
+            position: relative;
+        }
+
+        .section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         .section-title {
@@ -144,6 +189,8 @@
             margin-bottom: 60px;
             color: var(--text);
             position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
         .section-title:after {
@@ -155,6 +202,7 @@
             width: 100px;
             height: 3px;
             background: var(--primary);
+            box-shadow: var(--glow);
         }
 
         /* Portfolio Grid */
@@ -168,16 +216,18 @@
             position: relative;
             height: 300px;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             transition: all 0.4s ease;
             cursor: pointer;
-            background-color: var(--error-bg); /* Fondo por si la imagen no carga */
+            background-color: var(--error-bg);
+            border: 1px solid rgba(255, 10, 63, 0.3);
         }
 
         .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 10, 63, 0.6);
+            border-color: var(--primary);
         }
 
         .portfolio-img {
@@ -189,6 +239,7 @@
 
         .portfolio-item:hover .portfolio-img {
             transform: scale(1.1);
+            filter: contrast(1.2) saturate(1.2);
         }
 
         .portfolio-overlay {
@@ -197,7 +248,7 @@
             left: 0;
             width: 100%;
             padding: 20px;
-            background: linear-gradient(to top, rgba(13, 13, 13, 0.95), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
             color: white;
             transform: translateY(20px);
             opacity: 0;
@@ -242,7 +293,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 0.98);
             overflow: auto;
         }
 
@@ -253,7 +304,8 @@
             max-height: 80vh;
             animation: zoom 0.3s ease;
             border: 3px solid var(--primary);
-            border-radius: 8px;
+            border-radius: 4px;
+            box-shadow: var(--glow);
         }
 
         @keyframes zoom {
@@ -270,6 +322,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            text-shadow: var(--glow);
         }
 
         .close:hover {
@@ -281,22 +334,41 @@
             text-align: center;
             color: var(--text);
             font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
         }
 
         /* Audio Section */
         .audio-section {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.5);
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 4px;
             margin: 60px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(255, 10, 63, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .audio-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 10, 63, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .audio-section:hover:before {
+            left: 100%;
         }
 
         .audio-player {
             width: 100%;
             margin-top: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
             padding: 20px;
             border: 1px solid var(--primary);
         }
@@ -305,6 +377,8 @@
             color: var(--secondary);
             margin-bottom: 15px;
             font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--secondary);
+            font-family: 'Orbitron', sans-serif;
         }
 
         .audio-description {
@@ -317,8 +391,19 @@
         footer {
             padding: 60px 0 30px;
             background: var(--darker);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--primary);
             text-align: center;
+            position: relative;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         .social-links {
@@ -340,13 +425,13 @@
             transition: all 0.3s ease;
             text-decoration: none;
             font-size: 1.5rem;
-            border: 1px solid rgba(255, 107, 53, 0.3);
+            border: 1px solid var(--primary);
         }
 
         .social-links a:hover {
             background: var(--primary);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px var(--primary);
+            box-shadow: var(--glow);
         }
 
         .social-links a.instagram:hover {
@@ -355,12 +440,57 @@
 
         .social-links a.tiktok:hover {
             background: #000000;
+            box-shadow: 0 0 15px #000000;
         }
 
         .copyright {
             margin-top: 30px;
             color: var(--text-secondary);
             font-size: 0.9rem;
+        }
+
+        /* Efectos post-punk */
+        .glitch-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-effect:before,
+        .glitch-effect:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-effect:before {
+            color: var(--secondary);
+            z-index: -1;
+            transform: translateX(2px);
+        }
+
+        .glitch-effect:after {
+            color: var(--accent);
+            z-index: -2;
+            transform: translateX(-2px);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.03) 50%, 
+                rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
         }
 
         /* Responsive */
@@ -445,6 +575,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="scanlines"></div>
+    
     <header>
         <div class="container header-content">
             <div class="logo">JAVIER <span>TORRES</span></div>
@@ -638,6 +770,27 @@
                     Tu navegador no soporta el elemento de audio.
                 </audio>
             </div>
+
+            <!-- Audios adicionales -->
+            <div class="audio-section">
+                <h3 class="audio-title">Guidad Futurista</h3>
+                <p class="audio-description">Post-Truth Era - Exploración sonora futurista</p>
+                
+                <audio controls class="audio-player">
+                    <source src="guidad-futurista.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+            </div>
+
+            <div class="audio-section">
+                <h3 class="audio-title">Sobotaje Sonoro</h3>
+                <p class="audio-description">Intervención audio experimental - Frecuencias alteradas</p>
+                
+                <audio controls class="audio-player">
+                    <source src="sobotaje-sonoro.wav" type="audio/wav">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+            </div>
         </div>
     </section>
 
@@ -696,6 +849,14 @@
         function handleImageError(img) {
             const portfolioItem = img.parentElement;
             portfolioItem.classList.add('img-error');
+            
+            // Intentar cargar una versión alternativa si existe
+            const src = img.getAttribute('src');
+            if (src && src.startsWith('images/')) {
+                // Si está en subcarpeta images, intentar cargar desde raíz
+                const alternativeSrc = src.replace('images/', '');
+                img.src = alternativeSrc;
+            }
         }
 
         // Cerrar modal al hacer clic fuera de la imagen
@@ -726,6 +887,18 @@
                     };
                 }
             });
+
+            // Efecto de glitch aleatorio en títulos
+            const titles = document.querySelectorAll('.section-title, .hero-title');
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+                    randomTitle.classList.add('glitch-effect');
+                    setTimeout(() => {
+                        randomTitle.classList.remove('glitch-effect');
+                    }, 200);
+                }
+            }, 3000);
         }
     </script>
 </body>
