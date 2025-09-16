@@ -6,13 +6,14 @@
     <title>Javier Torres | INTER-SIDE - Pintura Intermural</title>
     <style>
         :root {
-            --primary: #FF3E00; /* Naranja vibrante */
-            --secondary: #00BCD4; /* Azul turquesa */
-            --accent: #FF4081; /* Rosa magenta */
-            --dark: #121212; /* Fondo oscuro */
-            --darker: #0A0A0A; /* Fondo más oscuro */
-            --text: #FFFFFF; /* Texto blanco */
-            --text-secondary: #B0B0B0; /* Texto secundario */
+            --primary: #FF6B35; /* Naranja terroso - menos vibrante que el anterior */
+            --secondary: #4ECDC4; /* Verde azulado suave */
+            --accent: #FF8A65; /* Coral anaranjado */
+            --dark: #1A1A1A; /* Fondo oscuro ligeramente más claro */
+            --darker: #0D0D0D; /* Fondo más oscuro */
+            --text: #F5F5F5; /* Texto blanco ligeramente suavizado */
+            --text-secondary: #AAAAAA; /* Texto secundario */
+            --error-bg: #2D2D2D; /* Fondo para imágenes con error */
         }
 
         * {
@@ -39,11 +40,11 @@
         /* Header */
         header {
             padding: 25px 0;
-            background-color: rgba(18, 18, 18, 0.95);
+            background-color: rgba(26, 26, 26, 0.95);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 62, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -105,7 +106,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7));
+            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.7));
             position: relative;
         }
 
@@ -122,7 +123,7 @@
             margin-bottom: 20px;
             color: transparent;
             -webkit-text-stroke: 2px var(--primary);
-            text-shadow: 0 0 15px rgba(255, 62, 0, 0.5);
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
         }
 
         .hero-subtitle {
@@ -171,11 +172,12 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.4s ease;
             cursor: pointer;
+            background-color: var(--error-bg); /* Fondo por si la imagen no carga */
         }
 
         .portfolio-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(255, 62, 0, 0.4);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
         }
 
         .portfolio-img {
@@ -195,7 +197,7 @@
             left: 0;
             width: 100%;
             padding: 20px;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
+            background: linear-gradient(to top, rgba(13, 13, 13, 0.95), transparent);
             color: white;
             transform: translateY(20px);
             opacity: 0;
@@ -205,6 +207,29 @@
         .portfolio-item:hover .portfolio-overlay {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        /* Placeholder para imágenes que no cargan */
+        .portfolio-item::before {
+            content: attr(data-title);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            text-align: center;
+            width: 80%;
+            display: none;
+            z-index: 1;
+        }
+
+        .portfolio-item.img-error::before {
+            display: block;
+        }
+
+        .portfolio-item.img-error .portfolio-img {
+            display: none;
         }
 
         /* Modal para imágenes */
@@ -315,7 +340,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             font-size: 1.5rem;
-            border: 1px solid rgba(255, 62, 0, 0.3);
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
         .social-links a:hover {
@@ -457,112 +482,112 @@
             <h2 class="section-title">Portafolio</h2>
             
             <div class="portfolio-grid">
-                <div class="portfolio-item" onclick="openModal('banqueta.jpg', 'Banqueta - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="banqueta.jpg" alt="Banqueta" class="portfolio-img">
+                <div class="portfolio-item" data-title="Banqueta" onclick="openModal('banqueta.jpg', 'Banqueta - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="banqueta.jpg" alt="Banqueta" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Banqueta</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal('cruzando-la-calle-en-ciudad-futurista.jpg', 'Cruzando la calle en ciudad futurista - Esmalte en aerosol y óleo sobre tela - 170 x 180 cm')">
-                    <img src="cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle en ciudad futurista" class="portfolio-img">
+                <div class="portfolio-item" data-title="Cruzando la calle en ciudad futurista" onclick="openModal('cruzando-la-calle-en-ciudad-futurista.jpg', 'Cruzando la calle en ciudad futurista - Esmalte en aerosol y óleo sobre tela - 170 x 180 cm')">
+                    <img src="cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle en ciudad futurista" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Cruzando la calle en ciudad futurista</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 170 x 180 cm</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal('delirio-de-persecucion.JPG', 'Delirio de persecución - Mixta sobre tela - 150.5 x 105 cm')">
-                    <img src="delirio-de-persecucion.JPG" alt="Delirio de persecución" class="portfolio-img">
+                <div class="portfolio-item" data-title="Delirio de persecución" onclick="openModal('delirio-de-persecucion.JPG', 'Delirio de persecución - Mixta sobre tela - 150.5 x 105 cm')">
+                    <img src="delirio-de-persecucion.JPG" alt="Delirio de persecución" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Delirio de persecución</h3>
                         <p>Mixta sobre tela - 150.5 x 105 cm</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal('down-town.jpg', 'Down Town 3019 - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="down-town.jpg" alt="Down Town 3019" class="portfolio-img">
+                <div class="portfolio-item" data-title="Down Town 3019" onclick="openModal('down-town.jpg', 'Down Town 3019 - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="down-town.jpg" alt="Down Town 3019" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Down Town 3019</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal('el-dia-que-quise-cambiar-al-mundo.jpg', 'El día que quise cambiar al mundo - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="el-dia-que-quise-cambiar-al-mundo.jpg" alt="El día que quise cambiar al mundo" class="portfolio-img">
+                <div class="portfolio-item" data-title="El día que quise cambiar al mundo" onclick="openModal('el-dia-que-quise-cambiar-al-mundo.jpg', 'El día que quise cambiar al mundo - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="el-dia-que-quise-cambiar-al-mundo.jpg" alt="El día que quise cambiar al mundo" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>El día que quise cambiar al mundo</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal('im-the-most-normal-person-i-know.jpg', 'I\'m the most normal person I know - Mixta sobre tela - 159 x 125 cm')">
-                    <img src="im-the-most-normal-person-i-know.jpg" alt="I'm the most normal person I know" class="portfolio-img">
+                <div class="portfolio-item" data-title="I'm the most normal person I know" onclick="openModal('im-the-most-normal-person-i-know.jpg', 'I\'m the most normal person I know - Mixta sobre tela - 159 x 125 cm')">
+                    <img src="im-the-most-normal-person-i-know.jpg" alt="I'm the most normal person I know" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>I'm the most normal person I know</h3>
                         <p>Mixta sobre tela - 159 x 125 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('fragmento-de-alice.jpg', 'Fragmento de Alice - Serigrafía sobre papel - 35 x 35 cm')">
-                    <img src="fragmento-de-alice.jpg" alt="Fragmento de Alice" class="portfolio-img">
+                <div class="portfolio-item" data-title="Fragmento de Alice" onclick="openModal('fragmento-de-alice.jpg', 'Fragmento de Alice - Serigrafía sobre papel - 35 x 35 cm')">
+                    <img src="fragmento-de-alice.jpg" alt="Fragmento de Alice" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Fragmento de Alice</h3>
                         <p>Serigrafía sobre papel - 35 x 35 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('images/la-aparicion-de-un-nuevo-buda.jpg', 'La aparición de un nuevo buda - Obra especial - Técnica mixta')">
-                    <img src="images/la-aparicion-de-un-nuevo-buda.jpg" alt="La aparición de un nuevo buda" class="portfolio-img">
+                <div class="portfolio-item" data-title="La aparición de un nuevo buda" onclick="openModal('images/la-aparicion-de-un-nuevo-buda.jpg', 'La aparición de un nuevo buda - Obra especial - Técnica mixta')">
+                    <img src="images/la-aparicion-de-un-nuevo-buda.jpg" alt="La aparición de un nuevo buda" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>La aparición de un nuevo buda</h3>
                         <p>Obra especial - Técnica mixta</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('in-your-face.jpg', 'In Your Face - Mixta sobre madera - 244 x 108 cm')">
-                    <img src="in-your-face.jpg" alt="In Your Face" class="portfolio-img">
+                <div class="portfolio-item" data-title="In Your Face" onclick="openModal('in-your-face.jpg', 'In Your Face - Mixta sobre madera - 244 x 108 cm')">
+                    <img src="in-your-face.jpg" alt="In Your Face" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>In Your Face</h3>
                         <p>Mixta sobre madera - 244 x 108 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('post-truth-era.jpg', 'Post-Truth Era - Mixta sobre madera - 244 x 122 cm')">
-                    <img src="post-truth-era.jpg" alt="Post-Truth Era" class="portfolio-img">
+                <div class="portfolio-item" data-title="Post-Truth Era" onclick="openModal('post-truth-era.jpg', 'Post-Truth Era - Mixta sobre madera - 244 x 122 cm')">
+                    <img src="post-truth-era.jpg" alt="Post-Truth Era" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Post-Truth Era</h3>
                         <p>Mixta sobre madera - 244 x 122 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('ciudad-futurista.jpg', 'Ciudad Futurista - Esmalte en aerosol y óleo sobre tela - 162 x 152 cm')">
-                    <img src="ciudad-futurista.jpg" alt="Ciudad Futurista" class="portfolio-img">
+                <div class="portfolio-item" data-title="Ciudad Futurista" onclick="openModal('ciudad-futurista.jpg', 'Ciudad Futurista - Esmalte en aerosol y óleo sobre tela - 162 x 152 cm')">
+                    <img src="ciudad-futurista.jpg" alt="Ciudad Futurista" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Ciudad Futurista</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 162 x 152 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('sunny-day.jpg', 'Sunny Day - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="sunny-day.jpg" alt="Sunny Day" class="portfolio-img">
+                <div class="portfolio-item" data-title="Sunny Day" onclick="openModal('sunny-day.jpg', 'Sunny Day - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="sunny-day.jpg" alt="Sunny Day" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Sunny Day</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('wifi.jpg', 'WiFi - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="wifi.jpg" alt="WiFi" class="portfolio-img">
+                <div class="portfolio-item" data-title="WiFi" onclick="openModal('wifi.jpg', 'WiFi - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="wifi.jpg" alt="WiFi" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>WiFi</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
                     </div>
                 </div>
 
-                <div class="portfolio-item" onclick="openModal('sabotaje.jpg', 'Sabotaje - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
-                    <img src="sabotaje.jpg" alt="Sabotaje" class="portfolio-img">
+                <div class="portfolio-item" data-title="Sabotaje" onclick="openModal('sabotaje.jpg', 'Sabotaje - Esmalte en aerosol y óleo sobre tela - 180 x 170 cm')">
+                    <img src="sabotaje.jpg" alt="Sabotaje" class="portfolio-img" onerror="handleImageError(this)">
                     <div class="portfolio-overlay">
                         <h3>Sabotaje</h3>
                         <p>Esmalte en aerosol y óleo sobre tela - 180 x 170 cm</p>
@@ -667,6 +692,12 @@
             document.body.style.overflow = "auto";
         }
 
+        // Manejar errores de carga de imágenes
+        function handleImageError(img) {
+            const portfolioItem = img.parentElement;
+            portfolioItem.classList.add('img-error');
+        }
+
         // Cerrar modal al hacer clic fuera de la imagen
         window.onclick = function(event) {
             const modal = document.getElementById("imageModal");
@@ -690,6 +721,9 @@
                 if (src) {
                     const preload = new Image();
                     preload.src = src;
+                    preload.onerror = function() {
+                        img.onerror(); // Llamar al manejador de errores si la precarga falla
+                    };
                 }
             });
         }
