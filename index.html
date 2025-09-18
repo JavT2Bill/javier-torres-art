@@ -1,52 +1,142 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Javier Torres Art</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Javier Torres — INTER-SIDE</title>
+  <meta name="description" content="INTER-SIDE — Pintura intermural. Portfolio de Javier Torres.">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0b10; --muted:#6b7280; --accent:#00bcd4; --card:#f6f7f9; --radius:8px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
+    .container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
+    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{font-family:"Orbitron",sans-serif;font-weight:800;color:var(--text);font-size:1.05rem}
+    .brand .accent{color:var(--accent)}
+    nav ul{display:flex;gap:16px;list-style:none}
+    nav a{text-decoration:none;color:var(--text);font-weight:600}
+    .hero{padding:28px 0;text-align:center}
+    .hero-title{font-family:"Orbitron";font-size:2.4rem;margin-bottom:6px;color:var(--text)}
+    .hero-sub{color:var(--muted);font-weight:600;margin-bottom:12px}
+    .lead{color:var(--muted);max-width:820px;margin:0 auto}
+    .section{padding:20px 0}
+    .section-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.05rem;margin-bottom:12px;color:var(--text)}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .portfolio-item{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
+    .portfolio-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+    .portfolio-item:hover .portfolio-img{transform:scale(1.04)}
+    .portfolio-overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
+    .placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
+    .modal img{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5)}
+    .close-btn{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;background:none;border:none;cursor:pointer}
+    .audio-list{display:grid;gap:12px;max-width:760px;margin:0 auto}
+    .audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
+    .audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
+    footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
+    @media(max-width:720px){ .hero-title{font-size:1.6rem} .portfolio-item{height:180px} }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="glitch" data-text="Javier Torres Art">Javier Torres Art</h1>
-  </header>
+  <div class="container">
+    <header>
+      <div class="brand">JAVIER <span class="accent">TORRES</span></div>
+      <nav><ul><li><a href="#portfolio">Portafolio</a></li><li><a href="#audio">Audios</a></li><li><a href="#videos">Videos</a></li></ul></nav>
+    </header>
 
-  <main>
-    <!-- Galería de obras -->
-    <section>
-      <h2>Obras</h2>
-      <div class="grid">
-        <img src="img/obras/el-arte-no-existe.jpg" alt="El arte no existe">
-        <img src="img/obras/el-dia-que-quise-cambiar-al-mundo.jpg" alt="El día que quise cambiar al mundo">
-        <img src="img/obras/fragmento-de-alice.jpg" alt="Fragmento de Alice">
-        <img src="img/obras/im-the-most-normal-person.jpg" alt="I’m the most normal person">
-        <img src="img/obras/intervencion-a-la-virgen.jpg" alt="Intervención a la Virgen">
-        <img src="img/obras/la-aparicion-de-un-nuevo-buda.jpg" alt="La aparición de un nuevo Buda">
-      </div>
-    </section>
+    <main>
+      <section class="hero" id="home">
+        <h1 class="hero-title">INTER - SIDE</h1>
+        <div class="hero-sub">PINTURA INTERMURAL</div>
+        <p class="lead">Proyecto que mezcla pintura urbana y formatos clásicos para cuestionar el límite entre muros y lienzos.</p>
+      </section>
 
-    <!-- Audios -->
-    <section>
-      <h2>Audios</h2>
-      <div class="media">
-        <audio controls src="audios/callejon-sin-salida.wav"></audio>
-        <audio controls src="audios/hypothesis-3.mp3"></audio>
-        <audio controls src="audios/hypothesis-4.mp3"></audio>
-      </div>
-    </section>
+      <section id="portfolio" class="section">
+        <h2 class="section-title">Portafolio</h2>
+        <div class="portfolio-grid" id="gallery">
+          <!-- Ejemplo: copia/pega el bloque para añadir más obras y cambia data-src y text -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/banqueta.jpg" data-title="Banqueta — Esmalte en aerosol y óleo — 180 x 170 cm"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/banqueta.jpg" alt="Banqueta" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Banqueta</h3><div style="color:var(--muted);font-size:.85rem">Esmalte en aerosol y óleo — 180 x 170 cm</div></div>
+          </article>
 
-    <!-- Videos -->
-    <section>
-      <h2>Videos</h2>
-      <div class="media">
-        <video controls width="320" src="videos/video1.mp4"></video>
-        <video controls width="320" src="videos/video2.mp4"></video>
-      </div>
-    </section>
-  </main>
+          <!-- otros bloques (usa exactamente los nombres que están en img/obras/) -->
+          <article class="portfolio-item" role="button" tabindex="0" data-src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" data-title="Cruzando la calle..." onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Cruzando la calle en ciudad futurista</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 170 x 180 cm</div></div>
+          </article>
 
-  <footer>
-    <p>© 2025 Javier Torres</p>
-  </footer>
+          <!-- agrega o duplica más aquí... -->
+        </div>
+        <p style="text-align:center;color:var(--muted);margin-top:12px;font-size:.92rem">Sugerencia: sube tus imágenes a <code>img/obras/</code> (nombres minúsculas y guiones).</p>
+      </section>
+
+      <section id="audio" class="section">
+        <h2 class="section-title">Audios</h2>
+        <div class="audio-list">
+          <div class="audio-card">
+            <div class="audio-title">Callejón Sin Salida</div>
+            <div class="audio-desc" style="color:var(--muted);margin-bottom:6px">Soundscape urbano</div>
+            <audio controls style="width:100%"><source src="audios/callejon-sin-salida.wav" type="audio/wav">Tu navegador no soporta audio.</audio>
+          </div>
+
+          <div class="audio-card">
+            <div class="audio-title">Hypothesis 03</div>
+            <audio controls style="width:100%"><source src="audios/hypothesis-3.mp3" type="audio/mpeg"></audio>
+          </div>
+        </div>
+      </section>
+
+      <section id="videos" class="section">
+        <h2 class="section-title">Videos</h2>
+        <div style="display:grid;gap:14px;max-width:840px;margin:0 auto">
+          <video controls width="640" src="videos/video1.mp4">Tu navegador no soporta video.</video>
+          <!-- agrega más videos usando rutas videos/archivo.mp4 -->
+        </div>
+      </section>
+    </main>
+
+    <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" onclick="closeModal()">
+    <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
+    <img id="modalImg" src="" alt="">
+  </div>
+
+  <script>
+    function openModalFromEl(el){
+      const src = el.getAttribute('data-src') || el.querySelector('img')?.src;
+      const title = el.getAttribute('data-title') || '';
+      openModal(src,title);
+    }
+    function openModal(src,title){
+      const modal=document.getElementById('modal'), img=document.getElementById('modalImg');
+      img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden';
+      document.addEventListener('keydown', escClose);
+    }
+    function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
+    function escClose(e){ if(e.key==='Escape') closeModal(); }
+
+    function imageMissing(img){
+      const parent=img.closest('.portfolio-item'); if(!parent) return;
+      img.style.display='none';
+      if(parent.querySelector('.placeholder')) return;
+      const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph);
+    }
+
+    // abrir con Enter
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('portfolio-item')){
+        openModalFromEl(document.activeElement);
+      }
+    });
+  </script>
 </body>
 </html>
