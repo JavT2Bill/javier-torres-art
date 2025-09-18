@@ -3,13 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Javier Torres — INTER-SIDE</title>
+  <title>INTER - SIDE — Javier Torres</title>
   <meta name="description" content="INTER-SIDE — Pintura intermural. Portfolio de Javier Torres.">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#ffffff; --text:#0b0b10; --muted:#6b7280; --accent:#00bcd4; --card:#f6f7f9; --radius:8px;
-    }
+    :root{--bg:#fff;--text:#0b0b10;--muted:#6b7280;--card:#f6f7f9;--accent:#00bcd4;--radius:8px}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
     .container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
@@ -44,7 +42,7 @@
   <div class="container">
     <header>
       <div class="brand">JAVIER <span class="accent">TORRES</span></div>
-      <nav><ul><li><a href="#portfolio">Portafolio</a></li><li><a href="#audio">Audios</a></li><li><a href="#videos">Videos</a></li></ul></nav>
+      <nav><ul><li><a href="#portfolio">Portafolio</a></li><li><a href="#audios">Audios</a></li><li><a href="#videos">Videos</a></li></ul></nav>
     </header>
 
     <main>
@@ -57,7 +55,8 @@
       <section id="portfolio" class="section">
         <h2 class="section-title">Portafolio</h2>
         <div class="portfolio-grid" id="gallery">
-          <!-- Ejemplo: copia/pega el bloque para añadir más obras y cambia data-src y text -->
+
+          <!-- 1 -->
           <article class="portfolio-item" role="button" tabindex="0"
                    data-src="img/obras/banqueta.jpg" data-title="Banqueta — Esmalte en aerosol y óleo — 180 x 170 cm"
                    onclick="openModalFromEl(this)">
@@ -65,18 +64,98 @@
             <div class="portfolio-overlay"><h3>Banqueta</h3><div style="color:var(--muted);font-size:.85rem">Esmalte en aerosol y óleo — 180 x 170 cm</div></div>
           </article>
 
-          <!-- otros bloques (usa exactamente los nombres que están en img/obras/) -->
-          <article class="portfolio-item" role="button" tabindex="0" data-src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" data-title="Cruzando la calle..." onclick="openModalFromEl(this)">
+          <!-- 2 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" data-title="Cruzando la calle en ciudad futurista — 170 x 180"
+                   onclick="openModalFromEl(this)">
             <img class="portfolio-img" src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle" loading="lazy" onerror="imageMissing(this)">
             <div class="portfolio-overlay"><h3>Cruzando la calle en ciudad futurista</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 170 x 180 cm</div></div>
           </article>
 
-          <!-- agrega o duplica más aquí... -->
-        </div>
-        <p style="text-align:center;color:var(--muted);margin-top:12px;font-size:.92rem">Sugerencia: sube tus imágenes a <code>img/obras/</code> (nombres minúsculas y guiones).</p>
+          <!-- 3 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/delirio-de-persecucion.jpg" data-title="Delirio de persecución — Mixta sobre tela — 150.5 x 105 cm"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/delirio-de-persecucion.jpg" alt="Delirio de persecución" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Delirio de persecución</h3><div style="color:var(--muted);font-size:.85rem">Mixta sobre tela — 150.5 x 105 cm</div></div>
+          </article>
+
+          <!-- 4 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/down-town.jpg" data-title="Down Town 3019 — 180 x 170"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/down-town.jpg" alt="Down Town 3019" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Down Town 3019</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
+          </article>
+
+          <!-- 5 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/el-arte-no-existe.jpg" data-title="El arte no existe — Técnica mixta"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/el-arte-no-existe.jpg" alt="El arte no existe" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>El arte no existe</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
+          </article>
+
+          <!-- 6 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/el-dia-que-quise-cambiar-al-mundo.jpg" data-title="El día que quise cambiar al mundo — 180 x 170"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/el-dia-que-quise-cambiar-al-mundo.jpg" alt="El día que quise cambiar al mundo" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>El día que quise cambiar al mundo</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
+          </article>
+
+          <!-- 7 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/fragmento-de-alice.jpg" data-title="Fragmento de Alice — Serigrafía sobre papel — 35 x 35 cm"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/fragmento-de-alice.jpg" alt="Fragmento de Alice" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Fragmento de Alice</h3><div style="color:var(--muted);font-size:.85rem">Serigrafía sobre papel — 35 x 35 cm</div></div>
+          </article>
+
+          <!-- 8 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/im-the-most-normal-person-i-know.jpg" data-title="I'm the most normal person I know — 159 x 125"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/im-the-most-normal-person-i-know.jpg" alt="I'm the most normal person I know" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>I'm the most normal person I know</h3><div style="color:var(--muted);font-size:.85rem">Mixta sobre tela — 159 x 125 cm</div></div>
+          </article>
+
+          <!-- 9 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/la-aparicion-de-un-nuevo-buda.jpg" data-title="La aparición de un nuevo buda — Técnica mixta"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/la-aparicion-de-un-nuevo-buda.jpg" alt="La aparición de un nuevo buda" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>La aparición de un nuevo buda</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
+          </article>
+
+          <!-- 10 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/intervencion-a-la-virgen-con-nino.jpg" data-title="Intervención a la virgen — Técnica mixta"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/intervencion-a-la-virgen-con-nino.jpg" alt="Intervención a la virgen" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Intervención a la virgen</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
+          </article>
+
+          <!-- 11 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/paseando-al-perro-al-amanecer.jpg" data-title="Paseando al perro al amanecer — Técnica mixta"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/paseando-al-perro-al-amanecer.jpg" alt="Paseando al perro" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>Paseando al perro al amanecer</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
+          </article>
+
+          <!-- 12 -->
+          <article class="portfolio-item" role="button" tabindex="0"
+                   data-src="img/obras/wifi.jpg" data-title="WiFi — Esmalte y óleo — 180 x 170"
+                   onclick="openModalFromEl(this)">
+            <img class="portfolio-img" src="img/obras/wifi.jpg" alt="WiFi" loading="lazy" onerror="imageMissing(this)">
+            <div class="portfolio-overlay"><h3>WiFi</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
+          </article>
+
+        </div> <!-- /portfolio-grid -->
       </section>
 
-      <section id="audio" class="section">
+      <section id="audios" class="section">
         <h2 class="section-title">Audios</h2>
         <div class="audio-list">
           <div class="audio-card">
@@ -87,7 +166,22 @@
 
           <div class="audio-card">
             <div class="audio-title">Hypothesis 03</div>
-            <audio controls style="width:100%"><source src="audios/hypothesis-3.mp3" type="audio/mpeg"></audio>
+            <audio controls style="width:100%"><source src="audios/hypothesis-3.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
+          </div>
+
+          <div class="audio-card">
+            <div class="audio-title">Hypothesis 04</div>
+            <audio controls style="width:100%"><source src="audios/hypothesis-4.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
+          </div>
+
+          <div class="audio-card">
+            <div class="audio-title">Intro</div>
+            <audio controls style="width:100%"><source src="audios/intro.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
+          </div>
+
+          <div class="audio-card">
+            <div class="audio-title">Paisaje Onírico</div>
+            <audio controls style="width:100%"><source src="audios/paisaje-onirico-de-un-porvenir-auspicioso.m4a" type="audio/m4a">Tu navegador no soporta audio.</audio>
           </div>
         </div>
       </section>
@@ -95,10 +189,11 @@
       <section id="videos" class="section">
         <h2 class="section-title">Videos</h2>
         <div style="display:grid;gap:14px;max-width:840px;margin:0 auto">
+          <!-- Si tienes videos, sube a videos/ y reemplaza los nombres -->
           <video controls width="640" src="videos/video1.mp4">Tu navegador no soporta video.</video>
-          <!-- agrega más videos usando rutas videos/archivo.mp4 -->
         </div>
       </section>
+
     </main>
 
     <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
@@ -131,7 +226,7 @@
       const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph);
     }
 
-    // abrir con Enter
+    // open with Enter
     document.addEventListener('keydown', function(e){
       if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('portfolio-item')){
         openModalFromEl(document.activeElement);
