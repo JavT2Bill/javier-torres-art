@@ -1,296 +1,329 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>INTER - SIDE — Javier Torres</title>
-  <meta name="description" content="INTER-SIDE — Pintura intermural. Portfolio de Javier Torres.">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#fff; --text:#0b0b10; --muted:#6b7280; --card:#f6f7f9; --accent:#00bcd4; --radius:8px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
-    .container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
-    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
-    .brand{font-family:"Orbitron",sans-serif;font-weight:800;color:var(--text);font-size:1.05rem}
-    .brand .accent{color:var(--accent)}
-    nav ul{display:flex;gap:16px;list-style:none}
-    nav a{text-decoration:none;color:var(--text);font-weight:600}
-    .hero{padding:28px 0;text-align:center}
-    .hero-title{font-family:"Orbitron";font-size:2.4rem;margin-bottom:6px;color:var(--text)}
-    .hero-sub{color:var(--muted);font-weight:600;margin-bottom:12px}
-    .lead{color:var(--muted);max-width:820px;margin:0 auto}
-    .section{padding:20px 0}
-    .section-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.05rem;margin-bottom:12px;color:var(--text)}
-    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .portfolio-item{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
-    .portfolio-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-    .portfolio-item:hover .portfolio-img{transform:scale(1.04)}
-    .portfolio-overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
-    .placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
-    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
-    .modal img{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5)}
-    .close-btn{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;background:none;border:none;cursor:pointer}
-    .audio-list{display:grid;gap:12px;max-width:760px;margin:0 auto}
-    .audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
-    .audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
-    .videos-wrap{display:grid;gap:14px;max-width:840px;margin:0 auto}
-    .video-note{color:var(--muted);font-size:.95rem;text-align:center;margin-top:6px}
-    .contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
-    .contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
-    footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
-    .loader{opacity:.6;color:var(--muted);text-align:center;margin:12px 0}
-    @media(max-width:720px){ .hero-title{font-size:1.6rem} .portfolio-item{height:180px} }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>INTER - SIDE — Javier Torres</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--text:#0b0b10;--muted:#6b7280;--card:#f6f7f9;--accent:#00bcd4;--radius:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
+.container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
+.brand{font-family:"Orbitron",sans-serif;font-weight:800;color:var(--text);font-size:1.05rem}
+.brand .accent{color:var(--accent)}
+nav ul{display:flex;gap:16px;list-style:none}
+nav a{text-decoration:none;color:var(--text);font-weight:600}
+.hero{padding:28px 0;text-align:center}
+.hero-title{font-family:"Orbitron";font-size:2.4rem;margin-bottom:6px;color:var(--text)}
+.hero-sub{color:var(--muted);font-weight:600;margin-bottom:12px}
+.statement{max-width:900px;margin:10px auto;color:var(--muted);font-size:1rem;padding:8px 12px}
+.section{padding:20px 0}
+.section-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.05rem;margin-bottom:12px;color:var(--text)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.portfolio-item{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
+.portfolio-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.portfolio-item:hover .portfolio-img{transform:scale(1.04)}
+.portfolio-overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
+.placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
+.modal img{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5)}
+.close-btn{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;background:none;border:none;cursor:pointer}
+.audio-list{display:grid;gap:12px;max-width:760px;margin:0 auto}
+.audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
+.audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
+.videos-wrap{display:grid;gap:14px;max-width:840px;margin:0 auto}
+.video-note{color:var(--muted);font-size:.95rem;text-align:center;margin-top:6px}
+.contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
+.contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
+footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
+.loader{opacity:.6;color:var(--muted);text-align:center;margin:12px 0}
+@media(max-width:720px){.hero-title{font-size:1.6rem}.portfolio-item{height:180px}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">JAVIER <span class="accent">TORRES</span></div>
-      <nav>
-        <ul>
-          <li><a href="#portfolio">Portafolio</a></li>
-          <li><a href="#audios">Audios</a></li>
-          <li><a href="#videos">Videos</a></li>
-          <li><a href="#contact">Contacto</a></li>
-        </ul>
-      </nav>
-    </header>
+<div class="container">
+  <header>
+    <div class="brand">JAVIER <span class="accent">TORRES</span></div>
+    <nav>
+      <ul>
+        <li><a href="#portfolio">Portafolio</a></li>
+        <li><a href="#audios">Audios</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main>
-      <section class="hero" id="home">
-        <h1 class="hero-title">INTER - SIDE</h1>
-        <div class="hero-sub">PINTURA INTERMURAL</div>
-        <p class="lead">Proyecto que mezcla pintura urbana y formatos clásicos para cuestionar el límite entre muros y lienzos.</p>
-      </section>
+  <main>
+    <section class="hero" id="home">
+      <h1 class="hero-title">INTER - SIDE</h1>
+      <div class="hero-sub">PINTURA INTERMURAL</div>
 
-      <section id="portfolio" class="section">
-        <h2 class="section-title">Portafolio</h2>
-        <div id="gallery" class="portfolio-grid">
-          <div class="loader" id="loader-images">Cargando obras…</div>
-        </div>
-      </section>
+      <!-- TU STATEMENT (lo amplié un poco usando lo que compartiste) -->
+      <div class="statement">
+        <strong>Statement</strong>
+        <p>
+          Inter-Side es un proyecto que investiga la tensión entre la pintura urbana —los muros,
+          el grafiti, la ciudad— y los formatos tradicionales de estudio. Mis obras dialogan con
+          el límite y la pertenencia espacial: cómo una imagen pasa del afuera al adentro, y cómo
+          la ciudad reordena la expectativa estética. Trabajo con esmalte, aerosol y óleo para
+          generar paisajes visuales que rememoran la calle desde el bastidor.
+        </p>
+      </div>
+    </section>
 
-      <section id="audios" class="section">
-        <h2 class="section-title">Audios</h2>
-        <div id="audioList" class="audio-list">
-          <div class="loader" id="loader-audios">Cargando audios…</div>
-        </div>
-      </section>
+    <!-- GALERÍA -->
+    <section id="portfolio" class="section">
+      <h2 class="section-title">Portafolio</h2>
+      <div id="gallery" class="portfolio-grid"><div class="loader" id="loader-images">Cargando obras…</div></div>
+    </section>
 
-      <section id="videos" class="section">
-        <h2 class="section-title">Videos</h2>
-        <div id="videoList" class="videos-wrap">
-          <div class="loader" id="loader-videos">Cargando videos…</div>
-        </div>
-        <div class="video-note">Si algún video no reproduce aquí por su tamaño, súbelo a YouTube (unlisted) y pega el iframe para que se vea bien.</div>
-      </section>
+    <!-- AUDIOS -->
+    <section id="audios" class="section">
+      <h2 class="section-title">Audios</h2>
+      <div id="audioList" class="audio-list"><div class="loader" id="loader-audios">Cargando audios…</div></div>
+    </section>
 
-      <section id="contact" class="section">
-        <h2 class="section-title">Contacto</h2>
-        <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
-        <div class="contact-links">
-          <!-- hacemos links; target _blank para abrir en nueva pestaña -->
-          <a id="instagramLink" href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
-          <a id="tiktokLink" href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
-        </div>
-      </section>
+    <!-- VIDEOS -->
+    <section id="videos" class="section">
+      <h2 class="section-title">Videos</h2>
+      <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos…</div></div>
+      <div class="video-note">Si un video no reproduce desde GitHub (archivos grandes), súbelo a YouTube (unlisted) y usa el iframe; puedo generar el iframe por ti.</div>
+    </section>
 
-    </main>
+    <!-- CONTACTO -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contacto</h2>
+      <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
+      <div class="contact-links">
+        <a id="instagramLink" href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
+        <a id="tiktokLink" href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
+      </div>
+    </section>
 
-    <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
-  </div>
+  </main>
 
-  <!-- Modal -->
-  <div id="modal" class="modal" onclick="closeModal()">
-    <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
-    <img id="modalImg" src="" alt="">
-  </div>
+  <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
+</div>
 
-  <script>
-    // REPO INFO — cámbialo si tu repo cambia (pero ya está bien)
-    const owner = 'JavT2Bill';
-    const repo = 'javier-torres-art';
-    const branch = 'main';
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
+  <img id="modalImg" src="" alt="">
+</div>
 
-    // Helper: fetch folder contents via GitHub API
-    async function listFolder(path) {
-      const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-      const res = await fetch(api);
-      if (!res.ok) throw new Error('No se pudo leer ' + path + ' (' + res.status + ')');
-      return res.json(); // array of files
+<script>
+/* CONFIG: no cambies esto a menos que renombres repo/owner/branch */
+const owner = 'JavT2Bill';
+const repo  = 'javier-torres-art';
+const branch = 'main';
+
+/* Helper: leer carpeta vía GitHub API */
+async function listFolder(path) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Error ${res.status} al leer ${path}`);
+  }
+  return res.json();
+}
+
+/* Robust matcher: busca en la lista de archivos el nombre que "coincida" con varios patrones */
+function findFileByVariants(files, baseNames) {
+  // files: array de objetos {name, download_url}
+  // baseNames: array de cadenas que queremos encontrar (sin extensión)
+  const lowerNames = files.map(f => ({...f, lname: f.name.toLowerCase()}));
+  for (const b of baseNames) {
+    const bclean = b.toLowerCase();
+    // 1) exact match ignoring extension
+    let found = lowerNames.find(f => f.lname.replace(/\.[^.]+$/,'') === bclean);
+    if (found) return found;
+    // 2) contains
+    found = lowerNames.find(f => f.lname.includes(bclean));
+    if (found) return found;
+    // 3) replace underscores/spaces/hyphens and compare
+    const norm = bclean.replace(/[_\s]+/g,'-');
+    found = lowerNames.find(f => f.lname.replace(/\.[^.]+$/,'').replace(/[_\s]+/g,'-') === norm);
+    if (found) return found;
+  }
+  return null;
+}
+
+/* Beautify filename -> título legible */
+function beautifyTitle(filename){
+  const noExt = filename.replace(/\.[^.]+$/, '');
+  return decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/^./, s => s.toUpperCase());
+}
+
+/* Build gallery: consulta img/obras y también img/ (fallback) */
+async function buildGallery(){
+  const gallery = document.getElementById('gallery');
+  const loader = document.getElementById('loader-images');
+  try {
+    let files = [];
+    // intenta img/obras
+    try { files = await listFolder('img/obras'); } catch(e){
+      // si falla, intenta img/
+      files = await listFolder('img');
     }
-
-    // Build gallery from img/obras
-    async function buildGallery() {
-      const gallery = document.getElementById('gallery');
-      const loader = document.getElementById('loader-images');
-      try {
-        const files = await listFolder('img/obras');
-        // filter images common extensions
-        const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
-        // sort by name (optional)
-        images.sort((a,b) => a.name.localeCompare(b.name));
-        loader.style.display = 'none';
-        if (!images.length) {
-          gallery.innerHTML = '<div class="placeholder">No hay imágenes en <code>img/obras/</code></div>';
-          return;
-        }
-        gallery.innerHTML = '';
-        images.forEach(file => {
-          const url = file.download_url; // GitHub raw url
-          const title = beautifyTitle(file.name);
-          const art = document.createElement('article');
-          art.className = 'portfolio-item';
-          art.tabIndex = 0;
-          art.setAttribute('data-src', url);
-          art.setAttribute('data-title', title);
-          art.onclick = () => openModalFromEl(art);
-          art.onkeydown = (e) => { if (e.key === 'Enter') openModalFromEl(art); };
-
-          const img = document.createElement('img');
-          img.className = 'portfolio-img';
-          img.loading = 'lazy';
-          img.alt = title;
-          img.src = url;
-          img.onerror = () => imageMissing(img);
-
-          const overlay = document.createElement('div');
-          overlay.className = 'portfolio-overlay';
-          overlay.innerHTML = `<h3>${title}</h3><div style="color:var(--muted);font-size:.85rem"></div>`;
-
-          art.appendChild(img);
-          art.appendChild(overlay);
-          gallery.appendChild(art);
-        });
-      } catch (err) {
-        loader.innerText = 'No se pudieron cargar las imágenes.';
-        console.error(err);
-      }
+    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
+    images.sort((a,b) => a.name.localeCompare(b.name));
+    loader.style.display = 'none';
+    if (!images.length) {
+      gallery.innerHTML = '<div class="placeholder">No hay imágenes en <code>img/obras/</code> ni en <code>img/</code>.</div>';
+      return;
     }
+    gallery.innerHTML = '';
+    images.forEach(file => {
+      const url = file.download_url;
+      const title = beautifyTitle(file.name);
+      const art = document.createElement('article');
+      art.className = 'portfolio-item';
+      art.tabIndex = 0;
+      art.setAttribute('data-src', url);
+      art.setAttribute('data-title', title);
+      art.onclick = () => openModalFromEl(art);
+      art.onkeydown = (e) => { if (e.key === 'Enter') openModalFromEl(art); };
 
-    // Build audios list from audios/
-    async function buildAudios() {
-      const audioList = document.getElementById('audioList');
-      const loader = document.getElementById('loader-audios');
-      try {
-        const files = await listFolder('audios');
-        const audios = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name));
-        audios.sort((a,b) => a.name.localeCompare(b.name));
-        loader.style.display = 'none';
-        if (!audios.length) {
-          audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>';
-          return;
-        }
-        audioList.innerHTML = '';
-        audios.forEach(file => {
-          const url = file.download_url;
-          const title = beautifyTitle(file.name);
-          const card = document.createElement('div');
-          card.className = 'audio-card';
-          card.innerHTML = `<div class="audio-title">${title}</div>`;
-          const audio = document.createElement('audio');
-          audio.controls = true;
-          audio.style.width = '100%';
-          const source = document.createElement('source');
-          source.src = url;
-          // set type by extension
-          const ext = file.name.split('.').pop().toLowerCase();
-          source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
-          audio.appendChild(source);
-          card.appendChild(audio);
-          audioList.appendChild(card);
-        });
-      } catch (err) {
-        loader.innerText = 'No se pudieron cargar los audios.';
-        console.error(err);
-      }
-    }
+      const img = document.createElement('img');
+      img.className = 'portfolio-img';
+      img.loading = 'lazy';
+      img.alt = title;
+      img.src = url;
+      img.onerror = () => imageMissing(img);
 
-    // Build videos list from videos/
-    async function buildVideos() {
-      const videoList = document.getElementById('videoList');
-      const loader = document.getElementById('loader-videos');
-      try {
-        const files = await listFolder('videos');
-        const vids = files.filter(f => f.type === 'file' && /\.(mp4|webm|ogg)$/i.test(f.name));
-        vids.sort((a,b) => a.name.localeCompare(b.name));
-        loader.style.display = 'none';
-        if (!vids.length) {
-          videoList.innerHTML = '<div class="placeholder">No hay archivos en <code>videos/</code></div>';
-          return;
-        }
-        videoList.innerHTML = '';
-        vids.forEach(file => {
-          const url = file.download_url;
-          const title = beautifyTitle(file.name);
-          // create video tag — note: big files may not play well from raw.githubusercontent
-          const vwrap = document.createElement('div');
-          vwrap.style.textAlign = 'center';
-          const video = document.createElement('video');
-          video.controls = true;
-          video.width = 640;
-          video.src = url;
-          video.innerText = 'Tu navegador no soporta video.';
-          vwrap.appendChild(video);
-          const caption = document.createElement('div');
-          caption.style.color = 'var(--muted)';
-          caption.style.fontSize = '0.95rem';
-          caption.style.marginTop = '6px';
-          caption.innerText = title;
-          vwrap.appendChild(caption);
-          videoList.appendChild(vwrap);
-        });
-      } catch (err) {
-        loader.innerText = 'No se pudieron cargar los videos.';
-        console.error(err);
-      }
-    }
+      const overlay = document.createElement('div');
+      overlay.className = 'portfolio-overlay';
+      overlay.innerHTML = `<h3>${title}</h3>`;
 
-    // modal helpers
-    function openModalFromEl(el){
-      const src = el.getAttribute('data-src') || el.querySelector('img')?.src;
-      const title = el.getAttribute('data-title') || '';
-      openModal(src,title);
-    }
-    function openModal(src,title){
-      const modal=document.getElementById('modal'), img=document.getElementById('modalImg');
-      img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden';
-      document.addEventListener('keydown', escClose);
-    }
-    function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
-    function escClose(e){ if(e.key==='Escape') closeModal(); }
-
-    function imageMissing(img){
-      const parent=img.closest('.portfolio-item'); if(!parent) return;
-      img.style.display='none';
-      if(parent.querySelector('.placeholder')) return;
-      const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph);
-    }
-
-    function beautifyTitle(filename){
-      // remove extension and replace - and _ with spaces, collapse multiple spaces, decode URL encoded parts
-      const noExt = filename.replace(/\.[^.]+$/, '');
-      const replaced = decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim();
-      // capitalice first letter (simple)
-      return replaced.charAt(0).toUpperCase() + replaced.slice(1);
-    }
-
-    // Iniciar todo
-    (function init(){
-      buildGallery();
-      buildAudios();
-      buildVideos();
-    })();
-
-    // accessibility: open image on Enter
-    document.addEventListener('keydown', function(e){
-      if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('portfolio-item')){
-        openModalFromEl(document.activeElement);
-      }
+      art.appendChild(img);
+      art.appendChild(overlay);
+      gallery.appendChild(art);
     });
-  </script>
+  } catch (err) {
+    console.error(err);
+    loader.innerText = 'No se pudieron cargar las imágenes (API rate / permiso).';
+  }
+}
+
+/* Build audios: busca ficheros y hace matching tolerante */
+async function buildAudios(){
+  const audioList = document.getElementById('audioList');
+  const loader = document.getElementById('loader-audios');
+  try {
+    const files = await listFolder('audios');
+    const audioFiles = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name));
+    audioFiles.sort((a,b) => a.name.localeCompare(b.name));
+    loader.style.display = 'none';
+    if (!audioFiles.length) {
+      audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>';
+      return;
+    }
+    // queremos mostrar todos, pero si hay nombres similares intentamos agrupar
+    audioList.innerHTML = '';
+    // ejemplo de títulos esperados que quieres visibles (puedes ampliar)
+    const wanted = [
+      'callejon-sin-salida',
+      'hypothesis-1','hypothesis-03','hypothesis-03','hypothesis-3','hypothesis-4','intro','paisaje-onirico-de-un-porvenir','hypothesis-01'
+    ];
+    // mostramos primero los que coinciden con wanted (con tolerancia), luego el resto
+    const used = new Set();
+    for (const w of wanted){
+      const found = findFileByVariants(audioFiles, [w, w.replace(/-/g,' '), w.replace(/-/g,'_')]);
+      if (found && !used.has(found.name)){
+        used.add(found.name);
+        appendAudioCard(audioList, found);
+      }
+    }
+    // ahora el resto que no se mostró
+    audioFiles.forEach(f => { if (!used.has(f.name)) appendAudioCard(audioList, f); });
+  } catch (err) {
+    console.error(err);
+    loader.innerText = 'No se pudieron cargar los audios (API rate / permiso).';
+  }
+}
+
+function appendAudioCard(container, file){
+  const url = file.download_url;
+  const title = beautifyTitle(file.name);
+  const card = document.createElement('div');
+  card.className = 'audio-card';
+  card.innerHTML = `<div class="audio-title">${title}</div>`;
+  const audio = document.createElement('audio');
+  audio.controls = true;
+  audio.style.width = '100%';
+  const source = document.createElement('source');
+  source.src = url;
+  const ext = file.name.split('.').pop().toLowerCase();
+  source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
+  audio.appendChild(source);
+  // si hay problema cargándolo (error event) mostramos enlace raw
+  audio.addEventListener('error', () => {
+    const note = document.createElement('div');
+    note.style.marginTop = '8px';
+    note.style.color = 'var(--muted)';
+    note.innerHTML = `No se pudo reproducir en este navegador desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>`;
+    if (!card.querySelector('a')) card.appendChild(note);
+  });
+  card.appendChild(audio);
+  container.appendChild(card);
+}
+
+/* Build videos: añade nota y fallback link si no reproduce */
+async function buildVideos(){
+  const videoList = document.getElementById('videoList');
+  const loader = document.getElementById('loader-videos');
+  try {
+    const files = await listFolder('videos');
+    const vids = files.filter(f => f.type === 'file' && /\.(mp4|webm|ogg)$/i.test(f.name));
+    vids.sort((a,b) => a.name.localeCompare(b.name));
+    loader.style.display = 'none';
+    if (!vids.length){ videoList.innerHTML = '<div class="placeholder">No hay archivos en <code>videos/</code></div>'; return; }
+    videoList.innerHTML = '';
+    vids.forEach(file => {
+      const url = file.download_url;
+      const title = beautifyTitle(file.name);
+      const vwrap = document.createElement('div');
+      vwrap.style.textAlign = 'center';
+      const video = document.createElement('video');
+      video.controls = true;
+      video.width = 640;
+      video.src = url;
+      video.addEventListener('error', () => {
+        // agregar enlace de descarga si no reproduce
+        const note = document.createElement('div');
+        note.style.color = 'var(--muted)';
+        note.style.marginTop = '6px';
+        note.innerHTML = `Este video puede ser demasiado grande para reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a> — Recomendado: subir a YouTube (unlisted) y pegar iframe.`;
+        if (!vwrap.querySelector('a')) vwrap.appendChild(note);
+      });
+      vwrap.appendChild(video);
+      const caption = document.createElement('div');
+      caption.style.color = 'var(--muted)';
+      caption.style.fontSize = '0.95rem';
+      caption.style.marginTop = '6px';
+      caption.innerText = title;
+      vwrap.appendChild(caption);
+      videoList.appendChild(vwrap);
+    });
+  } catch (err) {
+    console.error(err);
+    loader.innerText = 'No se pudieron cargar los videos (API rate / permiso).';
+  }
+}
+
+/* modal helpers */
+function openModalFromEl(el){ const src = el.getAttribute('data-src') || el.querySelector('img')?.src; const title = el.getAttribute('data-title') || ''; openModal(src,title); }
+function openModal(src,title){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose); }
+function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
+function escClose(e){ if(e.key==='Escape') closeModal(); }
+
+function imageMissing(img){ const parent=img.closest('.portfolio-item'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
+
+/* init */
+(async function init(){ await Promise.all([buildGallery(), buildAudios(), buildVideos()]); })();
+</script>
 </body>
 </html>
