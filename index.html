@@ -13,7 +13,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
     .container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
-    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
     .brand{font-family:"Orbitron",sans-serif;font-weight:800;color:var(--text);font-size:1.05rem}
     .brand .accent{color:var(--accent)}
     nav ul{display:flex;gap:16px;list-style:none}
@@ -37,9 +37,11 @@
     .audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
     .audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
     .videos-wrap{display:grid;gap:14px;max-width:840px;margin:0 auto}
+    .video-note{color:var(--muted);font-size:.95rem;text-align:center;margin-top:6px}
     .contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
     .contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
     footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
+    .loader{opacity:.6;color:var(--muted);text-align:center;margin:12px 0}
     @media(max-width:720px){ .hero-title{font-size:1.6rem} .portfolio-item{height:180px} }
   </style>
 </head>
@@ -66,156 +68,33 @@
 
       <section id="portfolio" class="section">
         <h2 class="section-title">Portafolio</h2>
-        <div class="portfolio-grid" id="gallery">
-
-          <!-- Bloques de obra - usa los nombres exactamente como están en img/obras/ -->
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/banqueta.jpg" data-title="Banqueta — Esmalte en aerosol y óleo — 180 x 170 cm"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/banqueta.jpg" alt="Banqueta" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Banqueta</h3><div style="color:var(--muted);font-size:.85rem">Esmalte en aerosol y óleo — 180 x 170 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" data-title="Cruzando la calle en ciudad futurista — 170 x 180"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/cruzando-la-calle-en-ciudad-futurista.jpg" alt="Cruzando la calle" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Cruzando la calle en ciudad futurista</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 170 x 180 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/delirio-de-persecucion.jpg" data-title="Delirio de persecución — Mixta sobre tela — 150.5 x 105 cm"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/delirio-de-persecucion.jpg" alt="Delirio de persecucion" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Delirio de persecución</h3><div style="color:var(--muted);font-size:.85rem">Mixta — 150.5 x 105 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/down-town.jpg" data-title="Down Town 3019 — 180 x 170"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/down-town.jpg" alt="Down Town 3019" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Down Town 3019</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/el-arte-no-existe.jpg" data-title="El arte no existe — Técnica mixta"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/el-arte-no-existe.jpg" alt="El arte no existe" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>El arte no existe</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/el-dia-que-quise-cambiar-al-mundo.jpg" data-title="El día que quise cambiar al mundo — 180 x 170"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/el-dia-que-quise-cambiar-al-mundo.jpg" alt="El dia que quise cambiar al mundo" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>El día que quise cambiar al mundo</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/fragmento-de-alice.jpg" data-title="Fragmento de Alice — Serigrafía sobre papel — 35 x 35 cm"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/fragmento-de-alice.jpg" alt="Fragmento de Alice" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Fragmento de Alice</h3><div style="color:var(--muted);font-size:.85rem">Serigrafía — 35 x 35 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/im-the-most-normal-person-i-know.jpg" data-title="I'm the most normal person I know — 159 x 125"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/im-the-most-normal-person-i-know.jpg" alt="I'm the most normal person I know" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>I'm the most normal person I know</h3><div style="color:var(--muted);font-size:.85rem">Mixta — 159 x 125 cm</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/la-aparicion-de-un-nuevo-buda.jpg" data-title="La aparición de un nuevo buda — Técnica mixta"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/la-aparicion-de-un-nuevo-buda.jpg" alt="La aparicion de un nuevo buda" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>La aparición de un nuevo buda</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/la-aparicion-de-un-nuevo-buda-en-melburne.jpg" data-title="La aparición de un nuevo buda (Melburne)"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/la-aparicion-de-un-nuevo-buda-en-melburne.jpg" alt="la aparicion en melburne" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>La aparición (Melburne)</h3><div style="color:var(--muted);font-size:.85rem">Obra especial</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/aparicion-de-un-nuevo-buda-en-ny.jpg" data-title="Aparicion de un nuevo buda — NY"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/aparicion-de-un-nuevo-buda-en-ny.jpg" alt="aparicion buda ny" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Aparición — NY</h3><div style="color:var(--muted);font-size:.85rem">Edición</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/paseando-al-perro-al-amanecer.jpg" data-title="Paseando al perro al amanecer — Técnica mixta"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/paseando-al-perro-al-amanecer.jpg" alt="Paseando al perro" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>Paseando al perro</h3><div style="color:var(--muted);font-size:.85rem">Técnica mixta</div></div>
-          </article>
-
-          <article class="portfolio-item" role="button" tabindex="0"
-                   data-src="img/obras/wifi.jpg" data-title="WiFi — Esmalte y óleo — 180 x 170"
-                   onclick="openModalFromEl(this)">
-            <img class="portfolio-img" src="img/obras/wifi.jpg" alt="WiFi" loading="lazy" onerror="imageMissing(this)">
-            <div class="portfolio-overlay"><h3>WiFi</h3><div style="color:var(--muted);font-size:.85rem">Esmalte y óleo — 180 x 170 cm</div></div>
-          </article>
-
-        </div> <!-- /portfolio-grid -->
+        <div id="gallery" class="portfolio-grid">
+          <div class="loader" id="loader-images">Cargando obras…</div>
+        </div>
       </section>
 
       <section id="audios" class="section">
         <h2 class="section-title">Audios</h2>
-        <div class="audio-list">
-          <!-- Asegúrate que estos nombres coincidan exactamente con los que subiste -->
-          <div class="audio-card">
-            <div class="audio-title">Callejón Sin Salida</div>
-            <div class="audio-desc" style="color:var(--muted);margin-bottom:6px">Soundscape urbano</div>
-            <audio controls style="width:100%"><source src="audios/callejon-sin-salida.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Hyphothesis 01</div>
-            <audio controls style="width:100%"><source src="audios/hyphothesis-1.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Hyphothesis 03</div>
-            <audio controls style="width:100%"><source src="audios/hyphothesis-3.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Hyphothesis 04</div>
-            <audio controls style="width:100%"><source src="audios/hyphothesis-4.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Intro</div>
-            <audio controls style="width:100%"><source src="audios/intro.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
-
-          <div class="audio-card">
-            <div class="audio-title">Paisaje Onírico</div>
-            <audio controls style="width:100%"><source src="audios/paisaje-onirico-de-un-porvenir.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
-          </div>
+        <div id="audioList" class="audio-list">
+          <div class="loader" id="loader-audios">Cargando audios…</div>
         </div>
       </section>
 
       <section id="videos" class="section">
         <h2 class="section-title">Videos</h2>
-        <div class="videos-wrap">
-          <!-- videos pesados: si no reproducen aquí, sube a YouTube y usa iframe.
-               Nombre con espacio/paréntesis se incluye tal cual (se URL-encoda automáticamente) -->
-          <video controls width="640" src="videos/tierra-azteca.mp4">Tu navegador no soporta video.</video>
-          <video controls width="640" src="videos/me-pudro-por-dentro (1).mp4">Tu navegador no soporta video.</video>
+        <div id="videoList" class="videos-wrap">
+          <div class="loader" id="loader-videos">Cargando videos…</div>
         </div>
+        <div class="video-note">Si algún video no reproduce aquí por su tamaño, súbelo a YouTube (unlisted) y pega el iframe para que se vea bien.</div>
       </section>
 
       <section id="contact" class="section">
         <h2 class="section-title">Contacto</h2>
         <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
         <div class="contact-links">
-          <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
-          <a href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
+          <!-- hacemos links; target _blank para abrir en nueva pestaña -->
+          <a id="instagramLink" href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
+          <a id="tiktokLink" href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
         </div>
       </section>
 
@@ -231,7 +110,146 @@
   </div>
 
   <script>
-    // Abre modal con imagen grande
+    // REPO INFO — cámbialo si tu repo cambia (pero ya está bien)
+    const owner = 'JavT2Bill';
+    const repo = 'javier-torres-art';
+    const branch = 'main';
+
+    // Helper: fetch folder contents via GitHub API
+    async function listFolder(path) {
+      const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+      const res = await fetch(api);
+      if (!res.ok) throw new Error('No se pudo leer ' + path + ' (' + res.status + ')');
+      return res.json(); // array of files
+    }
+
+    // Build gallery from img/obras
+    async function buildGallery() {
+      const gallery = document.getElementById('gallery');
+      const loader = document.getElementById('loader-images');
+      try {
+        const files = await listFolder('img/obras');
+        // filter images common extensions
+        const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
+        // sort by name (optional)
+        images.sort((a,b) => a.name.localeCompare(b.name));
+        loader.style.display = 'none';
+        if (!images.length) {
+          gallery.innerHTML = '<div class="placeholder">No hay imágenes en <code>img/obras/</code></div>';
+          return;
+        }
+        gallery.innerHTML = '';
+        images.forEach(file => {
+          const url = file.download_url; // GitHub raw url
+          const title = beautifyTitle(file.name);
+          const art = document.createElement('article');
+          art.className = 'portfolio-item';
+          art.tabIndex = 0;
+          art.setAttribute('data-src', url);
+          art.setAttribute('data-title', title);
+          art.onclick = () => openModalFromEl(art);
+          art.onkeydown = (e) => { if (e.key === 'Enter') openModalFromEl(art); };
+
+          const img = document.createElement('img');
+          img.className = 'portfolio-img';
+          img.loading = 'lazy';
+          img.alt = title;
+          img.src = url;
+          img.onerror = () => imageMissing(img);
+
+          const overlay = document.createElement('div');
+          overlay.className = 'portfolio-overlay';
+          overlay.innerHTML = `<h3>${title}</h3><div style="color:var(--muted);font-size:.85rem"></div>`;
+
+          art.appendChild(img);
+          art.appendChild(overlay);
+          gallery.appendChild(art);
+        });
+      } catch (err) {
+        loader.innerText = 'No se pudieron cargar las imágenes.';
+        console.error(err);
+      }
+    }
+
+    // Build audios list from audios/
+    async function buildAudios() {
+      const audioList = document.getElementById('audioList');
+      const loader = document.getElementById('loader-audios');
+      try {
+        const files = await listFolder('audios');
+        const audios = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name));
+        audios.sort((a,b) => a.name.localeCompare(b.name));
+        loader.style.display = 'none';
+        if (!audios.length) {
+          audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>';
+          return;
+        }
+        audioList.innerHTML = '';
+        audios.forEach(file => {
+          const url = file.download_url;
+          const title = beautifyTitle(file.name);
+          const card = document.createElement('div');
+          card.className = 'audio-card';
+          card.innerHTML = `<div class="audio-title">${title}</div>`;
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.style.width = '100%';
+          const source = document.createElement('source');
+          source.src = url;
+          // set type by extension
+          const ext = file.name.split('.').pop().toLowerCase();
+          source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
+          audio.appendChild(source);
+          card.appendChild(audio);
+          audioList.appendChild(card);
+        });
+      } catch (err) {
+        loader.innerText = 'No se pudieron cargar los audios.';
+        console.error(err);
+      }
+    }
+
+    // Build videos list from videos/
+    async function buildVideos() {
+      const videoList = document.getElementById('videoList');
+      const loader = document.getElementById('loader-videos');
+      try {
+        const files = await listFolder('videos');
+        const vids = files.filter(f => f.type === 'file' && /\.(mp4|webm|ogg)$/i.test(f.name));
+        vids.sort((a,b) => a.name.localeCompare(b.name));
+        loader.style.display = 'none';
+        if (!vids.length) {
+          videoList.innerHTML = '<div class="placeholder">No hay archivos en <code>videos/</code></div>';
+          return;
+        }
+        videoList.innerHTML = '';
+        vids.forEach(file => {
+          const url = file.download_url;
+          const title = beautifyTitle(file.name);
+          // create video tag — note: big files may not play well from raw.githubusercontent
+          const vwrap = document.createElement('div');
+          vwrap.style.textAlign = 'center';
+          const video = document.createElement('video');
+          video.controls = true;
+          video.width = 640;
+          video.src = url;
+          video.innerText = 'Tu navegador no soporta video.';
+          vwrap.appendChild(video);
+          const caption = document.createElement('div');
+          caption.style.color = 'var(--muted)';
+          caption.style.fontSize = '0.95rem';
+          caption.style.marginTop = '6px';
+          caption.innerText = title;
+          vwrap.appendChild(caption);
+          videoList.appendChild(vwrap);
+        });
+      } catch (err) {
+        loader.innerText = 'No se pudieron cargar los videos.';
+        console.error(err);
+      }
+    }
+
+    // modal helpers
     function openModalFromEl(el){
       const src = el.getAttribute('data-src') || el.querySelector('img')?.src;
       const title = el.getAttribute('data-title') || '';
@@ -245,7 +263,6 @@
     function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
     function escClose(e){ if(e.key==='Escape') closeModal(); }
 
-    // Si imagen falta mostrar placeholder (usa data-title)
     function imageMissing(img){
       const parent=img.closest('.portfolio-item'); if(!parent) return;
       img.style.display='none';
@@ -253,7 +270,22 @@
       const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph);
     }
 
-    // abrir con Enter (accesibilidad)
+    function beautifyTitle(filename){
+      // remove extension and replace - and _ with spaces, collapse multiple spaces, decode URL encoded parts
+      const noExt = filename.replace(/\.[^.]+$/, '');
+      const replaced = decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim();
+      // capitalice first letter (simple)
+      return replaced.charAt(0).toUpperCase() + replaced.slice(1);
+    }
+
+    // Iniciar todo
+    (function init(){
+      buildGallery();
+      buildAudios();
+      buildVideos();
+    })();
+
+    // accessibility: open image on Enter
     document.addEventListener('keydown', function(e){
       if(e.key==='Enter' && document.activeElement && document.activeElement.classList.contains('portfolio-item')){
         openModalFromEl(document.activeElement);
