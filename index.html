@@ -21,11 +21,11 @@ nav a{text-decoration:none;color:var(--text);font-weight:600}
 .statement{max-width:900px;margin:10px auto;color:var(--muted);font-size:1rem;padding:8px 12px}
 .section{padding:20px 0}
 .section-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.05rem;margin-bottom:12px;color:var(--text)}
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.portfolio-item{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
-.portfolio-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-.portfolio-item:hover .portfolio-img{transform:scale(1.04)}
-.portfolio-overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.card:hover img{transform:scale(1.04)}
+.overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
 .placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
 .modal img{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5)}
@@ -37,45 +37,43 @@ nav a{text-decoration:none;color:var(--text);font-weight:600}
 .video-note{color:var(--muted);font-size:.95rem;text-align:center;margin-top:6px}
 .contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
 .contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
-footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
+.footer-note{max-width:900px;margin:8px auto;color:var(--muted);font-size:0.95rem;text-align:center}
 .loader{opacity:.6;color:var(--muted);text-align:center;margin:12px 0}
-@media(max-width:720px){.hero-title{font-size:1.6rem}.portfolio-item{height:180px}}
+@media(max-width:720px){.hero-title{font-size:1.6rem}.card{height:180px}}
 </style>
 </head>
 <body>
 <div class="container">
   <header>
     <div class="brand">JAVIER <span class="accent">TORRES</span></div>
-    <nav>
-      <ul>
-        <li><a href="#portfolio">Portafolio</a></li>
-        <li><a href="#audios">Audios</a></li>
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#contact">Contacto</a></li>
-      </ul>
-    </nav>
+    <nav><ul><li><a href="#portfolio">Portafolio</a></li><li><a href="#nuevas">Nuevas obras</a></li><li><a href="#audios">Audios</a></li><li><a href="#videos">Videos</a></li><li><a href="#contact">Contacto</a></li></ul></nav>
   </header>
 
   <main>
     <section class="hero" id="home">
       <h1 class="hero-title">INTER - SIDE</h1>
       <div class="hero-sub">PINTURA INTERMURAL</div>
-
       <div class="statement">
         <strong>Statement</strong>
         <p>
-          Inter-Side es un proyecto que investiga la tensión entre la pintura urbana —los muros,
-          el grafiti, la ciudad— y los formatos tradicionales de estudio. Mis obras dialogan con
-          el límite y la pertenencia espacial: cómo una imagen pasa del afuera al adentro, y cómo
-          la ciudad reordena la expectativa estética. Trabajo con esmalte, aerosol y óleo para
-          generar paisajes visuales que rememoran la calle desde el bastidor.
+          Inter-Side es un proyecto que investiga la tensión entre la pintura urbana —muros,
+          grafiti, la ciudad— y los formatos tradicionales del estudio. Mis obras dialogan con
+          el límite y la pertenencia espacial: cómo la imagen transita entre afuera y adentro.
+          Trabajo con esmalte, aerosol y óleo para generar paisajes que rememoran la calle desde
+          el bastidor.
         </p>
       </div>
     </section>
 
     <section id="portfolio" class="section">
       <h2 class="section-title">Portafolio</h2>
-      <div id="gallery" class="portfolio-grid"><div class="loader" id="loader-images">Cargando obras…</div></div>
+      <div id="gallery" class="grid"><div class="loader" id="loader-images">Cargando obras…</div></div>
+    </section>
+
+    <section id="nuevas" class="section">
+      <h2 class="section-title">Nuevas obras (serie)</h2>
+      <div id="newGallery" class="grid"><div class="loader" id="loader-new">Buscando nuevas obras…</div></div>
+      <div class="footer-note">Sube tus nuevas pinturas a <code>img/nuevas/</code> (o <code>img/series/</code>) y aparecerán aquí automáticamente.</div>
     </section>
 
     <section id="audios" class="section">
@@ -86,7 +84,7 @@ footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
     <section id="videos" class="section">
       <h2 class="section-title">Videos</h2>
 
-      <!-- Iframes de YouTube (los que me mandaste) -->
+      <!-- YouTube (mantener, se ven bien) -->
       <div style="max-width:840px;margin:0 auto 16px;display:grid;gap:16px">
         <div style="position:relative;padding-top:56.25%;overflow:hidden;border-radius:8px;">
           <iframe src="https://www.youtube.com/embed/8bCfEsbOBbc" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
@@ -97,21 +95,21 @@ footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
       </div>
 
       <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos del repositorio…</div></div>
-      <div class="video-note">Si un video del repositorio no reproduce, puedes abrirlo con el enlace directo o subir a YouTube (unlisted) y reemplazarlo por un iframe.</div>
+      <div class="video-note">Los videos grandes pueden fallar al reproducir desde GitHub; los que no se reproduzcan se eliminan automáticamente del listado (puedes subirlos a YouTube y usar iframe).</div>
     </section>
 
     <section id="contact" class="section">
       <h2 class="section-title">Contacto</h2>
       <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
       <div class="contact-links">
-        <a id="instagramLink" href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
-        <a id="tiktokLink" href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
+        <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
+        <a href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
       </div>
     </section>
 
   </main>
 
-  <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
+  <footer style="text-align:center;padding:20px;color:var(--muted)">&copy; 2025 Javier Torres — INTER-SIDE</footer>
 </div>
 
 <!-- Modal -->
@@ -126,35 +124,36 @@ const owner = 'JavT2Bill';
 const repo  = 'javier-torres-art';
 const branch = 'main';
 
-/* Excluir obras concretas (coincidencia por substring en el filename en minúsculas).
-   He puesto varias variantes para cubrir diferentes nombres que tenías. */
+/* EXCLUSIONES */
 const imageExcludes = [
-  'la-aparicion',            // la-aparicion-de-un-nuevo-buda...
-  'aparicion-de-un-nuevo-buda',
-  'aparicion-de-un-nuevo-buda-en-ny',
-  'un-nuevo-buda',
-  'nuevo-buda',
-  'aparicion'
+  'la-aparicion', 'aparicion-de-un-nuevo-buda', 'un-nuevo-buda', 'nuevo-buda',
+  'aparicion' , 'fragmento-de-alice', 'fragmento-de-alice.jpg', 'masterpiece'
+];
+const audioExcludes = [
+  'hypothesis-1', 'hypothesis_1', 'hypothesis 1', 'hyphothesis-1'
 ];
 
-async function listFolder(path) {
+/* helpers */
+async function listFolder(path){
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Error ${res.status} al leer ${path}`);
+  if(!res.ok) throw new Error(`Error ${res.status} al leer ${path}`);
   return res.json();
 }
-
-function shouldExcludeImage(name) {
+function shouldExcludeImage(name){
   const ln = name.toLowerCase();
   return imageExcludes.some(ex => ln.includes(ex));
 }
-
+function shouldExcludeAudio(name){
+  const ln = name.toLowerCase();
+  return audioExcludes.some(ex => ln.includes(ex));
+}
 function beautifyTitle(filename){
   const noExt = filename.replace(/\.[^.]+$/, '');
   return decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/^./, s => s.toUpperCase());
 }
 
-/* GALLERY: omite archivos cuyo nombre contiene cualquiera de imageExcludes */
+/* Gallery (img/obras) */
 async function buildGallery(){
   const gallery = document.getElementById('gallery');
   const loader = document.getElementById('loader-images');
@@ -162,143 +161,128 @@ async function buildGallery(){
     let files = [];
     try { files = await listFolder('img/obras'); } catch(e){ files = await listFolder('img'); }
     const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name) && !shouldExcludeImage(f.name));
-    images.sort((a,b) => a.name.localeCompare(b.name));
+    images.sort((a,b)=> a.name.localeCompare(b.name));
     loader.style.display = 'none';
-    if (!images.length) { gallery.innerHTML = '<div class="placeholder">No hay imágenes visibles en la carpeta.</div>'; return; }
+    if(!images.length){ gallery.innerHTML = '<div class="placeholder">No hay imágenes visibles en la carpeta.</div>'; return; }
     gallery.innerHTML = '';
     images.forEach(file => {
       const url = file.download_url;
       const title = beautifyTitle(file.name);
       const art = document.createElement('article');
-      art.className = 'portfolio-item';
+      art.className = 'card';
       art.tabIndex = 0;
       art.setAttribute('data-src', url);
       art.setAttribute('data-title', title);
       art.onclick = () => openModalFromEl(art);
-      art.onkeydown = (e) => { if (e.key === 'Enter') openModalFromEl(art); };
+      art.onkeydown = (e)=>{ if(e.key==='Enter') openModalFromEl(art); };
 
       const img = document.createElement('img');
-      img.className = 'portfolio-img';
-      img.loading = 'lazy';
-      img.alt = title;
-      img.src = url;
-      img.onerror = () => imageMissing(img);
+      img.loading='lazy'; img.alt = title; img.src = url;
+      img.onerror = ()=> imageMissing(img);
 
-      const overlay = document.createElement('div');
-      overlay.className = 'portfolio-overlay';
-      overlay.innerHTML = `<h3>${title}</h3>`;
-
-      art.appendChild(img);
-      art.appendChild(overlay);
-      gallery.appendChild(art);
+      const overlay = document.createElement('div'); overlay.className='overlay'; overlay.innerHTML = `<h3>${title}</h3>`;
+      art.appendChild(img); art.appendChild(overlay); gallery.appendChild(art);
     });
-  } catch (err) {
-    console.error(err);
-    loader.innerText = 'No se pudieron cargar las imágenes (API rate / permiso).';
+  } catch(err){
+    console.error(err); loader.innerText = 'No se pudieron cargar las imágenes (API/Cupo).';
   }
 }
 
-/* AUDIOS: lista automática (usa "hypothesis" si tus nombres cambiaron) */
+/* Nuevas obras (img/nuevas o img/series) */
+async function buildNewSeries(){
+  const out = document.getElementById('newGallery');
+  const loader = document.getElementById('loader-new');
+  try {
+    let files = [];
+    try { files = await listFolder('img/nuevas'); } catch(e){
+      try { files = await listFolder('img/series'); } catch(e2){ files = []; }
+    }
+    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
+    loader.style.display = 'none';
+    if(!images.length){ out.innerHTML = '<div class="placeholder">No hay nuevas obras (sube a img/nuevas/)</div>'; return; }
+    out.innerHTML = '';
+    images.sort((a,b)=> a.name.localeCompare(b.name));
+    images.forEach(file=>{
+      const url=file.download_url, title=beautifyTitle(file.name);
+      const art=document.createElement('article'); art.className='card'; art.tabIndex=0;
+      art.setAttribute('data-src', url); art.setAttribute('data-title', title);
+      art.onclick=()=>openModalFromEl(art);
+      const img=document.createElement('img'); img.loading='lazy'; img.alt=title; img.src=url; img.onerror=()=>imageMissing(img);
+      const overlay=document.createElement('div'); overlay.className='overlay'; overlay.innerHTML=`<h3>${title}</h3>`;
+      art.appendChild(img); art.appendChild(overlay); out.appendChild(art);
+    })
+  } catch(e){ console.error(e); loader.innerText='No se pudieron cargar nuevas obras.'; }
+}
+
+/* Audios (omitimos hypothesis-1) */
 async function buildAudios(){
   const audioList = document.getElementById('audioList');
   const loader = document.getElementById('loader-audios');
   try {
     const files = await listFolder('audios');
-    const audioFiles = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name));
-    audioFiles.sort((a,b) => a.name.localeCompare(b.name));
-    loader.style.display = 'none';
-    if (!audioFiles.length) { audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>'; return; }
-    audioList.innerHTML = '';
-    audioFiles.forEach(file => appendAudioCard(audioList, file));
-  } catch (err) {
-    console.error(err);
-    loader.innerText = 'No se pudieron cargar los audios (API rate / permiso).';
-  }
+    const audios = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name) && !shouldExcludeAudio(f.name));
+    audios.sort((a,b)=> a.name.localeCompare(b.name));
+    loader.style.display='none';
+    if(!audios.length){ audioList.innerHTML = '<div class="placeholder">No hay audios visibles en <code>audios/</code></div>'; return; }
+    audioList.innerHTML='';
+    audios.forEach(file => {
+      const url = file.download_url, title = beautifyTitle(file.name);
+      const card = document.createElement('div'); card.className='audio-card';
+      card.innerHTML = `<div class="audio-title">${title}</div>`;
+      const audio = document.createElement('audio'); audio.controls=true; audio.style.width='100%';
+      const source = document.createElement('source'); source.src = url;
+      const ext = file.name.split('.').pop().toLowerCase();
+      source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
+      audio.appendChild(source);
+      // si hay error al reproducir, mostramos enlace pero NO dejamos el reproductor
+      audio.addEventListener('error', ()=>{
+        const note = document.createElement('div'); note.style.color='var(--muted)'; note.style.marginTop='8px';
+        note.innerHTML = `No se pudo reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir</a>`;
+        if(!card.querySelector('a')) card.appendChild(note);
+      });
+      card.appendChild(audio); audioList.appendChild(card);
+    });
+  } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los audios (API/Cupo).'; }
 }
 
-function appendAudioCard(container, file){
-  const url = file.download_url;
-  const title = beautifyTitle(file.name);
-  const card = document.createElement('div');
-  card.className = 'audio-card';
-  card.innerHTML = `<div class="audio-title">${title}</div>`;
-  const audio = document.createElement('audio');
-  audio.controls = true;
-  audio.style.width = '100%';
-  const source = document.createElement('source');
-  source.src = url;
-  const ext = file.name.split('.').pop().toLowerCase();
-  source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
-  audio.appendChild(source);
-  // fallback link if cannot play directly
-  audio.addEventListener('error', () => {
-    const note = document.createElement('div');
-    note.style.marginTop = '8px';
-    note.style.color = 'var(--muted)';
-    note.innerHTML = `No se pudo reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>`;
-    if (!card.querySelector('a')) card.appendChild(note);
-  });
-  card.appendChild(audio);
-  container.appendChild(card);
-}
-
-/* VIDEOS: muestra los iframes de YouTube primero (ya embebidos arriba), luego intenta listar videos en videos/ */
+/* Videos: si un video produce error -> lo quitamos del DOM (no mostramos cajas rotas) */
 async function buildVideos(){
   const videoList = document.getElementById('videoList');
   const loader = document.getElementById('loader-videos');
   try {
     const files = await listFolder('videos');
     const vids = files.filter(f => f.type === 'file' && /\.(mp4|webm|ogg)$/i.test(f.name));
-    vids.sort((a,b) => a.name.localeCompare(b.name));
-    loader.style.display = 'none';
-    if (!vids.length){ videoList.innerHTML = '<div class="placeholder">No hay archivos en <code>videos/</code></div>'; return; }
+    vids.sort((a,b)=> a.name.localeCompare(b.name));
+    loader.style.display='none';
+    if(!vids.length){ videoList.innerHTML = '<div class="placeholder">No hay videos en <code>videos/</code></div>'; return; }
     videoList.innerHTML = '';
-    vids.forEach(file => {
-      // Si el nombre del archivo contiene alguna de las cadenas excluidas, también lo evitamos mostrar
-      const lower = file.name.toLowerCase();
-      if (lower.includes('aparicion') || lower.includes('nuevo-buda') || lower.includes('un-nuevo-buda')) {
-        // omitimos mostrar
-        return;
-      }
-      const url = file.download_url;
-      const title = beautifyTitle(file.name);
-      const vwrap = document.createElement('div');
-      vwrap.style.textAlign = 'center';
-      const video = document.createElement('video');
-      video.controls = true;
-      video.width = 640;
-      video.src = url;
-      video.addEventListener('error', () => {
-        const note = document.createElement('div');
-        note.style.color = 'var(--muted)';
-        note.style.marginTop = '6px';
-        note.innerHTML = `Este video puede ser demasiado grande para reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>. Recomendado: subir a YouTube (unlisted) y usar iframe.`;
-        if (!vwrap.querySelector('a')) vwrap.appendChild(note);
+    vids.forEach(file=>{
+      const ln = file.name.toLowerCase();
+      if(ln.includes('aparicion')||ln.includes('nuevo-buda')) return; // también excluimos videos con esos nombres por tu pedido
+      const url = file.download_url, title = beautifyTitle(file.name);
+      const wrap = document.createElement('div'); wrap.style.textAlign='center';
+      const video = document.createElement('video'); video.controls=true; video.width=640; video.src=url;
+      // si falla -> eliminamos la caja entera para que no aparezca
+      video.addEventListener('error', ()=>{
+        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
       });
-      vwrap.appendChild(video);
-      const caption = document.createElement('div');
-      caption.style.color = 'var(--muted)';
-      caption.style.fontSize = '0.95rem';
-      caption.style.marginTop = '6px';
-      caption.innerText = title;
-      vwrap.appendChild(caption);
-      videoList.appendChild(vwrap);
+      wrap.appendChild(video);
+      const caption = document.createElement('div'); caption.style.color='var(--muted)'; caption.style.fontSize='0.95rem'; caption.style.marginTop='6px'; caption.innerText = title;
+      wrap.appendChild(caption); videoList.appendChild(wrap);
     });
-  } catch (err) {
-    console.error(err);
-    loader.innerText = 'No se pudieron cargar los videos (API rate / permiso).';
-  }
+  } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los videos (API/Cupo).'; }
 }
 
-/* modal + helpers */
+/* modal helpers */
 function openModalFromEl(el){ const src = el.getAttribute('data-src') || el.querySelector('img')?.src; const title = el.getAttribute('data-title') || ''; openModal(src,title); }
 function openModal(src,title){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose); }
 function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
 function escClose(e){ if(e.key==='Escape') closeModal(); }
-function imageMissing(img){ const parent=img.closest('.portfolio-item'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
+function imageMissing(img){ const parent=img.closest('.card'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText = parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
 
 /* init */
-(async function init(){ await Promise.all([buildGallery(), buildAudios(), buildVideos()]); })();
+(async function init(){ await Promise.all([buildGallery(), buildNewSeries(), buildAudios(), buildVideos()]); })();
+
 </script>
 </body>
 </html>
