@@ -61,7 +61,6 @@ footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
       <h1 class="hero-title">INTER - SIDE</h1>
       <div class="hero-sub">PINTURA INTERMURAL</div>
 
-      <!-- TU STATEMENT (lo amplié un poco usando lo que compartiste) -->
       <div class="statement">
         <strong>Statement</strong>
         <p>
@@ -74,26 +73,33 @@ footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
       </div>
     </section>
 
-    <!-- GALERÍA -->
     <section id="portfolio" class="section">
       <h2 class="section-title">Portafolio</h2>
       <div id="gallery" class="portfolio-grid"><div class="loader" id="loader-images">Cargando obras…</div></div>
     </section>
 
-    <!-- AUDIOS -->
     <section id="audios" class="section">
       <h2 class="section-title">Audios</h2>
       <div id="audioList" class="audio-list"><div class="loader" id="loader-audios">Cargando audios…</div></div>
     </section>
 
-    <!-- VIDEOS -->
     <section id="videos" class="section">
       <h2 class="section-title">Videos</h2>
-      <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos…</div></div>
-      <div class="video-note">Si un video no reproduce desde GitHub (archivos grandes), súbelo a YouTube (unlisted) y usa el iframe; puedo generar el iframe por ti.</div>
+
+      <!-- Iframes de YouTube (los que me mandaste) -->
+      <div style="max-width:840px;margin:0 auto 16px;display:grid;gap:16px">
+        <div style="position:relative;padding-top:56.25%;overflow:hidden;border-radius:8px;">
+          <iframe src="https://www.youtube.com/embed/8bCfEsbOBbc" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        </div>
+        <div style="position:relative;padding-top:56.25%;overflow:hidden;border-radius:8px;">
+          <iframe src="https://www.youtube.com/embed/Ff6IRtAvl6c" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+        </div>
+      </div>
+
+      <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos del repositorio…</div></div>
+      <div class="video-note">Si un video del repositorio no reproduce, puedes abrirlo con el enlace directo o subir a YouTube (unlisted) y reemplazarlo por un iframe.</div>
     </section>
 
-    <!-- CONTACTO -->
     <section id="contact" class="section">
       <h2 class="section-title">Contacto</h2>
       <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
@@ -108,73 +114,57 @@ footer{padding:22px 0;text-align:center;color:var(--muted);font-size:.9rem}
   <footer>&copy; 2025 Javier Torres — INTER-SIDE</footer>
 </div>
 
-<!-- MODAL -->
+<!-- Modal -->
 <div id="modal" class="modal" onclick="closeModal()">
   <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
   <img id="modalImg" src="" alt="">
 </div>
 
 <script>
-/* CONFIG: no cambies esto a menos que renombres repo/owner/branch */
+/* CONFIG */
 const owner = 'JavT2Bill';
 const repo  = 'javier-torres-art';
 const branch = 'main';
 
-/* Helper: leer carpeta vía GitHub API */
+/* Excluir obras concretas (coincidencia por substring en el filename en minúsculas).
+   He puesto varias variantes para cubrir diferentes nombres que tenías. */
+const imageExcludes = [
+  'la-aparicion',            // la-aparicion-de-un-nuevo-buda...
+  'aparicion-de-un-nuevo-buda',
+  'aparicion-de-un-nuevo-buda-en-ny',
+  'un-nuevo-buda',
+  'nuevo-buda',
+  'aparicion'
+];
+
 async function listFolder(path) {
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
   const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Error ${res.status} al leer ${path}`);
-  }
+  if (!res.ok) throw new Error(`Error ${res.status} al leer ${path}`);
   return res.json();
 }
 
-/* Robust matcher: busca en la lista de archivos el nombre que "coincida" con varios patrones */
-function findFileByVariants(files, baseNames) {
-  // files: array de objetos {name, download_url}
-  // baseNames: array de cadenas que queremos encontrar (sin extensión)
-  const lowerNames = files.map(f => ({...f, lname: f.name.toLowerCase()}));
-  for (const b of baseNames) {
-    const bclean = b.toLowerCase();
-    // 1) exact match ignoring extension
-    let found = lowerNames.find(f => f.lname.replace(/\.[^.]+$/,'') === bclean);
-    if (found) return found;
-    // 2) contains
-    found = lowerNames.find(f => f.lname.includes(bclean));
-    if (found) return found;
-    // 3) replace underscores/spaces/hyphens and compare
-    const norm = bclean.replace(/[_\s]+/g,'-');
-    found = lowerNames.find(f => f.lname.replace(/\.[^.]+$/,'').replace(/[_\s]+/g,'-') === norm);
-    if (found) return found;
-  }
-  return null;
+function shouldExcludeImage(name) {
+  const ln = name.toLowerCase();
+  return imageExcludes.some(ex => ln.includes(ex));
 }
 
-/* Beautify filename -> título legible */
 function beautifyTitle(filename){
   const noExt = filename.replace(/\.[^.]+$/, '');
   return decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/^./, s => s.toUpperCase());
 }
 
-/* Build gallery: consulta img/obras y también img/ (fallback) */
+/* GALLERY: omite archivos cuyo nombre contiene cualquiera de imageExcludes */
 async function buildGallery(){
   const gallery = document.getElementById('gallery');
   const loader = document.getElementById('loader-images');
   try {
     let files = [];
-    // intenta img/obras
-    try { files = await listFolder('img/obras'); } catch(e){
-      // si falla, intenta img/
-      files = await listFolder('img');
-    }
-    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
+    try { files = await listFolder('img/obras'); } catch(e){ files = await listFolder('img'); }
+    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name) && !shouldExcludeImage(f.name));
     images.sort((a,b) => a.name.localeCompare(b.name));
     loader.style.display = 'none';
-    if (!images.length) {
-      gallery.innerHTML = '<div class="placeholder">No hay imágenes en <code>img/obras/</code> ni en <code>img/</code>.</div>';
-      return;
-    }
+    if (!images.length) { gallery.innerHTML = '<div class="placeholder">No hay imágenes visibles en la carpeta.</div>'; return; }
     gallery.innerHTML = '';
     images.forEach(file => {
       const url = file.download_url;
@@ -208,7 +198,7 @@ async function buildGallery(){
   }
 }
 
-/* Build audios: busca ficheros y hace matching tolerante */
+/* AUDIOS: lista automática (usa "hypothesis" si tus nombres cambiaron) */
 async function buildAudios(){
   const audioList = document.getElementById('audioList');
   const loader = document.getElementById('loader-audios');
@@ -217,28 +207,9 @@ async function buildAudios(){
     const audioFiles = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name));
     audioFiles.sort((a,b) => a.name.localeCompare(b.name));
     loader.style.display = 'none';
-    if (!audioFiles.length) {
-      audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>';
-      return;
-    }
-    // queremos mostrar todos, pero si hay nombres similares intentamos agrupar
+    if (!audioFiles.length) { audioList.innerHTML = '<div class="placeholder">No hay archivos en <code>audios/</code></div>'; return; }
     audioList.innerHTML = '';
-    // ejemplo de títulos esperados que quieres visibles (puedes ampliar)
-    const wanted = [
-      'callejon-sin-salida',
-      'hypothesis-1','hypothesis-03','hypothesis-03','hypothesis-3','hypothesis-4','intro','paisaje-onirico-de-un-porvenir','hypothesis-01'
-    ];
-    // mostramos primero los que coinciden con wanted (con tolerancia), luego el resto
-    const used = new Set();
-    for (const w of wanted){
-      const found = findFileByVariants(audioFiles, [w, w.replace(/-/g,' '), w.replace(/-/g,'_')]);
-      if (found && !used.has(found.name)){
-        used.add(found.name);
-        appendAudioCard(audioList, found);
-      }
-    }
-    // ahora el resto que no se mostró
-    audioFiles.forEach(f => { if (!used.has(f.name)) appendAudioCard(audioList, f); });
+    audioFiles.forEach(file => appendAudioCard(audioList, file));
   } catch (err) {
     console.error(err);
     loader.innerText = 'No se pudieron cargar los audios (API rate / permiso).';
@@ -259,19 +230,19 @@ function appendAudioCard(container, file){
   const ext = file.name.split('.').pop().toLowerCase();
   source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
   audio.appendChild(source);
-  // si hay problema cargándolo (error event) mostramos enlace raw
+  // fallback link if cannot play directly
   audio.addEventListener('error', () => {
     const note = document.createElement('div');
     note.style.marginTop = '8px';
     note.style.color = 'var(--muted)';
-    note.innerHTML = `No se pudo reproducir en este navegador desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>`;
+    note.innerHTML = `No se pudo reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>`;
     if (!card.querySelector('a')) card.appendChild(note);
   });
   card.appendChild(audio);
   container.appendChild(card);
 }
 
-/* Build videos: añade nota y fallback link si no reproduce */
+/* VIDEOS: muestra los iframes de YouTube primero (ya embebidos arriba), luego intenta listar videos en videos/ */
 async function buildVideos(){
   const videoList = document.getElementById('videoList');
   const loader = document.getElementById('loader-videos');
@@ -283,6 +254,12 @@ async function buildVideos(){
     if (!vids.length){ videoList.innerHTML = '<div class="placeholder">No hay archivos en <code>videos/</code></div>'; return; }
     videoList.innerHTML = '';
     vids.forEach(file => {
+      // Si el nombre del archivo contiene alguna de las cadenas excluidas, también lo evitamos mostrar
+      const lower = file.name.toLowerCase();
+      if (lower.includes('aparicion') || lower.includes('nuevo-buda') || lower.includes('un-nuevo-buda')) {
+        // omitimos mostrar
+        return;
+      }
       const url = file.download_url;
       const title = beautifyTitle(file.name);
       const vwrap = document.createElement('div');
@@ -292,11 +269,10 @@ async function buildVideos(){
       video.width = 640;
       video.src = url;
       video.addEventListener('error', () => {
-        // agregar enlace de descarga si no reproduce
         const note = document.createElement('div');
         note.style.color = 'var(--muted)';
         note.style.marginTop = '6px';
-        note.innerHTML = `Este video puede ser demasiado grande para reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a> — Recomendado: subir a YouTube (unlisted) y pegar iframe.`;
+        note.innerHTML = `Este video puede ser demasiado grande para reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir archivo</a>. Recomendado: subir a YouTube (unlisted) y usar iframe.`;
         if (!vwrap.querySelector('a')) vwrap.appendChild(note);
       });
       vwrap.appendChild(video);
@@ -314,12 +290,11 @@ async function buildVideos(){
   }
 }
 
-/* modal helpers */
+/* modal + helpers */
 function openModalFromEl(el){ const src = el.getAttribute('data-src') || el.querySelector('img')?.src; const title = el.getAttribute('data-title') || ''; openModal(src,title); }
 function openModal(src,title){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose); }
 function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
 function escClose(e){ if(e.key==='Escape') closeModal(); }
-
 function imageMissing(img){ const parent=img.closest('.portfolio-item'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText=parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
 
 /* init */
