@@ -28,13 +28,16 @@ nav a{text-decoration:none;color:var(--text);font-weight:600}
 .overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
 .placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
-.modal img{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5)}
+.modal-content{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5);display:flex;flex-direction:column;align-items:center}
+.modal img{max-width:100%;max-height:72vh;border-radius:6px;display:block}
+.modal-caption{width:100%;max-width:92%;color:#fff;margin-top:12px;text-align:center;font-size:0.95rem}
+.modal-caption h3{margin-bottom:6px;font-size:1.05rem;font-weight:700}
+.modal-caption .attrs{color:#e6eef1;font-size:0.95rem}
 .close-btn{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;background:none;border:none;cursor:pointer}
 .audio-list{display:grid;gap:12px;max-width:760px;margin:0 auto}
 .audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
 .audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
 .videos-wrap{display:grid;gap:14px;max-width:840px;margin:0 auto}
-.video-note{color:var(--muted);font-size:.95rem;text-align:center;margin-top:6px}
 .contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
 .contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
 .footer-note{max-width:900px;margin:8px auto;color:var(--muted);font-size:0.95rem;text-align:center}
@@ -94,7 +97,6 @@ nav a{text-decoration:none;color:var(--text);font-weight:600}
       </div>
 
       <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos del repositorio…</div></div>
-      <div class="video-note">Los videos grandes pueden fallar al reproducir desde GitHub; los que no se reproduzcan se eliminan automáticamente del listado (puedes subirlos a YouTube y usar iframe).</div>
     </section>
 
     <section id="contact" class="section">
@@ -114,11 +116,17 @@ nav a{text-decoration:none;color:var(--text);font-weight:600}
 <!-- Modal -->
 <div id="modal" class="modal" onclick="closeModal()">
   <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
-  <img id="modalImg" src="" alt="">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <img id="modalImg" src="" alt="">
+    <div class="modal-caption" id="modalCaption" aria-live="polite">
+      <h3 id="modalTitle"></h3>
+      <div class="attrs" id="modalAttrs"></div>
+    </div>
+  </div>
 </div>
 
 <script>
-/* CONFIG */
+/* CONFIG — ajusta si tu repo o branch cambia */
 const owner = 'JavT2Bill';
 const repo  = 'javier-torres-art';
 const branch = 'main';
@@ -132,7 +140,7 @@ const audioExcludes = [
   'hypothesis-1', 'hypothesis_1', 'hypothesis 1', 'hyphothesis-1'
 ];
 
-/* helpers */
+/* HELPERS */
 async function listFolder(path){
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
   const res = await fetch(url);
@@ -151,8 +159,74 @@ function beautifyTitle(filename){
   const noExt = filename.replace(/\.[^.]+$/, '');
   return decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/^./, s => s.toUpperCase());
 }
+function basename(url){ return url.split('/').pop().replace(/\?.*$/,''); }
 
-/* Gallery (img/obras) */
+/* Slug utility: remove accents, lower, replace spaces -> -, remove ext */
+function slugifyKey(s){
+  return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'') // remove accents
+    .replace(/\.[^.]+$/,'') // remove extension
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+/* METADATA: intenta cargar img/metadata.json -> metadata.json (raíz) */
+let METADATA = null;
+async function loadMetadata(){
+  if(METADATA !== null) return METADATA;
+  const candidates = [
+    `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,
+    `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`
+  ];
+  for(const url of candidates){
+    try {
+      const res = await fetch(url);
+      if(res.ok){
+        METADATA = await res.json();
+        // normalize keys cache: create map of slug->value for faster lookup
+        const normalized = {};
+        for(const k of Object.keys(METADATA)){
+          normalized[k] = METADATA[k];
+          normalized[slugifyKey(k)] = METADATA[k];
+          normalized[k.replace(/\.[^.]+$/,'')] = METADATA[k];
+        }
+        METADATA = normalized;
+        return METADATA;
+      }
+    } catch(e){ /* ignore */ }
+  }
+  METADATA = {}; // vacío si no existe
+  return METADATA;
+}
+
+/* Intenta obtener metadata por filename de forma flexible */
+async function getMetaForFilename(fname){
+  const meta = await loadMetadata();
+  if(!meta || Object.keys(meta).length===0) return null;
+  // probamos varias llaves
+  const candidates = [
+    fname,
+    fname.replace(/\.[^.]+$/,''),
+    slugifyKey(fname),
+  ];
+  for(const c of candidates){
+    if(meta[c]) return meta[c];
+  }
+  return null;
+}
+
+/* intenta extraer medidas/técnica desde filename (fallback) */
+function parseAttrsFromFilename(name){
+  const s = name.replace(/\.[^.]+$/, '').replace(/[-_]+/g,' ').toLowerCase();
+  const attrs = [];
+  const sizeMatch = s.match(/(\d{2,4}\s?(cm)?\s?[x×]\s?\d{2,4}\s?(cm)?)/i);
+  if(sizeMatch) attrs.push(sizeMatch[0].replace(/\s+/g,' '));
+  const techKeywords = ['oil','óleo','oleo','acrilico','acrílico','acrylic','mixta','mixto','mixed','tempera','grafito','aerosol','spray','esmalte','linóleo','madera','tela','papel','cartón','carton','serigrafía','serigrafia'];
+  for(const k of techKeywords){
+    if(s.includes(k)) { attrs.push(k.replace(/^(.)/, c => c.toUpperCase())); break; }
+  }
+  return attrs;
+}
+
+/* GALLERY */
 async function buildGallery(){
   const gallery = document.getElementById('gallery');
   const loader = document.getElementById('loader-images');
@@ -166,11 +240,13 @@ async function buildGallery(){
     gallery.innerHTML = '';
     images.forEach(file => {
       const url = file.download_url;
-      const title = beautifyTitle(file.name);
+      const fname = file.name;
+      const title = beautifyTitle(fname);
       const art = document.createElement('article');
       art.className = 'card';
       art.tabIndex = 0;
       art.setAttribute('data-src', url);
+      art.setAttribute('data-fname', fname);
       art.setAttribute('data-title', title);
       art.onclick = () => openModalFromEl(art);
       art.onkeydown = (e)=>{ if(e.key==='Enter') openModalFromEl(art); };
@@ -187,7 +263,7 @@ async function buildGallery(){
   }
 }
 
-/* Nuevas obras (img/nuevas o img/series) */
+/* NUEVAS OBRAS */
 async function buildNewSeries(){
   const out = document.getElementById('newGallery');
   const loader = document.getElementById('loader-new');
@@ -204,7 +280,7 @@ async function buildNewSeries(){
     images.forEach(file=>{
       const url=file.download_url, title=beautifyTitle(file.name);
       const art=document.createElement('article'); art.className='card'; art.tabIndex=0;
-      art.setAttribute('data-src', url); art.setAttribute('data-title', title);
+      art.setAttribute('data-src', url); art.setAttribute('data-fname', file.name); art.setAttribute('data-title', title);
       art.onclick=()=>openModalFromEl(art);
       const img=document.createElement('img'); img.loading='lazy'; img.alt=title; img.src=url; img.onerror=()=>imageMissing(img);
       const overlay=document.createElement('div'); overlay.className='overlay'; overlay.innerHTML=`<h3>${title}</h3>`;
@@ -213,7 +289,7 @@ async function buildNewSeries(){
   } catch(e){ console.error(e); loader.innerText='No se pudieron cargar nuevas obras.'; }
 }
 
-/* Audios (omitimos hypothesis-1) */
+/* AUDIOS */
 async function buildAudios(){
   const audioList = document.getElementById('audioList');
   const loader = document.getElementById('loader-audios');
@@ -233,7 +309,6 @@ async function buildAudios(){
       const ext = file.name.split('.').pop().toLowerCase();
       source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
       audio.appendChild(source);
-      // si hay error al reproducir, mostramos enlace pero NO dejamos el reproductor
       audio.addEventListener('error', ()=>{
         const note = document.createElement('div'); note.style.color='var(--muted)'; note.style.marginTop='8px';
         note.innerHTML = `No se pudo reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir</a>`;
@@ -244,7 +319,7 @@ async function buildAudios(){
   } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los audios (API/Cupo).'; }
 }
 
-/* Videos: si un video produce error -> lo quitamos del DOM (no mostramos cajas rotas) */
+/* VIDEOS */
 async function buildVideos(){
   const videoList = document.getElementById('videoList');
   const loader = document.getElementById('loader-videos');
@@ -257,11 +332,10 @@ async function buildVideos(){
     videoList.innerHTML = '';
     vids.forEach(file=>{
       const ln = file.name.toLowerCase();
-      if(ln.includes('aparicion')||ln.includes('nuevo-buda')) return; // también excluimos videos con esos nombres por tu pedido
+      if(ln.includes('aparicion')||ln.includes('nuevo-buda')) return;
       const url = file.download_url, title = beautifyTitle(file.name);
       const wrap = document.createElement('div'); wrap.style.textAlign='center';
       const video = document.createElement('video'); video.controls=true; video.width=640; video.src=url;
-      // si falla -> eliminamos la caja entera para que no aparezca
       video.addEventListener('error', ()=>{
         if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
       });
@@ -272,14 +346,46 @@ async function buildVideos(){
   } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los videos (API/Cupo).'; }
 }
 
-/* modal helpers */
-function openModalFromEl(el){ const src = el.getAttribute('data-src') || el.querySelector('img')?.src; const title = el.getAttribute('data-title') || ''; openModal(src,title); }
-function openModal(src,title){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); img.src=src; img.alt=title; modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose); }
+/* MODAL HELPERS */
+async function openModalFromEl(el){
+  const src = el.getAttribute('data-src') || el.querySelector('img')?.src;
+  const fname = el.getAttribute('data-fname') || basename(src);
+  const title = el.getAttribute('data-title') || beautifyTitle(fname);
+  await openModal(src, title, fname);
+}
+async function openModal(src,title,fname){
+  const modal=document.getElementById('modal'), img=document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle'), modalAttrs = document.getElementById('modalAttrs');
+  img.src = src; img.alt = title;
+  modalTitle.innerText = title;
+  modalAttrs.innerText = 'Cargando…';
+  modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose);
+
+  // intenta metadata JSON primero
+  try {
+    const m = await getMetaForFilename(fname);
+    if(m){
+      const parts = [];
+      if(m.medidas) parts.push(m.medidas);
+      if(m.tecnica) parts.push(m.tecnica);
+      if(m.año) parts.push(m.año);
+      modalAttrs.innerText = parts.join(' • ');
+      return;
+    }
+  } catch(e){
+    console.warn('Error cargando metadata', e);
+  }
+
+  // fallback: parsear del filename
+  const parsed = parseAttrsFromFilename(fname);
+  if(parsed && parsed.length) modalAttrs.innerText = parsed.join(' • ');
+  else modalAttrs.innerText = ''; // sin atributos visibles
+}
 function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
 function escClose(e){ if(e.key==='Escape') closeModal(); }
 function imageMissing(img){ const parent=img.closest('.card'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText = parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
 
-/* init */
+/* INIT */
 (async function init(){ await Promise.all([buildGallery(), buildNewSeries(), buildAudios(), buildVideos()]); })();
 
 </script>
