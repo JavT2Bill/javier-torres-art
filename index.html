@@ -61,7 +61,7 @@
     <nav>
       <a href="#about">About</a>
       <a href="#works">Works</a>
-      <a href="#install">Installations</a>
+      <a href="#install">Works</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -84,34 +84,47 @@
       </div>
     </section>
 
-    <!-- WORKS -->
+    <!-- WORKS (auto poblado desde img/obras) -->
     <section id="works">
       <h2 class="section-title">Works</h2>
       <div class="grid" id="worksGrid"></div>
     </section>
 
-    <!-- INSTALLATIONS -->
+    <!-- INSTALLATIONS (ahora con título "Works") -->
     <section id="install">
-      <h2 class="section-title">Installations</h2>
-      <div class="installations">
-        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-8.jpg');background-size:cover;background-position:center"></div>
+      <h2 class="section-title">Works</h2>
+      <div class="installations" aria-hidden="false">
+        <!-- instBig y pequeñas abren modal con onclick (no dependen de <img>) -->
+        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-8.jpg');background-size:cover;background-position:center"
+             onclick="openModal('img/instalaciones/instalacion-8.jpg','Instalacion 8','instalacion-8.jpg')"></div>
+
         <div style="display:flex;flex-direction:column;gap:20px">
-          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-3.jpg');background-size:cover;background-position:center"></div>
-          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-4.jpg');background-size:cover;background-position:center"></div>
+          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-3.jpg');background-size:cover;background-position:center"
+               onclick="openModal('img/instalaciones/instalacion-3.jpg','Instalacion 3','instalacion-3.jpg')"></div>
+          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-4.jpg');background-size:cover;background-position:center"
+               onclick="openModal('img/instalaciones/instalacion-4.jpg','Instalacion 4','instalacion-4.jpg')"></div>
         </div>
       </div>
+
       <div style="height:18px"></div>
-      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-        <div class="card" style="background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
-        <div class="card" style="background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
-        <div class="card" style="background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
+
+      <!-- thumbnails 5-9 -->
+      <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px">
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:160px"
+             onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:160px"
+             onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:160px"
+             onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-9.jpg');background-size:cover;background-position:center;height:160px"
+             onclick="openModal('img/instalaciones/instalacion-9.jpg','Instalacion 9','instalacion-9.jpg')"></div>
       </div>
+
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
       <h2 class="section-title">Contact</h2>
-      <p style="color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
       <div class="contact-links">
         <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
       </div>
@@ -140,7 +153,7 @@
     async function listFolder(path){
       try{const res=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);if(!res.ok)return[];return res.json();}catch(e){return[]}
     }
-    function beautify(n){return n.replace(/[-_]+/g,' ').replace(/\\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase());}
+    function beautify(n){return n.replace(/[-_]+/g,' ').replace(/\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase());}
 
     async function loadMetadata(){
       const urls=[`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`];
@@ -148,7 +161,7 @@
       return{};
     }
 
-    // exclude names
+    // exclude problematic files by name (insta*, fragmento, aparicion, masterpiece)
     function shouldExclude(name){
       const ln=name.toLowerCase();
       return ln.includes('insta')||ln.includes('fragmento-de-alice')||ln.includes('aparicion')||ln.includes('nuevo-buda')||ln.includes('masterpiece');
@@ -157,11 +170,9 @@
     async function buildWorks(){
       const grid=document.getElementById('worksGrid');
       const files=await listFolder('img/obras');
-      const images=(files||[]).filter(f=>/\\.(jpe?g|png|webp)$/i.test(f.name)&&!shouldExclude(f.name)).slice(0,24);
-      if(!images.length){
-        grid.innerHTML='<p style=\"color:var(--muted)\">No hay imágenes en <code>img/obras</code>.</p>';
-        return;
-      }
+      const images=(files||[]).filter(f=>/\.(jpe?g|png|webp)$/i.test(f.name)&&!shouldExclude(f.name)).slice(0,24);
+      // si no hay imágenes, dejamos el grid vacío (sin leyenda)
+      if(!images.length) { grid.innerHTML = ''; return; }
       const metadata=await loadMetadata();
       images.forEach(f=>{
         const div=document.createElement('div');div.className='card';
@@ -170,11 +181,8 @@
         const title=beautify(f.name);
         const key=f.name;
         let attrs='';
-        if(metadata&&metadata[key]){
-          const m=metadata[key];
-          attrs=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');
-        }
-        meta.innerHTML=`<div class=\"title\">${title}</div><div class=\"sub\">${attrs||'Click para ver detalles'}</div>`;
+        if(metadata&&metadata[key]){const m=metadata[key];attrs=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');}
+        meta.innerHTML=`<div class="title">${title}</div><div class="sub">${attrs||'Click para ver detalles'}</div>`;
         div.appendChild(img);div.appendChild(meta);
         div.onclick=()=>openModal(f.download_url,title,f.name);
         grid.appendChild(div);
@@ -184,7 +192,7 @@
     let METADATA_CACHE=null;
     async function getMetaForFilename(fname){
       if(METADATA_CACHE===null)METADATA_CACHE=await loadMetadata()||{};
-      return METADATA_CACHE[fname]||METADATA_CACHE[fname.replace(/\\.[^.]+$/,'')]||null;
+      return METADATA_CACHE[fname]||METADATA_CACHE[fname.replace(/\.[^.]+$/,'')]||null;
     }
 
     async function openModal(src,title,fname){
