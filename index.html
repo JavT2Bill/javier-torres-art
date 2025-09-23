@@ -1,393 +1,233 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>INTER - SIDE — Javier Torres</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#fff;--text:#0b0a16;--muted:#6b7280;--card:#f6f7f9;--accent:#00bcd4;--radius:8px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Rajdhani",system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.45}
-.container{max-width:1100px;width:92%;margin:0 auto;padding:22px 0}
-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:12px}
-.brand{font-family:"Orbitron",sans-serif;font-weight:800;color:var(--text);font-size:1.05rem}
-.brand .accent{color:var(--accent)}
-nav ul{display:flex;gap:16px;list-style:none}
-nav a{text-decoration:none;color:var(--text);font-weight:600}
-.hero{padding:28px 0;text-align:center}
-.hero-title{font-family:"Orbitron",sans-serif;font-size:2.4rem;margin-bottom:6px;color:var(--text)}
-.hero-sub{color:var(--muted);font-weight:600;margin-bottom:12px}
-.statement{max-width:900px;margin:10px auto;color:var(--muted);font-size:1rem;padding:8px 12px}
-.section{padding:20px 0}
-.section-title{text-align:center;font-family:"Orbitron",sans-serif;font-size:1.05rem;margin-bottom:12px;color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.card{background:var(--card);border-radius:var(--radius);overflow:hidden;position:relative;height:220px;border:1px solid rgba(12,12,15,0.06);cursor:pointer}
-.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-.card:hover img{transform:scale(1.04)}
-.overlay{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));color:var(--text);font-size:.95rem}
-.placeholder{display:flex;align-items:center;justify-content:center;height:100%;padding:12px;color:var(--muted);text-align:center}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:9999;padding:18px}
-.modal-content{max-width:92%;max-height:86vh;border-radius:6px;box-shadow:0 8px 30px rgba(12,12,20,0.5);display:flex;flex-direction:column;align-items:center}
-.modal img{max-width:100%;max-height:72vh;border-radius:6px;display:block}
-.modal-caption{width:100%;max-width:92%;color:#fff;margin-top:12px;text-align:center;font-size:0.95rem}
-.modal-caption h3{margin-bottom:6px;font-size:1.05rem;font-weight:700}
-.modal-caption .attrs{color:#e6eef1;font-size:0.95rem}
-.close-btn{position:absolute;top:18px;right:22px;font-size:28px;color:#fff;background:none;border:none;cursor:pointer}
-.audio-list{display:grid;gap:12px;max-width:760px;margin:0 auto}
-.audio-card{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(12,12,15,0.05)}
-.audio-title{font-weight:700;color:var(--text);margin-bottom:6px}
-.videos-wrap{display:grid;gap:14px;max-width:840px;margin:0 auto}
-.contact-links{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
-.contact-links a{color:var(--accent);text-decoration:none;font-weight:700}
-.footer-note{max-width:900px;margin:8px auto;color:var(--muted);font-size:0.95rem;text-align:center}
-.loader{opacity:.6;color:var(--muted);text-align:center;margin:12px 0}
-@media(max-width:720px){.hero-title{font-size:1.6rem}.card{height:180px}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>INTER - SIDE — Javier Torres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta name="description" content="Javier Torres — Inter-Side. Instalaciones pictóricas y obra urbana contemporánea."/>
+  <style>
+    :root{
+      --bg:#fff;--text:#0b0a10;--muted:#7b7f85;--accent:#111111;
+      --glass:rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--text);margin:0;line-height:1.45}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:28px}
+    header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.12));backdrop-filter:blur(6px)}
+    .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:2px;font-size:18px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{font-weight:600;color:var(--muted);font-size:14px}
+    .cta{padding:8px 14px;border-radius:6px;border:1px solid #111;background:transparent;font-weight:700}
+    .hero{height:85vh;display:grid;align-items:end;position:relative;overflow:hidden}
+    .hero .image{position:absolute;inset:0;background-size:cover;background-position:center;filter:contrast(0.98) saturate(0.94)}
+    .hero .overlay{position:relative;z-index:10;padding:48px;max-width:1100px;margin:0 auto;color:#fff;text-shadow:0 6px 30px rgba(10,10,12,0.65)}
+    .hero h1{font-family:'Playfair Display',serif;font-size:54px;line-height:0.95;margin:0}
+    .hero p.lead{margin-top:12px;color:rgba(255,255,255,0.9);max-width:720px;font-size:18px}
+    section{padding:72px 0}
+    .section-title{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .card{background:#fff;border-radius:8px;overflow:hidden;position:relative;border:1px solid rgba(10,10,12,0.06);box-shadow:0 6px 18px rgba(10,10,12,0.04);cursor:pointer}
+    .card .thumb{width:100%;height:360px;object-fit:cover;display:block}
+    .card .meta{padding:12px 16px}
+    .card .title{font-weight:700;margin-bottom:6px}
+    .card .sub{color:var(--muted);font-size:14px}
+    .installations{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .install-big{height:520px;border-radius:10px;overflow:hidden;background-size:cover;background-position:center}
+    .install-small{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:28px;z-index:9999}
+    .modal .inner{max-width:1200px;width:100%;display:flex;gap:18px;align-items:flex-start}
+    .modal img{max-width:68%;height:auto;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+    .modal .info{color:#fff;width:32%;max-height:80vh;overflow:auto}
+    .close{position:absolute;right:28px;top:28px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
+    footer{padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
+    @media(max-width:900px){
+      .hero h1{font-size:36px}
+      .card .thumb{height:260px}
+      .modal .inner{flex-direction:column}
+      .modal img{max-width:100%}
+      .modal .info{width:100%}
+      .installations{grid-template-columns:1fr}
+    }
+    /* small helper styles for lists */
+    .meta-list{color:var(--muted);font-size:14px;margin-top:8px}
+    .bio-block{color:var(--muted);max-width:760px}
+  </style>
 </head>
 <body>
-<div class="container">
   <header>
-    <div class="brand">JAVIER <span class="accent">TORRES</span></div>
-    <nav><ul><li><a href="#portfolio">Portafolio</a></li><li><a href="#nuevas">Nuevas obras</a></li><li><a href="#audios">Audios</a></li><li><a href="#videos">Videos</a></li><li><a href="#contact">Contacto</a></li></ul></nav>
+    <div class="brand">JAVIER <span style="letter-spacing:0.6px">TORRES</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#works">Works</a>
+      <a href="#install">Installations</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" href="#contact">Inquiries</a>
+    </nav>
   </header>
 
-  <main>
-    <section class="hero" id="home">
-      <h1 class="hero-title">INTER - SIDE</h1>
-      <div class="hero-sub">PINTURA INTERMURAL</div>
-      <div class="statement">
-        <strong>Statement</strong>
-        <p>
-          Inter-Side es un proyecto que investiga la tensión entre la pintura urbana —muros,
-          grafiti, la ciudad— y los formatos tradicionales del estudio. Mis obras dialogan con
-          el límite y la pertenencia espacial: cómo la imagen transita entre afuera y adentro.
-          Trabajo con esmalte, aerosol y óleo para generar paisajes que rememoran la calle desde
-          el bastidor.
-        </p>
+  <!-- HERO -->
+  <section class="hero" aria-hidden="false">
+    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
+    <div class="overlay">
+      <h1>INTER — SIDE</h1>
+      <p class="lead">Pintura inter-mural: instalaciones pictóricas que exploran la tensión entre la ciudad y el lienzo. Obras en esmalte, aerosol y óleo.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="bio-block">
+        <p><strong>Javier Torres</strong> — Nacido en Guadalajara, Jalisco, México (1977). Ingeniero en Mecatrónica y artista autodidacta. En 2007-2008 recibió el <em>Premio Nacional de Pintura José Atanasio Monroy</em> y en 2009 obtuvo la beca PECDA (Conaculta / Secretaría de Cultura de Jalisco) en la categoría Creadores con Trayectoria.</p>
+        <p>Ha participado en exposiciones colectivas y muestras internacionales, entre ellas <em>Masters of Imagination</em> (Galería Ágora, Nueva York) y la muestra internacional <em>Art al Vento</em> (Alicante, Valencia, España). Entre sus individuales destacan:</p>
+        <ul class="meta-list">
+          <li><strong>2014</strong> — “Límites”, Galería Cuarenta y Cinco, Guadalajara</li>
+          <li><strong>2015</strong> — “Sketches”, Colegio de Arquitectos y Urbanistas del Estado de Jalisco</li>
+          <li><strong>2018</strong> — “El arte no existe”, Galería Juan Soriano, Guadalajara</li>
+          <li><strong>2018</strong> — “Pintando Puerco”, Pitaya Gallery, Guadalajara</li>
+          <li><strong>2022</strong> — “En la búsqueda de la espiritualidad”, Galería Jardín Americana, Guadalajara</li>
+        </ul>
+        <p style="margin-top:12px;color:var(--muted)">Mi trabajo parte de la pintura callejera —grafiti y arte urbano— para crear instalaciones que preguntan por el límite entre muro y bastidor. Uso esmalte, aerosol y óleo para construir paisajes que rememoran la calle desde la escala del estudio.</p>
       </div>
     </section>
 
-    <section id="portfolio" class="section">
-      <h2 class="section-title">Portafolio</h2>
-      <div id="gallery" class="grid"><div class="loader" id="loader-images">Cargando obras…</div></div>
+    <!-- WORKS -->
+    <section id="works">
+      <h2 class="section-title">Works</h2>
+      <div class="grid" id="worksGrid">
+        <!-- JS will populate cards from img/obras -->
+      </div>
     </section>
 
-    <section id="nuevas" class="section">
-      <h2 class="section-title">Nuevas obras (serie)</h2>
-      <div id="newGallery" class="grid"><div class="loader" id="loader-new">Buscando nuevas obras…</div></div>
-    </section>
-
-    <section id="audios" class="section">
-      <h2 class="section-title">Audios</h2>
-      <div id="audioList" class="audio-list"><div class="loader" id="loader-audios">Cargando audios…</div></div>
-    </section>
-
-    <section id="videos" class="section">
-      <h2 class="section-title">Videos</h2>
-
-      <!-- YouTube (mantener, se ven bien) -->
-      <div style="max-width:840px;margin:0 auto 16px;display:grid;gap:16px">
-        <div style="position:relative;padding-top:56.25%;overflow:hidden;border-radius:8px;">
-          <iframe src="https://www.youtube.com/embed/8bCfEsbOBbc" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    <!-- INSTALLATIONS -->
+    <section id="install">
+      <h2 class="section-title">Installations</h2>
+      <div class="installations" aria-hidden="false">
+        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-2.jpg');background-size:cover;background-position:center"></div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-3.jpg');background-size:cover;background-position:center"></div>
+          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-4.jpg');background-size:cover;background-position:center"></div>
         </div>
-        <div style="position:relative;padding-top:56.25%;overflow:hidden;border-radius:8px;">
-          <iframe src="https://www.youtube.com/embed/Ff6IRtAvl6c" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-        </div>
       </div>
 
-      <div id="videoList" class="videos-wrap"><div class="loader" id="loader-videos">Cargando videos del repositorio…</div></div>
-    </section>
-
-    <section id="contact" class="section">
-      <h2 class="section-title">Contacto</h2>
-      <p style="text-align:center;color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
-      <div class="contact-links">
-        <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
-        <a href="https://www.tiktok.com/@javiertorrespinturas" target="_blank" rel="noopener">TikTok — @javiertorrespinturas</a>
+      <div style="height:18px"></div>
+      <!-- row of thumbnails for instalacion 5-7 -->
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
+        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
       </div>
     </section>
 
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">Contact & Inquiries</h2>
+      <p style="color:var(--muted)">Para consultas, comisiones o ver obra en persona:</p>
+      <p style="color:var(--muted);margin-bottom:6px"><strong>Web:</strong> www.javtorres.com</p>
+      <p style="color:var(--muted);margin-bottom:6px"><strong>Email:</strong> jtmorboland@gmail.com</p>
+      <p style="color:var(--muted);margin-bottom:6px"><strong>Cel:</strong> +52 331 790 4857 — <strong>Oficina:</strong> 01 33 3121 0995</p>
+
+      <form id="newsletter" style="max-width:520px;margin-top:12px;display:flex;gap:8px" onsubmit="event.preventDefault(); alert('Gracias — pronto te escribo')">
+        <input type="email" placeholder="Tu correo" style="flex:1;padding:10px;border:1px solid #ddd;border-radius:6px" required>
+        <button class="cta" type="submit">Join</button>
+      </form>
+    </section>
+
+    <footer>
+      &copy; 2025 Javier Torres — Inter Side · Studio
+    </footer>
   </main>
 
-  <footer style="text-align:center;padding:20px;color:var(--muted)">&copy; 2025 Javier Torres — INTER-SIDE</footer>
-</div>
-
-<!-- Modal -->
-<div id="modal" class="modal" onclick="closeModal()">
-  <button class="close-btn" onclick="closeModal(); event.stopPropagation()" aria-label="Cerrar">&times;</button>
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <img id="modalImg" src="" alt="">
-    <div class="modal-caption" id="modalCaption" aria-live="polite">
-      <h3 id="modalTitle"></h3>
-      <div class="attrs" id="modalAttrs"></div>
+  <!-- MODAL -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="close" aria-label="Cerrar" onclick="closeModal()">&times;</button>
+    <div class="inner">
+      <img id="modalImg" src="" alt="">
+      <div class="info">
+        <h3 id="modalTitle" style="margin-top:0;color:#fff"></h3>
+        <p id="modalAttrs" style="color:#ddd"></p>
+        <p style="color:#ccc;font-size:14px">Para precios e información de venta, escríbeme a <a href="mailto:jtmorboland@gmail.com">jtmorboland@gmail.com</a></p>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-/* CONFIG — ajusta si tu repo o branch cambia */
-const owner = 'JavT2Bill';
-const repo  = 'javier-torres-art';
-const branch = 'main';
+  <script>
+    // Config (ajusta si tu usuario/repo/branch cambian)
+    const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
-/* EXCLUSIONES */
-const imageExcludes = [
-  'la-aparicion', 'aparicion-de-un-nuevo-buda', 'un-nuevo-buda', 'nuevo-buda',
-  'aparicion' , 'fragmento-de-alice', 'fragmento-de-alice.jpg', 'masterpiece'
-];
-const audioExcludes = [
-  'hypothesis-1', 'hypothesis_1', 'hypothesis 1', 'hyphothesis-1'
-];
+    async function listFolder(path){
+      try{ const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`); if(!res.ok) return []; return res.json(); }
+      catch(e){ return []; }
+    }
+    function beautify(n){ return n.replace(/[-_]+/g,' ').replace(/\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase()); }
 
-/* HELPERS */
-async function listFolder(path){
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-  const res = await fetch(url);
-  if(!res.ok) throw new Error(`Error ${res.status} al leer ${path}`);
-  return res.json();
-}
-function shouldExcludeImage(name){
-  const ln = name.toLowerCase();
-  return imageExcludes.some(ex => ln.includes(ex));
-}
-function shouldExcludeAudio(name){
-  const ln = name.toLowerCase();
-  return audioExcludes.some(ex => ln.includes(ex));
-}
-function beautifyTitle(filename){
-  const noExt = filename.replace(/\.[^.]+$/, '');
-  return decodeURIComponent(noExt).replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/^./, s => s.toUpperCase());
-}
-function basename(url){ return url.split('/').pop().replace(/\?.*$/,''); }
-
-/* Slug utility: remove accents, lower, replace spaces -> -, remove ext */
-function slugifyKey(s){
-  return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'') // remove accents
-    .replace(/\.[^.]+$/,'') // remove extension
-    .toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-}
-
-/* METADATA: intenta cargar img/metadata.json -> metadata.json (raíz) */
-let METADATA = null;
-async function loadMetadata(){
-  if(METADATA !== null) return METADATA;
-  const candidates = [
-    `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,
-    `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`
-  ];
-  for(const url of candidates){
-    try {
-      const res = await fetch(url);
-      if(res.ok){
-        METADATA = await res.json();
-        // normalize keys cache: create map of slug->value for faster lookup
-        const normalized = {};
-        for(const k of Object.keys(METADATA)){
-          normalized[k] = METADATA[k];
-          normalized[slugifyKey(k)] = METADATA[k];
-          normalized[k.replace(/\.[^.]+$/,'')] = METADATA[k];
-        }
-        METADATA = normalized;
-        return METADATA;
+    // Load metadata.json from img/metadata.json or /metadata.json
+    async function loadMetadata(){
+      const urls=[
+        `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,
+        `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`
+      ];
+      for(const u of urls){
+        try{
+          const r = await fetch(u);
+          if(r.ok) return r.json();
+        } catch(e){}
       }
-    } catch(e){ /* ignore */ }
-  }
-  METADATA = {}; // vacío si no existe
-  return METADATA;
-}
-
-/* Intenta obtener metadata por filename de forma flexible */
-async function getMetaForFilename(fname){
-  const meta = await loadMetadata();
-  if(!meta || Object.keys(meta).length===0) return null;
-  // probamos varias llaves
-  const candidates = [
-    fname,
-    fname.replace(/\.[^.]+$/,''),
-    slugifyKey(fname),
-  ];
-  for(const c of candidates){
-    if(meta[c]) return meta[c];
-  }
-  return null;
-}
-
-/* intenta extraer medidas/técnica desde filename (fallback) */
-function parseAttrsFromFilename(name){
-  const s = name.replace(/\.[^.]+$/, '').replace(/[-_]+/g,' ').toLowerCase();
-  const attrs = [];
-  const sizeMatch = s.match(/(\d{2,4}\s?(cm)?\s?[x×]\s?\d{2,4}\s?(cm)?)/i);
-  if(sizeMatch) attrs.push(sizeMatch[0].replace(/\s+/g,' '));
-  const techKeywords = ['oil','óleo','oleo','acrilico','acrílico','acrylic','mixta','mixto','mixed','tempera','grafito','aerosol','spray','esmalte','linóleo','madera','tela','papel','cartón','carton','serigrafía','serigrafia'];
-  for(const k of techKeywords){
-    if(s.includes(k)) { attrs.push(k.replace(/^(.)/, c => c.toUpperCase())); break; }
-  }
-  return attrs;
-}
-
-/* GALLERY */
-async function buildGallery(){
-  const gallery = document.getElementById('gallery');
-  const loader = document.getElementById('loader-images');
-  try {
-    let files = [];
-    try { files = await listFolder('img/obras'); } catch(e){ files = await listFolder('img'); }
-    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name) && !shouldExcludeImage(f.name));
-    images.sort((a,b)=> a.name.localeCompare(b.name));
-    loader.style.display = 'none';
-    if(!images.length){ gallery.innerHTML = '<div class="placeholder">No hay imágenes visibles en la carpeta.</div>'; return; }
-    gallery.innerHTML = '';
-    images.forEach(file => {
-      const url = file.download_url;
-      const fname = file.name;
-      const title = beautifyTitle(fname);
-      const art = document.createElement('article');
-      art.className = 'card';
-      art.tabIndex = 0;
-      art.setAttribute('data-src', url);
-      art.setAttribute('data-fname', fname);
-      art.setAttribute('data-title', title);
-      art.onclick = () => openModalFromEl(art);
-      art.onkeydown = (e)=>{ if(e.key==='Enter') openModalFromEl(art); };
-
-      const img = document.createElement('img');
-      img.loading='lazy'; img.alt = title; img.src = url;
-      img.onerror = ()=> imageMissing(img);
-
-      const overlay = document.createElement('div'); overlay.className='overlay'; overlay.innerHTML = `<h3>${title}</h3>`;
-      art.appendChild(img); art.appendChild(overlay); gallery.appendChild(art);
-    });
-  } catch(err){
-    console.error(err); loader.innerText = 'No se pudieron cargar las imágenes (API/Cupo).';
-  }
-}
-
-/* NUEVAS OBRAS */
-async function buildNewSeries(){
-  const out = document.getElementById('newGallery');
-  const loader = document.getElementById('loader-new');
-  try {
-    let files = [];
-    try { files = await listFolder('img/nuevas'); } catch(e){
-      try { files = await listFolder('img/series'); } catch(e2){ files = []; }
+      return {};
     }
-    const images = files.filter(f => f.type === 'file' && /\.(jpe?g|png|webp|gif)$/i.test(f.name));
-    loader.style.display = 'none';
-    if(!images.length){ out.innerHTML = '<div class="placeholder">No hay nuevas obras (sube a img/nuevas/)</div>'; return; }
-    out.innerHTML = '';
-    images.sort((a,b)=> a.name.localeCompare(b.name));
-    images.forEach(file=>{
-      const url=file.download_url, title=beautifyTitle(file.name);
-      const art=document.createElement('article'); art.className='card'; art.tabIndex=0;
-      art.setAttribute('data-src', url); art.setAttribute('data-fname', file.name); art.setAttribute('data-title', title);
-      art.onclick=()=>openModalFromEl(art);
-      const img=document.createElement('img'); img.loading='lazy'; img.alt=title; img.src=url; img.onerror=()=>imageMissing(img);
-      const overlay=document.createElement('div'); overlay.className='overlay'; overlay.innerHTML=`<h3>${title}</h3>`;
-      art.appendChild(img); art.appendChild(overlay); out.appendChild(art);
-    })
-  } catch(e){ console.error(e); loader.innerText='No se pudieron cargar nuevas obras.'; }
-}
 
-/* AUDIOS */
-async function buildAudios(){
-  const audioList = document.getElementById('audioList');
-  const loader = document.getElementById('loader-audios');
-  try {
-    const files = await listFolder('audios');
-    const audios = files.filter(f => f.type === 'file' && /\.(mp3|wav|m4a|ogg)$/i.test(f.name) && !shouldExcludeAudio(f.name));
-    audios.sort((a,b)=> a.name.localeCompare(b.name));
-    loader.style.display='none';
-    if(!audios.length){ audioList.innerHTML = '<div class="placeholder">No hay audios visibles en <code>audios/</code></div>'; return; }
-    audioList.innerHTML='';
-    audios.forEach(file => {
-      const url = file.download_url, title = beautifyTitle(file.name);
-      const card = document.createElement('div'); card.className='audio-card';
-      card.innerHTML = `<div class="audio-title">${title}</div>`;
-      const audio = document.createElement('audio'); audio.controls=true; audio.style.width='100%';
-      const source = document.createElement('source'); source.src = url;
-      const ext = file.name.split('.').pop().toLowerCase();
-      source.type = ext === 'mp3' ? 'audio/mpeg' : ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
-      audio.appendChild(source);
-      audio.addEventListener('error', ()=>{
-        const note = document.createElement('div'); note.style.color='var(--muted)'; note.style.marginTop='8px';
-        note.innerHTML = `No se pudo reproducir desde GitHub. <a href="${url}" target="_blank" rel="noopener">Abrir</a>`;
-        if(!card.querySelector('a')) card.appendChild(note);
+    async function buildWorks(){
+      const grid = document.getElementById('worksGrid');
+      const files = await listFolder('img/obras');
+      const images = (files||[]).filter(f=>/\.(jpe?g|png|webp)$/i.test(f.name)).slice(0,24);
+      if(!images.length){
+        grid.innerHTML = '<p style="color:var(--muted)">No hay imágenes en <code>img/obras</code>. Sube tus obras o usa la carpeta correspondiente.</p>';
+        return;
+      }
+      const metadata = await loadMetadata();
+      images.forEach(f=>{
+        const div = document.createElement('div'); div.className='card';
+        const img = document.createElement('img'); img.className='thumb'; img.loading='lazy'; img.decoding='async'; img.src = f.download_url; img.alt = beautify(f.name);
+        const meta = document.createElement('div'); meta.className='meta';
+        const title = beautify(f.name);
+        const key = f.name;
+        let attrs = '';
+        if(metadata && metadata[key]) {
+          const m = metadata[key];
+          attrs = [m.medidas, m.tecnica, m.año].filter(Boolean).join(' • ');
+        }
+        meta.innerHTML = `<div class="title">${title}</div><div class="sub">${attrs || 'Click para ver detalles'}</div>`;
+        div.appendChild(img); div.appendChild(meta);
+        div.onclick = ()=> openModal(f.download_url, title, f.name);
+        grid.appendChild(div);
       });
-      card.appendChild(audio); audioList.appendChild(card);
-    });
-  } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los audios (API/Cupo).'; }
-}
-
-/* VIDEOS */
-async function buildVideos(){
-  const videoList = document.getElementById('videoList');
-  const loader = document.getElementById('loader-videos');
-  try {
-    const files = await listFolder('videos');
-    const vids = files.filter(f => f.type === 'file' && /\.(mp4|webm|ogg)$/i.test(f.name));
-    vids.sort((a,b)=> a.name.localeCompare(b.name));
-    loader.style.display='none';
-    if(!vids.length){ videoList.innerHTML = '<div class="placeholder">No hay videos en <code>videos/</code></div>'; return; }
-    videoList.innerHTML = '';
-    vids.forEach(file=>{
-      const ln = file.name.toLowerCase();
-      if(ln.includes('aparicion')||ln.includes('nuevo-buda')) return;
-      const url = file.download_url, title = beautifyTitle(file.name);
-      const wrap = document.createElement('div'); wrap.style.textAlign='center';
-      const video = document.createElement('video'); video.controls=true; video.width=640; video.src=url;
-      video.addEventListener('error', ()=>{
-        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
-      });
-      wrap.appendChild(video);
-      const caption = document.createElement('div'); caption.style.color='var(--muted)'; caption.style.fontSize='0.95rem'; caption.style.marginTop='6px'; caption.innerText = title;
-      wrap.appendChild(caption); videoList.appendChild(wrap);
-    });
-  } catch(err){ console.error(err); loader.innerText='No se pudieron cargar los videos (API/Cupo).'; }
-}
-
-/* MODAL HELPERS */
-async function openModalFromEl(el){
-  const src = el.getAttribute('data-src') || el.querySelector('img')?.src;
-  const fname = el.getAttribute('data-fname') || basename(src);
-  const title = el.getAttribute('data-title') || beautifyTitle(fname);
-  await openModal(src, title, fname);
-}
-async function openModal(src,title,fname){
-  const modal=document.getElementById('modal'), img=document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle'), modalAttrs = document.getElementById('modalAttrs');
-  img.src = src; img.alt = title;
-  modalTitle.innerText = title;
-  modalAttrs.innerText = 'Cargando…';
-  modal.style.display='flex'; document.body.style.overflow='hidden'; document.addEventListener('keydown', escClose);
-
-  // intenta metadata JSON primero
-  try {
-    const m = await getMetaForFilename(fname);
-    if(m){
-      const parts = [];
-      if(m.medidas) parts.push(m.medidas);
-      if(m.tecnica) parts.push(m.tecnica);
-      if(m.año) parts.push(m.año);
-      modalAttrs.innerText = parts.join(' • ');
-      return;
     }
-  } catch(e){
-    console.warn('Error cargando metadata', e);
-  }
 
-  // fallback: parsear del filename
-  const parsed = parseAttrsFromFilename(fname);
-  if(parsed && parsed.length) modalAttrs.innerText = parsed.join(' • ');
-  else modalAttrs.innerText = ''; // sin atributos visibles
-}
-function closeModal(){ const modal=document.getElementById('modal'), img=document.getElementById('modalImg'); modal.style.display='none'; img.src=''; document.body.style.overflow=''; document.removeEventListener('keydown', escClose); }
-function escClose(e){ if(e.key==='Escape') closeModal(); }
-function imageMissing(img){ const parent=img.closest('.card'); if(!parent) return; img.style.display='none'; if(parent.querySelector('.placeholder')) return; const ph=document.createElement('div'); ph.className='placeholder'; ph.innerText = parent.getAttribute('data-title')||'Obra'; parent.appendChild(ph); }
+    // Modal functions
+    let METADATA_CACHE = null;
+    async function getMetaForFilename(fname){
+      if(METADATA_CACHE === null) METADATA_CACHE = await loadMetadata() || {};
+      const meta = METADATA_CACHE[fname] || METADATA_CACHE[fname.replace(/\.[^.]+$/,'')];
+      return meta || null;
+    }
+    async function openModal(src,title,fname){
+      document.getElementById('modal').style.display='flex';
+      document.getElementById('modal').setAttribute('aria-hidden','false');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalTitle').innerText = title;
+      document.body.style.overflow='hidden';
+      const m = await getMetaForFilename(fname);
+      if(m){ document.getElementById('modalAttrs').innerText = [m.medidas, m.tecnica, m.año].filter(Boolean).join(' • '); }
+      else{ document.getElementById('modalAttrs').innerText = ''; }
+    }
+    function closeModal(){ document.getElementById('modal').style.display='none'; document.getElementById('modal').setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
 
-/* INIT */
-(async function init(){ await Promise.all([buildGallery(), buildNewSeries(), buildAudios(), buildVideos()]); })();
-
-</script>
+    // Initialize: build works and ensure hero image exists
+    (async()=>{ await buildWorks(); })();
+  </script>
 </body>
 </html>
