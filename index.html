@@ -9,7 +9,6 @@
   <style>
     :root{
       --bg:#fff;--text:#0b0a10;--muted:#7b7f85;--accent:#111111;
-      --glass:rgba(255,255,255,0.6);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -20,7 +19,6 @@
     .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:2px;font-size:18px}
     nav{display:flex;gap:18px;align-items:center}
     nav a{font-weight:600;color:var(--muted);font-size:14px}
-    .cta{padding:8px 14px;border-radius:6px;border:1px solid #111;background:transparent;font-weight:700}
     .hero{height:85vh;display:grid;align-items:end;position:relative;overflow:hidden}
     .hero .image{position:absolute;inset:0;background-size:cover;background-position:center;filter:contrast(0.98) saturate(0.94)}
     .hero .overlay{position:relative;z-index:10;padding:48px;max-width:1100px;margin:0 auto;color:#fff;text-shadow:0 6px 30px rgba(10,10,12,0.65)}
@@ -28,47 +26,44 @@
     .hero p.lead{margin-top:12px;color:rgba(255,255,255,0.9);max-width:720px;font-size:18px}
     section{padding:72px 0}
     .section-title{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
     .card{background:#fff;border-radius:8px;overflow:hidden;position:relative;border:1px solid rgba(10,10,12,0.06);box-shadow:0 6px 18px rgba(10,10,12,0.04);cursor:pointer}
-    .card .thumb{width:100%;height:360px;object-fit:cover;display:block}
+    .card .thumb{width:100%;height:260px;object-fit:cover;display:block}
     .card .meta{padding:12px 16px}
     .card .title{font-weight:700;margin-bottom:6px}
     .card .sub{color:var(--muted);font-size:14px}
-    .installations{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .install-big{height:520px;border-radius:10px;overflow:hidden;background-size:cover;background-position:center}
-    .install-small{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:28px;z-index:9999}
-    .modal .inner{max-width:1200px;width:100%;display:flex;gap:18px;align-items:flex-start}
-    .modal img{max-width:100%;height:auto;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-    .modal .info{color:#fff;width:32%;max-height:80vh;overflow:auto}
-    .close{position:absolute;right:28px;top:28px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
+    /* installations grid special */
+    .inst-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+    .inst-tile{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center;display:block;border:1px solid rgba(0,0,0,0.05)}
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+    .modal .wrap{max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center}
+    .modal img{max-width:90vw;max-height:90vh;object-fit:contain;display:block;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
+    .modal .info{position:absolute;right:24px;top:24px;color:#fff;max-width:320px;text-align:right;font-size:14px}
+    .close{position:absolute;right:18px;top:18px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
     footer{padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
     @media(max-width:900px){
       .hero h1{font-size:36px}
-      .card .thumb{height:260px}
-      .modal .inner{flex-direction:column}
-      .modal img{max-width:100%}
-      .modal .info{width:100%}
-      .installations{grid-template-columns:1fr}
+      .card .thumb{height:200px}
+      .inst-tile{height:180px}
+      .modal .info{display:none}
     }
-    .meta-list{color:var(--muted);font-size:14px;margin-top:8px}
-    .bio-block{color:var(--muted);max-width:760px}
   </style>
 </head>
 <body>
   <header>
     <div class="brand">JAVIER <span style="letter-spacing:0.6px">TORRES</span></div>
     <nav>
-      <a href="#about">About</a>
+      <a href="#install">Installations</a>
       <a href="#works">Works</a>
-      <a href="#install">Works</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <!-- HERO -->
   <section class="hero" aria-hidden="false">
-    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
+    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-8.jpg')"></div>
     <div class="overlay">
       <h1>INTER — SIDE</h1>
       <p class="lead">Estas obras se nutren de la estética urbana y exploran el límite entre espacio público y espacio expositivo.</p>
@@ -76,11 +71,11 @@
   </section>
 
   <main class="container">
-    <!-- ABOUT -->
-    <section id="about">
-      <h2 class="section-title">About</h2>
-      <div class="bio-block">
-        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
+    <!-- INSTALLATIONS (ahora primera sección y cargada dinámicamente) -->
+    <section id="install">
+      <h2 class="section-title">Installations</h2>
+      <div id="instGrid" class="inst-grid">
+        <!-- se llena dinámicamente con todas las imágenes de img/instalaciones/ -->
       </div>
     </section>
 
@@ -90,42 +85,18 @@
       <div class="grid" id="worksGrid"></div>
     </section>
 
-    <!-- INSTALLATIONS (ahora con título "Works") -->
-    <section id="install">
-      <h2 class="section-title">Works</h2>
-      <div class="installations" aria-hidden="false">
-        <!-- instBig y pequeñas abren modal con onclick (no dependen de <img>) -->
-        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-8.jpg');background-size:cover;background-position:center"
-             onclick="openModal('img/instalaciones/instalacion-8.jpg','Instalacion 8','instalacion-8.jpg')"></div>
-
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-3.jpg');background-size:cover;background-position:center"
-               onclick="openModal('img/instalaciones/instalacion-3.jpg','Instalacion 3','instalacion-3.jpg')"></div>
-          <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-4.jpg');background-size:cover;background-position:center"
-               onclick="openModal('img/instalaciones/instalacion-4.jpg','Instalacion 4','instalacion-4.jpg')"></div>
-        </div>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div style="color:var(--muted);max-width:760px">
+        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
       </div>
-
-      <div style="height:18px"></div>
-
-      <!-- thumbnails 5-9 -->
-      <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px">
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:160px"
-             onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:160px"
-             onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:160px"
-             onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-9.jpg');background-size:cover;background-position:center;height:160px"
-             onclick="openModal('img/instalaciones/instalacion-9.jpg','Instalacion 9','instalacion-9.jpg')"></div>
-      </div>
-
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
       <h2 class="section-title">Contact</h2>
-      <div class="contact-links">
+      <div>
         <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
       </div>
     </section>
@@ -138,81 +109,115 @@
   <!-- MODAL -->
   <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="close" aria-label="Cerrar" onclick="closeModal()">&times;</button>
-    <div class="inner">
+    <div class="wrap" onclick="toggleZoom(event)">
       <img id="modalImg" src="" alt="">
-      <div class="info">
-        <h3 id="modalTitle" style="margin-top:0;color:#fff"></h3>
-        <p id="modalAttrs" style="color:#ddd"></p>
-      </div>
     </div>
+    <div class="info" id="modalInfo" aria-hidden="true"></div>
   </div>
 
   <script>
+    // Config repo (ajusta si cambia)
     const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
+    // Helper: listado de carpeta via GitHub API
     async function listFolder(path){
-      try{const res=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);if(!res.ok)return[];return res.json();}catch(e){return[]}
+      try{
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+        if(!res.ok) return [];
+        return res.json();
+      } catch(e){
+        return [];
+      }
     }
-    function beautify(n){return n.replace(/[-_]+/g,' ').replace(/\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase());}
 
-    async function loadMetadata(){
-      const urls=[`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`];
-      for(const u of urls){try{const r=await fetch(u);if(r.ok)return r.json()}catch(e){}}
-      return{};
-    }
-
-    // exclude problematic files by name (insta*, fragmento, aparicion, masterpiece)
-    function shouldExclude(name){
+    // Excluir archivos problemáticos
+    function isExcluded(name){
       const ln=name.toLowerCase();
-      return ln.includes('insta')||ln.includes('fragmento-de-alice')||ln.includes('aparicion')||ln.includes('nuevo-buda')||ln.includes('masterpiece');
+      return ln.includes('insta') || ln.includes('fragmento-de-alice') || ln.includes('aparicion') || ln.includes('nuevo-buda') || ln.includes('masterpiece');
     }
 
-    async function buildWorks(){
-      const grid=document.getElementById('worksGrid');
-      const files=await listFolder('img/obras');
-      const images=(files||[]).filter(f=>/\.(jpe?g|png|webp)$/i.test(f.name)&&!shouldExclude(f.name)).slice(0,24);
-      // si no hay imágenes, dejamos el grid vacío (sin leyenda)
-      if(!images.length) { grid.innerHTML = ''; return; }
-      const metadata=await loadMetadata();
+    // Construye grid de instalaciones (todas)
+    async function buildInstallations(){
+      const container = document.getElementById('instGrid');
+      container.innerHTML = '';
+      const files = await listFolder('img/instalaciones');
+      const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
+      if(!images.length) return; // queda vacío si no hay
+      images.sort((a,b)=> a.name.localeCompare(b.name));
       images.forEach(f=>{
-        const div=document.createElement('div');div.className='card';
-        const img=document.createElement('img');img.className='thumb';img.loading='lazy';img.decoding='async';img.src=f.download_url;img.alt=beautify(f.name);
-        const meta=document.createElement('div');meta.className='meta';
-        const title=beautify(f.name);
-        const key=f.name;
-        let attrs='';
-        if(metadata&&metadata[key]){const m=metadata[key];attrs=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');}
-        meta.innerHTML=`<div class="title">${title}</div><div class="sub">${attrs||'Click para ver detalles'}</div>`;
-        div.appendChild(img);div.appendChild(meta);
-        div.onclick=()=>openModal(f.download_url,title,f.name);
+        const tile = document.createElement('div');
+        tile.className = 'inst-tile';
+        tile.style.backgroundImage = `url('${f.download_url}')`;
+        tile.setAttribute('role','button');
+        tile.setAttribute('tabindex','0');
+        tile.addEventListener('click', ()=> openModal(f.download_url, f.name));
+        tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openModal(f.download_url,f.name); });
+        container.appendChild(tile);
+      });
+    }
+
+    // Construye grid de obras (igual que antes) pero sin leyenda molesta si vacío
+    async function buildWorks(){
+      const grid = document.getElementById('worksGrid');
+      grid.innerHTML = '';
+      const files = await listFolder('img/obras');
+      const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
+      if(!images.length) return; // no mostramos mensaje
+      images.sort((a,b)=> a.name.localeCompare(b.name));
+      images.forEach(f=>{
+        const div = document.createElement('div'); div.className='card';
+        const img = document.createElement('img'); img.className='thumb'; img.loading='lazy'; img.decoding='async'; img.src = f.download_url; img.alt = f.name;
+        const meta = document.createElement('div'); meta.className='meta';
+        meta.innerHTML = `<div class="title">${f.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ')}</div><div class="sub">Click para ver detalles</div>`;
+        div.appendChild(img); div.appendChild(meta);
+        div.onclick = ()=> openModal(f.download_url, f.name);
         grid.appendChild(div);
       });
     }
 
-    let METADATA_CACHE=null;
-    async function getMetaForFilename(fname){
-      if(METADATA_CACHE===null)METADATA_CACHE=await loadMetadata()||{};
-      return METADATA_CACHE[fname]||METADATA_CACHE[fname.replace(/\.[^.]+$/,'')]||null;
-    }
+    // Modal: muestra imagen a max 90vw/90vh con object-fit: contain
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalInfo = document.getElementById('modalInfo');
 
-    async function openModal(src,title,fname){
-      document.getElementById('modal').style.display='flex';
-      document.getElementById('modal').setAttribute('aria-hidden','false');
-      document.getElementById('modalImg').src=src;
-      document.getElementById('modalTitle').innerText=title;
+    function openModal(src, filename){
+      modal.style.display='flex';
+      modal.setAttribute('aria-hidden','false');
+      modalImg.src = src;
+      modalImg.alt = filename;
+      modalInfo.innerText = ''; // si quieres info adicional la podemos poner
       document.body.style.overflow='hidden';
-      const m=await getMetaForFilename(fname);
-      if(m){document.getElementById('modalAttrs').innerText=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');}
-      else{document.getElementById('modalAttrs').innerText='';}
     }
-
     function closeModal(){
-      document.getElementById('modal').style.display='none';
-      document.getElementById('modal').setAttribute('aria-hidden','true');
+      modal.style.display='none';
+      modal.setAttribute('aria-hidden','true');
+      modalImg.src = '';
       document.body.style.overflow='';
     }
 
-    (async()=>{await buildWorks();})();
+    // Toggle zoom on click inside modal (simple: toggles css scale)
+    function toggleZoom(e){
+      // evita que el click en el wrap cierre la modal; sólo toggle clase
+      if(e.target === modalImg){
+        if(modalImg.style.transform && modalImg.style.transform !== 'none'){
+          modalImg.style.transform = 'none';
+          modalImg.style.cursor = 'zoom-in';
+        } else {
+          modalImg.style.transform = 'scale(1.6)';
+          modalImg.style.cursor = 'zoom-out';
+        }
+      }
+    }
+
+    // close on ESC and click outside image
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+    // Init
+    (async ()=>{
+      await buildInstallations();
+      await buildWorks();
+    })();
   </script>
 </body>
 </html>
