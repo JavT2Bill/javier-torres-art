@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>INTER - SIDE — Javier Torres</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <meta name="description" content="Javier Torres — Inter-Side. Instalaciones pictóricas y obra urbana contemporánea."/>
+  <meta name="description" content="INTER - SIDE. Estas obras exploran la estética urbana y difuminan las fronteras entre espacio público y espacio expositivo."/>
   <style>
     :root{
       --bg:#fff;--text:#0b0a10;--muted:#7b7f85;--accent:#111111;
@@ -39,7 +39,7 @@
     .install-small{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center}
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:28px;z-index:9999}
     .modal .inner{max-width:1200px;width:100%;display:flex;gap:18px;align-items:flex-start}
-    .modal img{max-width:68%;height:auto;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+    .modal img{max-width:100%;height:auto;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
     .modal .info{color:#fff;width:32%;max-height:80vh;overflow:auto}
     .close{position:absolute;right:28px;top:28px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
     footer{padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
@@ -51,7 +51,6 @@
       .modal .info{width:100%}
       .installations{grid-template-columns:1fr}
     }
-    /* small helper styles for lists */
     .meta-list{color:var(--muted);font-size:14px;margin-top:8px}
     .bio-block{color:var(--muted);max-width:760px}
   </style>
@@ -64,7 +63,6 @@
       <a href="#works">Works</a>
       <a href="#install">Installations</a>
       <a href="#contact">Contact</a>
-      <a class="cta" href="#contact">Inquiries</a>
     </nav>
   </header>
 
@@ -73,7 +71,7 @@
     <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
     <div class="overlay">
       <h1>INTER — SIDE</h1>
-      <p class="lead">Pintura inter-mural: instalaciones pictóricas que exploran la tensión entre la ciudad y el lienzo. Obras en esmalte, aerosol y óleo.</p>
+      <p class="lead">Estas obras se nutren de la estética urbana y exploran el límite entre espacio público y espacio expositivo.</p>
     </div>
   </section>
 
@@ -82,59 +80,41 @@
     <section id="about">
       <h2 class="section-title">About</h2>
       <div class="bio-block">
-        <p><strong>Javier Torres</strong> — Nacido en Guadalajara, Jalisco, México (1977). Ingeniero en Mecatrónica y artista autodidacta. En 2007-2008 recibió el <em>Premio Nacional de Pintura José Atanasio Monroy</em> y en 2009 obtuvo la beca PECDA (Conaculta / Secretaría de Cultura de Jalisco) en la categoría Creadores con Trayectoria.</p>
-        <p>Ha participado en exposiciones colectivas y muestras internacionales, entre ellas <em>Masters of Imagination</em> (Galería Ágora, Nueva York) y la muestra internacional <em>Art al Vento</em> (Alicante, Valencia, España). Entre sus individuales destacan:</p>
-        <ul class="meta-list">
-          <li><strong>2014</strong> — “Límites”, Galería Cuarenta y Cinco, Guadalajara</li>
-          <li><strong>2015</strong> — “Sketches”, Colegio de Arquitectos y Urbanistas del Estado de Jalisco</li>
-          <li><strong>2018</strong> — “El arte no existe”, Galería Juan Soriano, Guadalajara</li>
-          <li><strong>2018</strong> — “Pintando Puerco”, Pitaya Gallery, Guadalajara</li>
-          <li><strong>2022</strong> — “En la búsqueda de la espiritualidad”, Galería Jardín Americana, Guadalajara</li>
-        </ul>
-        <p style="margin-top:12px;color:var(--muted)">Mi trabajo parte de la pintura callejera —grafiti y arte urbano— para crear instalaciones que preguntan por el límite entre muro y bastidor. Uso esmalte, aerosol y óleo para construir paisajes que rememoran la calle desde la escala del estudio.</p>
+        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
       </div>
     </section>
 
     <!-- WORKS -->
     <section id="works">
       <h2 class="section-title">Works</h2>
-      <div class="grid" id="worksGrid">
-        <!-- JS will populate cards from img/obras -->
-      </div>
+      <div class="grid" id="worksGrid"></div>
     </section>
 
     <!-- INSTALLATIONS -->
     <section id="install">
       <h2 class="section-title">Installations</h2>
-      <div class="installations" aria-hidden="false">
-        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-2.jpg');background-size:cover;background-position:center"></div>
+      <div class="installations">
+        <div class="install-big card" id="instBig" style="background-image:url('img/instalaciones/instalacion-8.jpg');background-size:cover;background-position:center"></div>
         <div style="display:flex;flex-direction:column;gap:20px">
           <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-3.jpg');background-size:cover;background-position:center"></div>
           <div class="install-small card" style="background-image:url('img/instalaciones/instalacion-4.jpg');background-size:cover;background-position:center"></div>
         </div>
       </div>
-
       <div style="height:18px"></div>
-      <!-- row of thumbnails for instalacion 5-7 -->
       <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
-        <div class="card" style="overflow:hidden;background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
+        <div class="card" style="background-image:url('img/instalaciones/instalacion-5.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-5.jpg','Instalacion 5','instalacion-5.jpg')"></div>
+        <div class="card" style="background-image:url('img/instalaciones/instalacion-6.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-6.jpg','Instalacion 6','instalacion-6.jpg')"></div>
+        <div class="card" style="background-image:url('img/instalaciones/instalacion-7.jpg');background-size:cover;background-position:center;height:180px" onclick="openModal('img/instalaciones/instalacion-7.jpg','Instalacion 7','instalacion-7.jpg')"></div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
-      <h2 class="section-title">Contact & Inquiries</h2>
-      <p style="color:var(--muted)">Para consultas, comisiones o ver obra en persona:</p>
-      <p style="color:var(--muted);margin-bottom:6px"><strong>Web:</strong> www.javtorres.com</p>
-      <p style="color:var(--muted);margin-bottom:6px"><strong>Email:</strong> jtmorboland@gmail.com</p>
-      <p style="color:var(--muted);margin-bottom:6px"><strong>Cel:</strong> +52 331 790 4857 — <strong>Oficina:</strong> 01 33 3121 0995</p>
-
-      <form id="newsletter" style="max-width:520px;margin-top:12px;display:flex;gap:8px" onsubmit="event.preventDefault(); alert('Gracias — pronto te escribo')">
-        <input type="email" placeholder="Tu correo" style="flex:1;padding:10px;border:1px solid #ddd;border-radius:6px" required>
-        <button class="cta" type="submit">Join</button>
-      </form>
+      <h2 class="section-title">Contact</h2>
+      <p style="color:var(--muted);margin-bottom:8px">Sígueme en redes</p>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
+      </div>
     </section>
 
     <footer>
@@ -150,84 +130,81 @@
       <div class="info">
         <h3 id="modalTitle" style="margin-top:0;color:#fff"></h3>
         <p id="modalAttrs" style="color:#ddd"></p>
-        <p style="color:#ccc;font-size:14px">Para precios e información de venta, escríbeme a <a href="mailto:jtmorboland@gmail.com">jtmorboland@gmail.com</a></p>
       </div>
     </div>
   </div>
 
   <script>
-    // Config (ajusta si tu usuario/repo/branch cambian)
     const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
     async function listFolder(path){
-      try{ const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`); if(!res.ok) return []; return res.json(); }
-      catch(e){ return []; }
+      try{const res=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);if(!res.ok)return[];return res.json();}catch(e){return[]}
     }
-    function beautify(n){ return n.replace(/[-_]+/g,' ').replace(/\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase()); }
+    function beautify(n){return n.replace(/[-_]+/g,' ').replace(/\\.[^.]+$/,'').replace(/^./,s=>s.toUpperCase());}
 
-    // Load metadata.json from img/metadata.json or /metadata.json
     async function loadMetadata(){
-      const urls=[
-        `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,
-        `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`
-      ];
-      for(const u of urls){
-        try{
-          const r = await fetch(u);
-          if(r.ok) return r.json();
-        } catch(e){}
-      }
-      return {};
+      const urls=[`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/metadata.json`,`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/metadata.json`];
+      for(const u of urls){try{const r=await fetch(u);if(r.ok)return r.json()}catch(e){}}
+      return{};
+    }
+
+    // exclude names
+    function shouldExclude(name){
+      const ln=name.toLowerCase();
+      return ln.includes('insta')||ln.includes('fragmento-de-alice')||ln.includes('aparicion')||ln.includes('nuevo-buda')||ln.includes('masterpiece');
     }
 
     async function buildWorks(){
-      const grid = document.getElementById('worksGrid');
-      const files = await listFolder('img/obras');
-      const images = (files||[]).filter(f=>/\.(jpe?g|png|webp)$/i.test(f.name)).slice(0,24);
+      const grid=document.getElementById('worksGrid');
+      const files=await listFolder('img/obras');
+      const images=(files||[]).filter(f=>/\\.(jpe?g|png|webp)$/i.test(f.name)&&!shouldExclude(f.name)).slice(0,24);
       if(!images.length){
-        grid.innerHTML = '<p style="color:var(--muted)">No hay imágenes en <code>img/obras</code>. Sube tus obras o usa la carpeta correspondiente.</p>';
+        grid.innerHTML='<p style=\"color:var(--muted)\">No hay imágenes en <code>img/obras</code>.</p>';
         return;
       }
-      const metadata = await loadMetadata();
+      const metadata=await loadMetadata();
       images.forEach(f=>{
-        const div = document.createElement('div'); div.className='card';
-        const img = document.createElement('img'); img.className='thumb'; img.loading='lazy'; img.decoding='async'; img.src = f.download_url; img.alt = beautify(f.name);
-        const meta = document.createElement('div'); meta.className='meta';
-        const title = beautify(f.name);
-        const key = f.name;
-        let attrs = '';
-        if(metadata && metadata[key]) {
-          const m = metadata[key];
-          attrs = [m.medidas, m.tecnica, m.año].filter(Boolean).join(' • ');
+        const div=document.createElement('div');div.className='card';
+        const img=document.createElement('img');img.className='thumb';img.loading='lazy';img.decoding='async';img.src=f.download_url;img.alt=beautify(f.name);
+        const meta=document.createElement('div');meta.className='meta';
+        const title=beautify(f.name);
+        const key=f.name;
+        let attrs='';
+        if(metadata&&metadata[key]){
+          const m=metadata[key];
+          attrs=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');
         }
-        meta.innerHTML = `<div class="title">${title}</div><div class="sub">${attrs || 'Click para ver detalles'}</div>`;
-        div.appendChild(img); div.appendChild(meta);
-        div.onclick = ()=> openModal(f.download_url, title, f.name);
+        meta.innerHTML=`<div class=\"title\">${title}</div><div class=\"sub\">${attrs||'Click para ver detalles'}</div>`;
+        div.appendChild(img);div.appendChild(meta);
+        div.onclick=()=>openModal(f.download_url,title,f.name);
         grid.appendChild(div);
       });
     }
 
-    // Modal functions
-    let METADATA_CACHE = null;
+    let METADATA_CACHE=null;
     async function getMetaForFilename(fname){
-      if(METADATA_CACHE === null) METADATA_CACHE = await loadMetadata() || {};
-      const meta = METADATA_CACHE[fname] || METADATA_CACHE[fname.replace(/\.[^.]+$/,'')];
-      return meta || null;
+      if(METADATA_CACHE===null)METADATA_CACHE=await loadMetadata()||{};
+      return METADATA_CACHE[fname]||METADATA_CACHE[fname.replace(/\\.[^.]+$/,'')]||null;
     }
+
     async function openModal(src,title,fname){
       document.getElementById('modal').style.display='flex';
       document.getElementById('modal').setAttribute('aria-hidden','false');
-      document.getElementById('modalImg').src = src;
-      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalImg').src=src;
+      document.getElementById('modalTitle').innerText=title;
       document.body.style.overflow='hidden';
-      const m = await getMetaForFilename(fname);
-      if(m){ document.getElementById('modalAttrs').innerText = [m.medidas, m.tecnica, m.año].filter(Boolean).join(' • '); }
-      else{ document.getElementById('modalAttrs').innerText = ''; }
+      const m=await getMetaForFilename(fname);
+      if(m){document.getElementById('modalAttrs').innerText=[m.medidas,m.tecnica,m.año].filter(Boolean).join(' • ');}
+      else{document.getElementById('modalAttrs').innerText='';}
     }
-    function closeModal(){ document.getElementById('modal').style.display='none'; document.getElementById('modal').setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
 
-    // Initialize: build works and ensure hero image exists
-    (async()=>{ await buildWorks(); })();
+    function closeModal(){
+      document.getElementById('modal').style.display='none';
+      document.getElementById('modal').setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+
+    (async()=>{await buildWorks();})();
   </script>
 </body>
 </html>
