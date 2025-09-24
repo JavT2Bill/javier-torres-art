@@ -32,21 +32,65 @@
     .card .meta{padding:12px 16px}
     .card .title{font-weight:700;margin-bottom:6px}
     .card .sub{color:var(--muted);font-size:14px}
-    /* installations grid special */
-    .inst-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-    .inst-tile{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center;display:block;border:1px solid rgba(0,0,0,0.05)}
+    /* INSTALACIONES: collage (1 grande, 2 medianas, resto pequeñas) */
+    .inst-grid{
+      display:grid;
+      grid-template-columns:repeat(6,1fr); /* base grid: 6 columnas para controlar spans */
+      gap:16px;
+      grid-auto-rows: 180px; /* altura base para celdas pequeñas */
+      align-items:stretch;
+    }
+    .inst-grid .tile{
+      background-size:cover;
+      background-position:center;
+      border-radius:8px;
+      cursor:pointer;
+      border:1px solid rgba(0,0,0,0.05);
+      width:100%;
+      height:100%;
+      display:block;
+    }
+    /* patrón: primera imagen ocupa 2x2, las siguientes dos ocupan 3 columnas de ancho y 1 fila (medianas) */
+    .inst-grid .tile.big{
+      grid-column: span 4; /* ocupa 4/6 columnas = ancho grande */
+      grid-row: span 2;    /* ocupa 2 filas */
+      min-height:360px;
+    }
+    .inst-grid .tile.medium{
+      grid-column: span 3; /* ocupa mitad de ancho grande */
+      grid-row: span 1;
+      min-height:220px;
+    }
+    .inst-grid .tile.small{
+      grid-column: span 2;
+      grid-row: span 1;
+      min-height:180px;
+    }
+
+    /* responsive: simplificar en pantallas pequeñas */
+    @media(max-width:1000px){
+      .inst-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:150px}
+      .inst-grid .tile.big{grid-column:span 4; grid-row:span 2; min-height:320px}
+      .inst-grid .tile.medium{grid-column:span 2; min-height:180px}
+      .inst-grid .tile.small{grid-column:span 2}
+    }
+    @media(max-width:640px){
+      .inst-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+      .inst-grid .tile.big{grid-column:span 2;grid-row:span 2;min-height:260px}
+      .inst-grid .tile.medium{grid-column:span 2;min-height:160px}
+      .inst-grid .tile.small{grid-column:span 1}
+    }
+
     /* modal */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
     .modal .wrap{max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center;position:relative}
     .modal img{max-width:90vw;max-height:90vh;object-fit:contain;display:block;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
-    .modal .info{position:absolute;right:24px;top:24px;color:#fff;max-width:320px;text-align:right;font-size:14px}
     .close{position:absolute;right:18px;top:18px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
+    .info{position:absolute;right:24px;top:24px;color:#fff;max-width:320px;text-align:right;font-size:14px}
     footer{padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
     @media(max-width:900px){
       .hero h1{font-size:36px}
       .card .thumb{height:200px}
-      .inst-tile{height:180px}
-      .modal .info{display:none}
     }
   </style>
 </head>
@@ -61,7 +105,7 @@
     </nav>
   </header>
 
-  <!-- HERO: mantengo instalacion-1 (la que preferías) -->
+  <!-- HERO: instalacion-1 (tu preferida) -->
   <section class="hero" aria-hidden="false">
     <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
     <div class="overlay">
@@ -71,13 +115,12 @@
   </section>
 
   <main class="container">
-    <!-- INSTALLATIONS (primera sección) -->
+    <!-- INSTALLATIONS (sin título visible, grid collage) -->
     <section id="install">
-      <h2 class="section-title">Installations</h2>
       <div id="instGrid" class="inst-grid" aria-live="polite"></div>
     </section>
 
-    <!-- ABOUT (ahora justo después de installations) -->
+    <!-- ABOUT -->
     <section id="about">
       <h2 class="section-title">About</h2>
       <div style="color:var(--muted);max-width:760px">
@@ -86,7 +129,7 @@
       </div>
     </section>
 
-    <!-- WORKS (auto poblado desde img/obras) -->
+    <!-- WORKS -->
     <section id="works">
       <h2 class="section-title">Works</h2>
       <div class="grid" id="worksGrid"></div>
@@ -115,10 +158,10 @@
   </div>
 
   <script>
-    // Config repo - ajusta si cambia
+    // Repo config (ajusta si cambias branch/owner/repo)
     const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
-    // Helper para listar carpeta con GitHub API
+    // List folder via GitHub API
     async function listFolder(path){
       try{
         const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
@@ -129,93 +172,99 @@
       }
     }
 
-    // pequeñas utilidades
+    // Exclude problematic files
     function isExcluded(name){
       const ln = name.toLowerCase();
       return ln.includes('insta') || ln.includes('fragmento-de-alice') || ln.includes('aparicion') || ln.includes('nuevo-buda') || ln.includes('masterpiece');
     }
 
-    // Intenta cargar imágenes desde la carpeta; si la API falla, prueba por nombres secuenciales raw.githubusercontent.com
+    // Build installations grid (robusto: intenta API, si falla usa fallback secuencial)
     async function buildInstallations(){
       const container = document.getElementById('instGrid');
       container.innerHTML = '';
-      // 1) Intento vía API
+      // 1. intentar vía API
       const apiFiles = await listFolder('img/instalaciones');
       let images = (apiFiles || []).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
-      // 2) Si la API no devolvió nada útil, intento por nombres secuenciales (tolerante a falta de listado)
+
+      // 2. fallback secuencial si la API no devolvió resultados
       if(!images.length){
-        const candidateUrls = [];
-        // probamos instalacion-1..12
+        const candidate = [];
         for(let i=1;i<=12;i++){
           const name = `instalacion-${i}.jpg`;
           const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/instalaciones/${encodeURIComponent(name)}`;
-          candidateUrls.push({name, url: raw});
+          candidate.push({name, url: raw});
         }
-        // checkea existencia (faster: lanzamos fetch en paralelo con HEAD)
-        const checks = await Promise.all(candidateUrls.map(async c=>{
+        const checks = await Promise.all(candidate.map(async c=>{
           try{
-            const r = await fetch(c.url, {method:'HEAD'});
-            if(r.ok) return {name:c.name, download_url:c.url};
+            const r = await fetch(c.url, { method: 'HEAD' });
+            if(r.ok) return { name: c.name, download_url: c.url };
           }catch(e){}
           return null;
         }));
-        images = checks.filter(Boolean).map(c=>({name:c.name, download_url:c.download_url}));
+        images = checks.filter(Boolean).map(c=>({ name: c.name, download_url: c.download_url }));
       }
 
-      // ordenar y render
-      images.sort((a,b)=> a.name.localeCompare(b.name));
-      images.forEach(f=>{
-        const tile = document.createElement('div');
-        tile.className = 'inst-tile';
-        tile.style.backgroundImage = `url('${f.download_url}')`;
-        tile.setAttribute('role','button');
-        tile.setAttribute('tabindex','0');
-        tile.addEventListener('click', ()=> openModal(f.download_url, f.name));
-        tile.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openModal(f.download_url,f.name); });
-        container.appendChild(tile);
+      if(!images.length) return; // nada que mostrar
+
+      // ordenar por nombre
+      images.sort((a,b) => a.name.localeCompare(b.name));
+
+      // patrón: 1 grande, 2 medianas, resto pequeñas
+      images.forEach((f, i) => {
+        const div = document.createElement('div');
+        div.className = 'tile';
+        if(i === 0) div.classList.add('big');
+        else if(i === 1 || i === 2) div.classList.add('medium');
+        else div.classList.add('small');
+
+        div.style.backgroundImage = `url('${f.download_url}')`;
+        div.setAttribute('role','button');
+        div.setAttribute('tabindex','0');
+        div.addEventListener('click', () => openModal(f.download_url, f.name));
+        div.addEventListener('keydown', (e)=> { if(e.key === 'Enter') openModal(f.download_url, f.name); });
+        container.appendChild(div);
       });
     }
 
-    // Works: lista desde img/obras (si no hay, queda vacío sin texto)
+    // Build works grid (img/obras) — si no hay imágenes queda vacío (sin mensajes)
     async function buildWorks(){
       const grid = document.getElementById('worksGrid');
       grid.innerHTML = '';
       const files = await listFolder('img/obras');
       const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
       if(!images.length) return;
-      images.sort((a,b)=> a.name.localeCompare(b.name));
-      images.forEach(f=>{
-        const div = document.createElement('div'); div.className='card';
-        const img = document.createElement('img'); img.className='thumb'; img.loading='lazy'; img.decoding='async'; img.src = f.download_url; img.alt = f.name;
-        const meta = document.createElement('div'); meta.className='meta';
+      images.sort((a,b) => a.name.localeCompare(b.name));
+      images.forEach(f => {
+        const div = document.createElement('div'); div.className = 'card';
+        const img = document.createElement('img'); img.className = 'thumb'; img.loading = 'lazy'; img.decoding = 'async'; img.src = f.download_url; img.alt = f.name;
+        const meta = document.createElement('div'); meta.className = 'meta';
         meta.innerHTML = `<div class="title">${f.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ')}</div><div class="sub">Click para ver detalles</div>`;
         div.appendChild(img); div.appendChild(meta);
-        div.onclick = ()=> openModal(f.download_url, f.name);
+        div.onclick = () => openModal(f.download_url, f.name);
         grid.appendChild(div);
       });
     }
 
-    // Modal funciones
+    // Modal: mostrar imagen completa (contain) y toggle zoom
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
 
     function openModal(src, filename){
-      modal.style.display='flex';
+      modal.style.display = 'flex';
       modal.setAttribute('aria-hidden','false');
       modalImg.src = src;
       modalImg.alt = filename;
       modalImg.style.transform = 'none';
       modalImg.style.cursor = 'zoom-in';
-      document.body.style.overflow='hidden';
+      document.body.style.overflow = 'hidden';
     }
     function closeModal(){
-      modal.style.display='none';
+      modal.style.display = 'none';
       modal.setAttribute('aria-hidden','true');
       modalImg.src = '';
-      document.body.style.overflow='';
+      document.body.style.overflow = '';
     }
 
-    // toggle zoom: click sobre la imagen la escala
     function toggleZoom(e){
       if(e.target === modalImg){
         if(modalImg.style.transform && modalImg.style.transform !== 'none'){
@@ -228,12 +277,11 @@
       }
     }
 
-    // cerrar con ESC o click afuera
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 
-    // Inicialización
-    (async ()=>{
+    // init
+    (async ()=> {
       await buildInstallations();
       await buildWorks();
     })();
