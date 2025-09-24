@@ -37,7 +37,7 @@
     .inst-tile{height:260px;border-radius:8px;overflow:hidden;background-size:cover;background-position:center;display:block;border:1px solid rgba(0,0,0,0.05)}
     /* modal */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
-    .modal .wrap{max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center}
+    .modal .wrap{max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center;position:relative}
     .modal img{max-width:90vw;max-height:90vh;object-fit:contain;display:block;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
     .modal .info{position:absolute;right:24px;top:24px;color:#fff;max-width:320px;text-align:right;font-size:14px}
     .close{position:absolute;right:18px;top:18px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
@@ -55,15 +55,15 @@
     <div class="brand">JAVIER <span style="letter-spacing:0.6px">TORRES</span></div>
     <nav>
       <a href="#install">Installations</a>
-      <a href="#works">Works</a>
       <a href="#about">About</a>
+      <a href="#works">Works</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO: mantengo instalacion-1 (la que preferías) -->
   <section class="hero" aria-hidden="false">
-    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-8.jpg')"></div>
+    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
     <div class="overlay">
       <h1>INTER — SIDE</h1>
       <p class="lead">Estas obras se nutren de la estética urbana y exploran el límite entre espacio público y espacio expositivo.</p>
@@ -71,11 +71,18 @@
   </section>
 
   <main class="container">
-    <!-- INSTALLATIONS (ahora primera sección y cargada dinámicamente) -->
+    <!-- INSTALLATIONS (primera sección) -->
     <section id="install">
       <h2 class="section-title">Installations</h2>
-      <div id="instGrid" class="inst-grid">
-        <!-- se llena dinámicamente con todas las imágenes de img/instalaciones/ -->
+      <div id="instGrid" class="inst-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- ABOUT (ahora justo después de installations) -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div style="color:var(--muted);max-width:760px">
+        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
+        <p style="margin-top:10px;color:var(--muted)">Nacido en Guadalajara, Jalisco (1977). Premio Nacional de Pintura José Atanasio Monroy (2007-2008). Beca PECDA (2009). Exhibiciones en Galería Ágora (Nueva York) y Art al Vento (Alicante, España). Exposiciones individuales en Guadalajara (Galería Cuarenta y Cinco, Galería Juan Soriano, Pitaya Gallery, Galería Jardín Americana).</p>
       </div>
     </section>
 
@@ -83,14 +90,6 @@
     <section id="works">
       <h2 class="section-title">Works</h2>
       <div class="grid" id="worksGrid"></div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <h2 class="section-title">About</h2>
-      <div style="color:var(--muted);max-width:760px">
-        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
-      </div>
     </section>
 
     <!-- CONTACT -->
@@ -116,10 +115,10 @@
   </div>
 
   <script>
-    // Config repo (ajusta si cambia)
+    // Config repo - ajusta si cambia
     const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
-    // Helper: listado de carpeta via GitHub API
+    // Helper para listar carpeta con GitHub API
     async function listFolder(path){
       try{
         const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
@@ -130,19 +129,40 @@
       }
     }
 
-    // Excluir archivos problemáticos
+    // pequeñas utilidades
     function isExcluded(name){
-      const ln=name.toLowerCase();
+      const ln = name.toLowerCase();
       return ln.includes('insta') || ln.includes('fragmento-de-alice') || ln.includes('aparicion') || ln.includes('nuevo-buda') || ln.includes('masterpiece');
     }
 
-    // Construye grid de instalaciones (todas)
+    // Intenta cargar imágenes desde la carpeta; si la API falla, prueba por nombres secuenciales raw.githubusercontent.com
     async function buildInstallations(){
       const container = document.getElementById('instGrid');
       container.innerHTML = '';
-      const files = await listFolder('img/instalaciones');
-      const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
-      if(!images.length) return; // queda vacío si no hay
+      // 1) Intento vía API
+      const apiFiles = await listFolder('img/instalaciones');
+      let images = (apiFiles || []).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
+      // 2) Si la API no devolvió nada útil, intento por nombres secuenciales (tolerante a falta de listado)
+      if(!images.length){
+        const candidateUrls = [];
+        // probamos instalacion-1..12
+        for(let i=1;i<=12;i++){
+          const name = `instalacion-${i}.jpg`;
+          const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/instalaciones/${encodeURIComponent(name)}`;
+          candidateUrls.push({name, url: raw});
+        }
+        // checkea existencia (faster: lanzamos fetch en paralelo con HEAD)
+        const checks = await Promise.all(candidateUrls.map(async c=>{
+          try{
+            const r = await fetch(c.url, {method:'HEAD'});
+            if(r.ok) return {name:c.name, download_url:c.url};
+          }catch(e){}
+          return null;
+        }));
+        images = checks.filter(Boolean).map(c=>({name:c.name, download_url:c.download_url}));
+      }
+
+      // ordenar y render
       images.sort((a,b)=> a.name.localeCompare(b.name));
       images.forEach(f=>{
         const tile = document.createElement('div');
@@ -156,13 +176,13 @@
       });
     }
 
-    // Construye grid de obras (igual que antes) pero sin leyenda molesta si vacío
+    // Works: lista desde img/obras (si no hay, queda vacío sin texto)
     async function buildWorks(){
       const grid = document.getElementById('worksGrid');
       grid.innerHTML = '';
       const files = await listFolder('img/obras');
       const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
-      if(!images.length) return; // no mostramos mensaje
+      if(!images.length) return;
       images.sort((a,b)=> a.name.localeCompare(b.name));
       images.forEach(f=>{
         const div = document.createElement('div'); div.className='card';
@@ -175,17 +195,17 @@
       });
     }
 
-    // Modal: muestra imagen a max 90vw/90vh con object-fit: contain
+    // Modal funciones
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
-    const modalInfo = document.getElementById('modalInfo');
 
     function openModal(src, filename){
       modal.style.display='flex';
       modal.setAttribute('aria-hidden','false');
       modalImg.src = src;
       modalImg.alt = filename;
-      modalInfo.innerText = ''; // si quieres info adicional la podemos poner
+      modalImg.style.transform = 'none';
+      modalImg.style.cursor = 'zoom-in';
       document.body.style.overflow='hidden';
     }
     function closeModal(){
@@ -195,9 +215,8 @@
       document.body.style.overflow='';
     }
 
-    // Toggle zoom on click inside modal (simple: toggles css scale)
+    // toggle zoom: click sobre la imagen la escala
     function toggleZoom(e){
-      // evita que el click en el wrap cierre la modal; sólo toggle clase
       if(e.target === modalImg){
         if(modalImg.style.transform && modalImg.style.transform !== 'none'){
           modalImg.style.transform = 'none';
@@ -209,11 +228,11 @@
       }
     }
 
-    // close on ESC and click outside image
+    // cerrar con ESC o click afuera
     window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
     modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
 
-    // Init
+    // Inicialización
     (async ()=>{
       await buildInstallations();
       await buildWorks();
