@@ -26,7 +26,6 @@ body {
   line-height:1.55;
 }
 
-/* HEADER */
 header {
   position:fixed;
   top:0; left:0; right:0;
@@ -52,7 +51,6 @@ nav a {
   font-weight:500;
 }
 
-/* HERO */
 .hero {
   height:88vh;
   background-size:cover;
@@ -71,7 +69,6 @@ nav a {
   text-shadow:0 5px 24px rgba(0,0,0,0.5);
 }
 
-/* SECTION */
 section {
   padding:80px 60px;
   max-width:1200px;
@@ -83,14 +80,12 @@ section {
   margin-bottom:30px;
 }
 
-/* STATEMENT */
 .statement {
   font-size:18px;
   max-width:900px;
   color:var(--muted);
 }
 
-/* INSTALLATIONS GRID */
 .inst-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -105,7 +100,6 @@ section {
   border:1px solid var(--line);
 }
 
-/* WORKS */
 .works-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -129,7 +123,6 @@ section {
   color:var(--muted);
 }
 
-/* AUDIO */
 .audio-list {
   display:flex;
   flex-direction:column;
@@ -139,7 +132,6 @@ audio {
   width:100%;
 }
 
-/* FOOTER */
 footer {
   text-align:center;
   padding:60px;
@@ -147,7 +139,6 @@ footer {
   font-size:14px;
 }
 
-/* MODAL */
 .modal {
   position:fixed;
   inset:0;
@@ -187,13 +178,12 @@ footer {
 </header>
 
 <!-- HERO -->
-<div class="hero" style="background-image:url('img/instalaciones/instalacion-1.jpg');">
+<div id="hero" class="hero">
   <h1>Arte Contemporáneo — Pintura · Instalación · Audio</h1>
 </div>
 
 <main>
 
-<!-- STATEMENT -->
 <section id="statement">
   <h2 class="section-title">Statement</h2>
   <div class="statement">
@@ -204,25 +194,21 @@ footer {
   </div>
 </section>
 
-<!-- INSTALLATIONS -->
 <section id="installations">
   <h2 class="section-title">Instalaciones</h2>
   <div id="instGrid" class="inst-grid"></div>
 </section>
 
-<!-- WORKS -->
 <section id="works">
   <h2 class="section-title">Obras</h2>
   <div id="worksGrid" class="works-grid"></div>
 </section>
 
-<!-- AUDIOS -->
 <section id="audios">
   <h2 class="section-title">Audio pieces</h2>
   <div id="audioList" class="audio-list"></div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <h2 class="section-title">Contacto</h2>
   <p>Sígueme en Instagram:  
@@ -236,23 +222,33 @@ footer {
 
 </main>
 
-<!-- MODAL -->
 <div id="modal" class="modal">
   <div class="close-modal" onclick="closeModal()">&times;</div>
   <img id="modalImg">
 </div>
 
 <script>
-const owner = "JavT2Bill";
-const repo = "javier-torres-art";
-const branch = "main";
+const owner="JavT2Bill";
+const repo="javier-torres-art";
+const branch="main";
+
+const exclusions = [
+  "fragmento", "alice", "insta", 
+  "la-aparicion", "aparicion", "nuevo-buda", "new-buda",
+  "masterpiece", "un-nuevo-buda", "ny"
+];
+
+function excluded(name){
+  const ln = name.toLowerCase();
+  return exclusions.some(x => ln.includes(x));
+}
 
 async function listFolder(path){
   try{
     const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
     if(!res.ok) return [];
     return res.json();
-  }catch(e){ return []; }
+  } catch(e){ return []; }
 }
 
 function openModal(src){
@@ -267,8 +263,14 @@ function closeModal(){
 
 async function buildInstallations(){
   const grid=document.getElementById("instGrid");
+  const hero=document.getElementById("hero");
   const files=await listFolder("img/instalaciones");
-  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
+
+  // HERO: primera instalación válida
+  if(imgs.length > 0){
+    hero.style.backgroundImage = `url('${imgs[0].download_url}')`;
+  }
 
   imgs.forEach(f=>{
     const div=document.createElement("div");
@@ -282,7 +284,7 @@ async function buildInstallations(){
 async function buildWorks(){
   const grid=document.getElementById("worksGrid");
   const files=await listFolder("img/obras");
-  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
 
   imgs.forEach(f=>{
     const card=document.createElement("div");
@@ -305,9 +307,9 @@ async function buildWorks(){
 async function buildAudios(){
   const list=document.getElementById("audioList");
   const files=await listFolder("audios");
-  const audioFiles=files.filter(f=>/\.(mp3|wav|ogg)$/i.test(f.name));
+  const audios=files.filter(f=>/\.(mp3|wav|ogg)$/i.test(f.name));
 
-  audioFiles.forEach(f=>{
+  audios.forEach(f=>{
     const wrap=document.createElement("div");
     const title=document.createElement("div");
     title.style.fontSize="15px";
