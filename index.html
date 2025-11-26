@@ -3,34 +3,32 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Javier Torres — Art & Installations</title>
-<meta name="description" content="Portfolio de Javier Torres. Pintura, instalaciones, audio piezas. Arte contemporáneo desde Guadalajara, México." />
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<title>Javier Torres — INTER — SIDE</title>
 
 <style>
 :root {
-  --bg:#f7f7f7;
+  --bg:#fafafa;
   --text:#111;
   --muted:#555;
   --line:#ddd;
-  --accent:#000;
 }
 
 * { box-sizing:border-box; }
+
 body {
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter, sans-serif;
-  line-height:1.55;
+  font-family:Arial, Helvetica, sans-serif;
+  line-height:1.5;
 }
 
+/* HEADER */
 header {
   position:fixed;
   top:0; left:0; right:0;
   padding:22px 40px;
-  background:rgba(255,255,255,0.7);
+  background:#ffffffd9;
   backdrop-filter:blur(8px);
   display:flex;
   justify-content:space-between;
@@ -38,46 +36,51 @@ header {
   z-index:1000;
   border-bottom:1px solid var(--line);
 }
+
 .brand {
-  font-family:"Playfair Display", serif;
-  font-size:20px;
-  letter-spacing:1.5px;
-}
-nav a {
-  margin-left:24px;
-  font-size:14px;
-  text-decoration:none;
-  color:var(--muted);
-  font-weight:500;
+  font-size:22px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
+nav a {
+  margin-left:24px;
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:bold;
+}
+
+/* HERO */
 .hero {
-  height:88vh;
+  height:86vh;
   background-size:cover;
   background-position:center;
-  position:relative;
+  margin-bottom:40px;
   display:flex;
   align-items:end;
   padding:60px;
-  margin-bottom:40px;
-}
-.hero h1 {
-  font-family:"Playfair Display", serif;
-  font-size:54px;
-  max-width:800px;
-  color:#fff;
-  text-shadow:0 5px 24px rgba(0,0,0,0.5);
+  position:relative;
 }
 
+.hero h1 {
+  font-size:60px;
+  font-weight:800;
+  color:white;
+  text-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* SECTIONS */
 section {
-  padding:80px 60px;
   max-width:1200px;
   margin:0 auto;
+  padding:80px 40px;
 }
+
 .section-title {
-  font-family:"Playfair Display", serif;
   font-size:30px;
-  margin-bottom:30px;
+  margin-bottom:25px;
+  font-weight:700;
 }
 
 .statement {
@@ -86,52 +89,59 @@ section {
   color:var(--muted);
 }
 
-.inst-grid {
+/* INSTALLATIONS */
+#instGrid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
+  gap:20px;
 }
+
 .inst-item {
+  height:300px;
   background-size:cover;
   background-position:center;
-  border-radius:8px;
-  height:300px;
+  border-radius:6px;
   cursor:pointer;
   border:1px solid var(--line);
 }
 
-.works-grid {
+/* WORKS */
+#worksGrid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:22px;
 }
+
 .work-card {
-  background:#fff;
-  border-radius:8px;
+  background:white;
+  border-radius:6px;
   overflow:hidden;
   border:1px solid var(--line);
   cursor:pointer;
 }
+
 .work-card img {
   width:100%;
   height:280px;
   object-fit:cover;
 }
+
 .work-card .meta {
   padding:12px;
   font-size:14px;
   color:var(--muted);
 }
 
+/* AUDIO */
 .audio-list {
   display:flex;
   flex-direction:column;
   gap:22px;
 }
-audio {
-  width:100%;
-}
 
+audio { width:100%; }
+
+/* FOOTER */
 footer {
   text-align:center;
   padding:60px;
@@ -139,6 +149,7 @@ footer {
   font-size:14px;
 }
 
+/* MODAL */
 .modal {
   position:fixed;
   inset:0;
@@ -148,16 +159,17 @@ footer {
   align-items:center;
   z-index:9999;
 }
+
 .modal img {
   max-width:90vw;
   max-height:90vh;
-  border-radius:6px;
 }
+
 .close-modal {
   position:absolute;
   top:20px;
   right:30px;
-  color:#fff;
+  color:white;
   font-size:40px;
   cursor:pointer;
 }
@@ -177,9 +189,8 @@ footer {
   </nav>
 </header>
 
-<!-- HERO -->
 <div id="hero" class="hero">
-  <h1>Arte Contemporáneo — Pintura · Instalación · Audio</h1>
+  <h1>INTER — SIDE</h1>
 </div>
 
 <main>
@@ -187,21 +198,21 @@ footer {
 <section id="statement">
   <h2 class="section-title">Statement</h2>
   <div class="statement">
-    Mi práctica se desarrolla entre la pintura, el gesto urbano y la memoria del espacio público.
-    Trabajo con capas, interferencias, rastros y ruido visual para revelar cómo la ciudad transforma
-    la superficie pictórica. Mis instalaciones exploran lo ritual, lo efímero y la relación entre cuerpo,
-    materia y espacio expositivo.
+    Mi trabajo explora el cruce entre pintura, gesto urbano y memoria del espacio público. 
+    Las capas, los rastros y la interferencia visual se convierten en lenguaje para revelar 
+    cómo la ciudad transforma la superficie pictórica. Las instalaciones investigan lo ritual, 
+    lo efímero y la relación entre cuerpo, material y espacio expositivo.
   </div>
 </section>
 
 <section id="installations">
   <h2 class="section-title">Instalaciones</h2>
-  <div id="instGrid" class="inst-grid"></div>
+  <div id="instGrid"></div>
 </section>
 
 <section id="works">
   <h2 class="section-title">Obras</h2>
-  <div id="worksGrid" class="works-grid"></div>
+  <div id="worksGrid"></div>
 </section>
 
 <section id="audios">
@@ -216,9 +227,7 @@ footer {
   </p>
 </section>
 
-<footer>
-  &copy; 2025 Javier Torres — Contemporary Art
-</footer>
+<footer>&copy; 2025 Javier Torres</footer>
 
 </main>
 
@@ -232,28 +241,26 @@ const owner="JavT2Bill";
 const repo="javier-torres-art";
 const branch="main";
 
-const exclusions = [
-  "fragmento", "alice", "insta", 
-  "la-aparicion", "aparicion", "nuevo-buda", "new-buda",
-  "masterpiece", "un-nuevo-buda", "ny"
+const EXCLUDE = [
+  "fragmento","alice","insta","aparicion","buda","masterpiece","ny"
 ];
 
 function excluded(name){
-  const ln = name.toLowerCase();
-  return exclusions.some(x => ln.includes(x));
+  name=name.toLowerCase();
+  return EXCLUDE.some(x=>name.includes(x));
 }
 
 async function listFolder(path){
   try{
-    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
-    if(!res.ok) return [];
-    return res.json();
-  } catch(e){ return []; }
+    const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+    if(!r.ok) return [];
+    return r.json();
+  }catch{return [];}
 }
 
 function openModal(src){
-  const modal=document.getElementById("modal");
-  const img=document.getElementById("modalImg");
+  modal=document.getElementById("modal");
+  img=document.getElementById("modalImg");
   img.src=src;
   modal.style.display="flex";
 }
@@ -264,12 +271,12 @@ function closeModal(){
 async function buildInstallations(){
   const grid=document.getElementById("instGrid");
   const hero=document.getElementById("hero");
+
   const files=await listFolder("img/instalaciones");
   const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
 
-  // HERO: primera instalación válida
-  if(imgs.length > 0){
-    hero.style.backgroundImage = `url('${imgs[0].download_url}')`;
+  if(imgs.length){
+    hero.style.backgroundImage=`url('${imgs[0].download_url}')`;
   }
 
   imgs.forEach(f=>{
@@ -311,17 +318,17 @@ async function buildAudios(){
 
   audios.forEach(f=>{
     const wrap=document.createElement("div");
-    const title=document.createElement("div");
-    title.style.fontSize="15px";
-    title.style.color="var(--muted)";
-    title.textContent=f.name.replace(/\.[^.]+$/,"");
+    const t=document.createElement("div");
+    t.style.color="var(--muted)";
+    t.style.fontSize="15px";
+    t.textContent=f.name.replace(/\.[^.]+$/,"");
 
-    const player=document.createElement("audio");
-    player.controls=true;
-    player.src=f.download_url;
+    const p=document.createElement("audio");
+    p.controls=true;
+    p.src=f.download_url;
 
-    wrap.appendChild(title);
-    wrap.appendChild(player);
+    wrap.appendChild(t);
+    wrap.appendChild(p);
     list.appendChild(wrap);
   });
 }
