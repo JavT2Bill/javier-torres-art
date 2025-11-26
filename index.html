@@ -1,139 +1,336 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>INTERSIDE — JAVIER TORRES</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>JAVIER TORRES — INTERSIDE</title>
+
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet"/>
 
   <style>
-    :root{ --bg:#fff; --text:#111; --muted:#6f6f6f; --line:#e5e5e5; }
-    body{margin:0;font-family:"Montserrat",sans-serif;background:var(--bg);color:var(--text);}    
-    header{position:fixed;top:0;left:0;right:0;padding:20px 40px;background:#fff;border-bottom:1px solid var(--line);z-index:1000;display:flex;justify-content:space-between;align-items:center;}
-    .brand{font-size:18px;font-weight:400;letter-spacing:1px;}
-    nav a{margin-left:28px;font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);text-decoration:none;font-weight:400;}
+    :root{
+      --bg:#ffffff;
+      --text:#0a0a0a;
+      --muted:#6f6f6f;
+    }
 
-    .hero{height:75vh;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:90px 60px;}
-    .hero h1{font-size:60px;font-weight:400;color:white;margin:0;text-shadow:0 6px 40px rgba(0,0,0,0.7);}  
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter', sans-serif;
+      line-height:1.45;
+    }
+    a{text-decoration:none;color:inherit}
 
-    section{max-width:1200px;margin:0 auto;padding:110px 40px;}
-    .section-title{font-size:24px;font-weight:400;margin-bottom:18px;}
+    /* HEADER ---------------------------*/
+    header{
+      position:fixed;
+      top:0;left:0;right:0;
+      padding:16px 32px;
+      background:rgba(255,255,255,0.75);
+      backdrop-filter:blur(6px);
+      z-index:100;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .brand{
+      font-size:19px;
+      letter-spacing:1.5px;
+      font-weight:400;
+    }
+    nav a{
+      margin-left:24px;
+      font-size:14px;
+      font-weight:400;
+      text-transform:uppercase;
+    }
 
-    /* INSTALACIONES */
-    #instGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;grid-auto-rows:180px;}
-    .tile{background-size:cover;background-position:center;border-radius:6px;border:1px solid var(--line);cursor:pointer;width:100%;height:100%;}
-    .tile.big{grid-column:span 4;grid-row:span 2;}    
-    .tile.medium{grid-column:span 3;}    
-    .tile.small{grid-column:span 2;}
-    @media(max-width:900px){#instGrid{grid-template-columns:repeat(4,1fr);} .tile.big{grid-column:span 4;} .tile.medium{grid-column:span 2;}}
-    @media(max-width:600px){#instGrid{grid-template-columns:repeat(2,1fr);} .tile.big{grid-column:span 2;} .tile.medium{grid-column:span 2;} .tile.small{grid-column:span 1;}}
+    /* HERO -----------------------------*/
+    .hero{
+      height:85vh;
+      position:relative;
+      display:flex;
+      align-items:flex-end;
+      padding:48px;
+    }
+    .hero .image{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      filter:brightness(0.88) contrast(1.05);
+    }
+    .hero .text{
+      position:relative;
+      z-index:2;
+      max-width:680px;
+      color:#fff;
+      text-shadow:0 4px 20px rgba(0,0,0,0.6);
+    }
+    .hero h1{
+      font-family:'Playfair Display', serif;
+      font-size:52px;
+      font-weight:300;
+      margin:0;
+    }
+    .hero p{
+      margin-top:10px;
+      font-size:18px;
+      max-width:580px;
+    }
 
-    /* OBRAS */
-    #worksGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
-    #worksGrid img{width:100%;height:320px;object-fit:cover;border:1px solid var(--line);border-radius:6px;cursor:pointer;}
+    /* SECTIONS --------------------------*/
+    main{max-width:1200px;margin:0 auto;padding:80px 28px}
+    section{padding:56px 0}
 
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.94);display:none;justify-content:center;align-items:center;z-index:2000;}
-    .modal img{max-width:92vw;max-height:92vh;}
-    .close-modal{position:absolute;top:30px;right:40px;color:white;font-size:46px;font-weight:300;cursor:pointer;}
+    h2{
+      font-family:'Playfair Display', serif;
+      font-size:22px;
+      font-weight:300;
+      margin-bottom:20px;
+      letter-spacing:0.5px;
+    }
 
-    footer{text-align:center;padding:60px;font-size:12px;color:var(--muted);letter-spacing:1px;}
+    /* STATEMENT --------------------------*/
+    #about p{
+      max-width:760px;
+      color:var(--muted);
+      margin-bottom:16px;
+      font-size:15px;
+    }
+
+    /* INSTALLATIONS ----------------------*/
+    .inst-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+    }
+    .inst-grid img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      cursor:pointer;
+      border-radius:6px;
+    }
+
+    /* WORKS ------------------------------*/
+    .works-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .works-grid img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    /* AUDIOS -----------------------------*/
+    .audio-item{
+      margin-bottom:20px;
+    }
+    audio{
+      width:100%;
+      margin-top:6px;
+    }
+
+    /* MODAL ------------------------------*/
+    .modal{
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.95);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:2000;
+      padding:20px;
+    }
+    .modal img{
+      max-width:90vw;
+      max-height:90vh;
+      border-radius:6px;
+    }
+    .close{
+      position:absolute;
+      top:24px;
+      right:32px;
+      font-size:38px;
+      color:white;
+      cursor:pointer;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:80px;
+      padding-bottom:40px;
+    }
   </style>
 </head>
 
 <body>
+
 <header>
   <div class="brand">JAVIER TORRES</div>
   <nav>
-    <a href="#statement">Statement</a>
-    <a href="#installations">Instalaciones</a>
+    <a href="#install">Instalaciones</a>
     <a href="#works">Obras</a>
+    <a href="#audio">Audio</a>
+    <a href="#about">Statement</a>
     <a href="#contact">Contacto</a>
   </nav>
 </header>
 
-<div class="hero" id="hero" style="background-image:url('https://raw.githubusercontent.com/JavT2Bill/javier-torres-art/main/img/instalaciones/instalacion-7.jpg')">
-  <h1>INTERSIDE</h1>
-</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="image" style="background-image:url('img/instalaciones/instalacion-7.jpg')"></div>
+  <div class="text">
+    <h1>INTER — SIDE</h1>
+    <p>Paisajes que emergen desde lo urbano para reconfigurar la relación entre cuerpo, espacio y materia.</p>
+  </div>
+</section>
 
 <main>
-<section id="statement">
-  <h2 class="section-title">STATEMENT</h2>
-  <p style="max-width:900px;">El proyecto se fundamenta en mi investigación artística sobre percepción, sistemas espaciales y la epistemología de la materia. Concibo las estructuras —pictóricas o escultóricas— como campos dinámicos donde la atención, la memoria y el movimiento corporal negocian significado.</p>
-  <p style="max-width:900px;margin-top:14px;">Mi práctica explora tensiones entre lo urbano, lo espacial y lo sensorial. Trabajo procesos que revelan vibraciones cromáticas y memoria material, permitiendo que el espectador experimente la obra como un territorio perceptual en transformación.</p>
-</section>
 
-<section id="installations">
-  <div id="instGrid"></div>
-</section>
+  <!-- INSTALLATIONS -->
+  <section id="install">
+    <h2>Instalaciones</h2>
+    <div id="instGrid" class="inst-grid"></div>
+  </section>
 
-<section id="works">
-  <div id="worksGrid"></div>
-</section>
+  <!-- WORKS -->
+  <section id="works">
+    <h2>Obras</h2>
+    <div id="worksGrid" class="works-grid"></div>
+  </section>
 
-<section id="contact">
-  <h2 class="section-title">CONTACTO</h2>
-  <p>Instagram: <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank">@javier_torres_pinturas</a></p>
-</section>
+  <!-- AUDIO -->
+  <section id="audio">
+    <h2>Audio</h2>
+    <div id="audioList"></div>
+  </section>
 
-<footer>&copy; 2025 Javier Torres</footer>
-<!-- AUDIO SECTION START -->
-<section id="audios" class="section">
-  <h2 class="section-title">AUDIOS</h2>
-  <div class="audio-grid" id="audio-container"></div>
-</section>
-<!-- AUDIO SECTION END -->
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>Statement</h2>
+
+    <p>El proyecto se fundamenta en mi investigación artística sobre percepción, sistemas espaciales y epistemología de la materia.</p>
+
+    <p>Concibo las estructuras —pictóricas o escultóricas— como campos dinámicos donde la atención, la memoria y el movimiento corporal negocian significado. Cada obra funciona como un territorio de observación: la superficie, la densidad del gesto y la vibración de los materiales abren posibilidades sensoriales que transforman la manera en que habitamos el espacio.</p>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contacto</h2>
+    <p><a href="https://www.instagram.com/javier_torres_pinturas" target="_blank">Instagram — @javier_torres_pinturas</a></p>
+    <p><a href="https://www.tiktok.com/@javiertorresart" target="_blank">TikTok — @javiertorresart</a></p>
+  </section>
+
+  <footer>
+    © 2025 Javier Torres — Inter Side Studio
+  </footer>
 </main>
 
-<div id="modal" class="modal"><div class="close-modal" onclick="closeModal()">&times;</div><img id="modalImg"></div>
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img id="modalImg" src="">
+</div>
 
 <script>
-function openModal(src){document.getElementById("modalImg").src=src;document.getElementById("modal").style.display="flex";}
-function closeModal(){document.getElementById("modal").style.display="none";}
+const owner="JavT2Bill", repo="javier-torres-art", branch="main";
+
+async function listFolder(path){
+  try{
+    const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+    if(!r.ok) return [];
+    return r.json();
+  }catch{return [];}
+}
 
 function excluded(name){
-  const bad=[ 'fragmento','masterpiece','aparicion','nuevo buda','un nuevo buda','la aparicion' ];
-  const n=name.toLowerCase();
-  return bad.some(b=>n.includes(b));
+  const bad=["instalacion-0","fragmento","alice","master","aparicion","buda","ny","insta-"];
+  return bad.some(b=>name.toLowerCase().includes(b));
 }
 
-async function loadFolderRaw(prefix,count){
-  const arr=[];
-  for(let i=0;i<=30;i++){
-    const url=`https://raw.githubusercontent.com/JavT2Bill/javier-torres-art/main/${prefix}${i}.jpg`;
-    try{
-      const r=await fetch(url,{method:'HEAD'});
-      if(r.ok){
-        const name=`${prefix}${i}.jpg`;
-        if(!excluded(name)) arr.push({name, url});
-      }
-    }catch(e){}
-  }
-  return arr;
-}
-
+/* INSTALLATIONS */
 async function loadInstallations(){
-  const grid=document.getElementById("instGrid");
-  const imgs=await loadFolderRaw('img/instalaciones/instalacion-',30);
+  const box=document.getElementById("instGrid");
+  box.innerHTML="";
+
+  const files=await listFolder("img/instalaciones");
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
+
   imgs.sort((a,b)=>a.name.localeCompare(b.name));
-  imgs.forEach((f,i)=>{
-    const div=document.createElement('div');div.className='tile';
-    if(i===0) div.classList.add('big'); else if(i===1||i===2) div.classList.add('medium'); else div.classList.add('small');
-    div.style.backgroundImage=`url('${f.url}')`;
-    div.onclick=()=>openModal(f.url);
-    grid.appendChild(div);
+
+  imgs.forEach(f=>{
+    const img=document.createElement("img");
+    img.src=f.download_url;
+    img.alt=f.name;
+    img.onclick=()=>openModal(f.download_url);
+    box.appendChild(img);
   });
 }
 
+/* WORKS */
 async function loadWorks(){
   const grid=document.getElementById("worksGrid");
-  const imgs=await loadFolderRaw('img/obras/obra-',60);
+  grid.innerHTML="";
+
+  const files=await listFolder("img/obras");
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
+
   imgs.sort((a,b)=>a.name.localeCompare(b.name));
+
   imgs.forEach(f=>{
-    const img=document.createElement('img');img.src=f.url;img.onclick=()=>openModal(f.url);grid.appendChild(img);
+    const img=document.createElement("img");
+    img.src=f.download_url;
+    img.alt=f.name;
+    img.onclick=()=>openModal(f.download_url);
+    grid.appendChild(img);
   });
 }
 
-(async()=>{await loadInstallations();await loadWorks();})();
+/* AUDIO */
+async function loadAudio(){
+  const box=document.getElementById("audioList");
+  box.innerHTML="";
+
+  const files=await listFolder("audios");
+  const audios=files.filter(f=>/\.(mp3|wav|ogg)$/i.test(f.name));
+
+  audios.sort((a,b)=>a.name.localeCompare(b.name));
+
+  audios.forEach(a=>{
+    const div=document.createElement("div");
+    div.className="audio-item";
+    div.innerHTML=`<strong>${a.name.replace(/\.[^.]+$/,"")}</strong>
+    <audio controls src="${a.download_url}"></audio>`;
+    box.appendChild(div);
+  });
+}
+
+/* MODAL */
+function openModal(src){
+  const m=document.getElementById("modal");
+  const img=document.getElementById("modalImg");
+  m.style.display="flex";
+  img.src=src;
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+/* INIT */
+loadInstallations();
+loadWorks();
+loadAudio();
 </script>
 
 </body>
