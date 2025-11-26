@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>INTERSIDE — Javier Torres</title>
 
-  <!-- FUENTES -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- FUENTE ÚNICA: MONTSERRAT PARA TODO -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#fafafa;
+      --bg:#ffffff;
       --text:#111;
-      --muted:#6a6a6a;
-      --line:#e3e3e3;
+      --muted:#6f6f6f;
+      --line:#e5e5e5;
     }
+
     body{
       margin:0;
       background:var(--bg);
-      font-family:Inter, sans-serif;
+      font-family:"Montserrat", sans-serif;
       color:var(--text);
       line-height:1.55;
     }
@@ -27,7 +28,7 @@
     header{
       position:fixed;
       top:0; left:0; right:0;
-      padding:18px 40px;
+      padding:20px 40px;
       background:#fff;
       border-bottom:1px solid var(--line);
       z-index:1000;
@@ -35,48 +36,52 @@
       justify-content:space-between;
       align-items:center;
     }
+
     .brand{
-      font-family:"Playfair Display", serif;
-      font-size:26px;
+      font-size:22px;
+      font-weight:600;
       letter-spacing:1px;
     }
+
     nav a{
-      margin-left:24px;
-      font-family:"Montserrat", sans-serif;
-      font-size:12px;
-      letter-spacing:1px;
+      margin-left:28px;
+      font-size:13px;
       text-transform:uppercase;
+      letter-spacing:1.2px;
       color:var(--muted);
       text-decoration:none;
+      font-weight:500;
     }
 
     /* HERO */
     .hero{
-      height:78vh;
+      height:75vh;
       background-size:cover;
       background-position:center;
       display:flex;
       align-items:flex-end;
-      padding:70px 60px;
+      padding:90px 60px;
     }
+
     .hero h1{
-      font-family:"Playfair Display", serif;
-      font-size:72px;
+      font-size:60px;
+      font-weight:600;
       color:white;
       margin:0;
-      text-shadow:0px 6px 40px rgba(0,0,0,0.7);
+      text-shadow:0 6px 40px rgba(0,0,0,0.7);
     }
 
     /* SECTIONS */
     section{
       max-width:1200px;
       margin:0 auto;
-      padding:85px 40px;
+      padding:110px 40px;
     }
+
     .section-title{
-      font-family:"Playfair Display", serif;
-      font-size:40px;
-      margin-bottom:24px;
+      font-size:32px;
+      font-weight:600;
+      margin-bottom:20px;
     }
 
     /* INSTALACIONES */
@@ -86,24 +91,29 @@
       gap:16px;
       grid-auto-rows:180px;
     }
+
     .tile{
       background-size:cover;
       background-position:center;
-      border-radius:8px;
+      border-radius:6px;
       border:1px solid var(--line);
       cursor:pointer;
+      width:100%;
+      height:100%;
     }
+
     .tile.big{grid-column:span 4; grid-row:span 2;}
     .tile.medium{grid-column:span 3;}
     .tile.small{grid-column:span 2;}
 
     @media(max-width:900px){
-      #instGrid{grid-template-columns:repeat(4,1fr);}
+      #instGrid{grid-template-columns:repeat(4,1fr);}    
       .tile.big{grid-column:span 4;}
       .tile.medium{grid-column:span 2;}
     }
+
     @media(max-width:600px){
-      #instGrid{grid-template-columns:repeat(2,1fr);}
+      #instGrid{grid-template-columns:repeat(2,1fr);}    
       .tile.big{grid-column:span 2;}
       .tile.medium{grid-column:span 2;}
       .tile.small{grid-column:span 1;}
@@ -112,15 +122,16 @@
     /* WORKS */
     #worksGrid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       gap:22px;
     }
+
     #worksGrid img{
       width:100%;
-      height:300px;
+      height:320px;
       object-fit:cover;
-      border-radius:6px;
       border:1px solid var(--line);
+      border-radius:6px;
       cursor:pointer;
     }
 
@@ -128,22 +139,25 @@
     .modal{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,0.95);
+      background:rgba(0,0,0,0.94);
       display:none;
       justify-content:center;
       align-items:center;
       z-index:2000;
     }
+
     .modal img{
-      max-width:90vw;
-      max-height:90vh;
+      max-width:92vw;
+      max-height:92vh;
     }
+
     .close-modal{
       position:absolute;
-      top:24px;
-      right:30px;
+      top:30px;
+      right:40px;
       color:white;
-      font-size:40px;
+      font-size:46px;
+      font-weight:300;
       cursor:pointer;
     }
 
@@ -152,7 +166,7 @@
       padding:60px;
       font-size:12px;
       color:var(--muted);
-      font-family:Montserrat, sans-serif;
+      letter-spacing:1px;
     }
   </style>
 </head>
@@ -169,8 +183,8 @@
   </nav>
 </header>
 
-<!-- NUEVO HERO (INSTALACION-5) -->
-<div class="hero" id="hero" style="background-image:url('img/instalaciones/instalacion-5.jpg')">
+<!-- HERO -->
+<div class="hero" id="hero" style="background-image:url('img/instalaciones/instalacion-7.jpg')">
   <h1>INTERSIDE</h1>
 </div>
 
@@ -180,15 +194,16 @@
   <h2 class="section-title">Statement</h2>
 
   <p style="max-width:900px;">
-    El proyecto se fundamenta en mi investigación artística sobre percepción, sistemas espaciales y 
-    epistemología de la materia. Concibo las estructuras —pictóricas o escultóricas— como campos 
-    dinámicos donde la atención, la memoria y el movimiento corporal negocian significado.
+    El proyecto se fundamenta en mi investigación artística sobre percepción,
+    sistemas espaciales y la epistemología de la materia. Concibo las estructuras —pictóricas o
+    escultóricas— como campos dinámicos donde la atención, la memoria y el movimiento corporal
+    negocian significado.
   </p>
 
   <p style="max-width:900px; margin-top:14px;">
-    Mi trabajo explora la tensión entre lo urbano y lo espiritual, revelando cómo el gesto y la 
-    vibración cromática funcionan como umbrales perceptuales capaces de transformar el espacio 
-    y la experiencia del espectador.
+    Mi práctica explora las tensiones entre lo urbano, lo espacial y lo sensorial. Trabajo procesos
+    que revelan vibraciones cromáticas, capas y memoria material, permitiendo que el espectador
+    experimente la obra como un territorio perceptual en transformación.
   </p>
 </section>
 
@@ -203,7 +218,7 @@
 
 <section id="contact">
   <h2 class="section-title">Contacto</h2>
-  <p style="font-family:Montserrat;">
+  <p>
     Instagram: <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank">@javier_torres_pinturas</a>
   </p>
 </section>
@@ -219,28 +234,33 @@
 </div>
 
 <script>
-function closeModal(){ document.getElementById("modal").style.display="none"; }
+const owner='JavT2Bill', repo='javier-torres-art', branch='main';
+
+async function listFolder(path){
+  try{
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+    if(!r.ok) return [];
+    return r.json();
+  } catch(e){ return []; }
+}
+
+function excluded(name){
+  const bad=[
+    'fragmento de alice','fragmento','masterpiece','aparicion','la aparicion',
+    'aparicion de un nuevo buda','nuevo buda','un nuevo buda en ny',
+    'insta 1','insta 2','insta 3','insta 4','insta 5','insta 6','insta 7','insta 8'
+  ];
+  const n=name.toLowerCase();
+  return bad.some(b=>n.includes(b));
+}
+
 function openModal(src){
   document.getElementById("modalImg").src=src;
   document.getElementById("modal").style.display="flex";
 }
 
-const owner='JavT2Bill', repo='javier-torres-art', branch='main';
-
-async function listFolder(path){
-  const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
-  if(!r.ok) return [];
-  return r.json();
-}
-
-function excluded(name){
-  const removeExactly = [
-    "fragmento de alice", "la aparicion", "la aparicion de un nuevo buda",
-    "un nuevo buda en ny", "masterpiece",
-    "insta 1","insta 2","insta 3","insta 4","insta 5","insta 6","insta 7","insta 8"
-  ];
-  const n=name.toLowerCase();
-  return removeExactly.some(b=>n.includes(b));
+function closeModal(){
+  document.getElementById("modal").style.display="none";
 }
 
 /* INSTALACIONES */
@@ -249,13 +269,19 @@ async function loadInstallations(){
   const files=await listFolder("img/instalaciones");
 
   let imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
+
   imgs.sort((a,b)=>a.name.localeCompare(b.name));
+
+  // quitar la primera si está rota
+  if(imgs.length && imgs[0].name.toLowerCase().includes('instalacion-1')){
+    imgs.shift();
+  }
 
   imgs.forEach((f,i)=>{
     const div=document.createElement("div");
     div.className="tile";
     if(i===0) div.classList.add("big");
-    else if(i===1 || i===2) div.classList.add("medium");
+    else if(i===1||i===2) div.classList.add("medium");
     else div.classList.add("small");
 
     div.style.backgroundImage=`url('${f.download_url}')`;
@@ -268,8 +294,8 @@ async function loadInstallations(){
 async function loadWorks(){
   const grid=document.getElementById("worksGrid");
   const files=await listFolder("img/obras");
+  let imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
 
-  let imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
   imgs.sort((a,b)=>a.name.localeCompare(b.name));
 
   imgs.forEach(f=>{
