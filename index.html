@@ -1,161 +1,164 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Javier Torres – INTERSIDE</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>INTERSIDE — Javier Torres</title>
 
-<!-- TIPOGRAFÍAS ESTILO JEANNETTE BETANCOURT -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --bg: #f7f7f7;
-  --text: #111;
-  --muted: #555;
-  --line: #ddd;
-}
+  <style>
+    :root{
+      --bg:#f8f8f8; 
+      --text:#0b0a10; 
+      --muted:#6d6d6d; 
+      --line:#e5e5e5;
+    }
+    body{
+      margin:0;
+      background:var(--bg);
+      font-family:Inter, system-ui, sans-serif;
+      color:var(--text);
+      line-height:1.55;
+    }
 
-body {
-  margin:0;
-  background:var(--bg);
-  font-family: "Cormorant Garamond", serif;
-  color:var(--text);
-}
+    /* HEADER */
+    header{
+      position:fixed;
+      top:0; left:0; right:0;
+      padding:20px 40px;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      z-index:1000;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .brand{
+      font-family:"Playfair Display", serif;
+      font-size:28px;
+      letter-spacing:1px;
+    }
+    nav a{
+      margin-left:26px;
+      font-family:"Montserrat", sans-serif;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      text-decoration:none;
+      color:var(--muted);
+    }
 
-/* HEADER */
-header {
-  position:fixed;
-  top:0; left:0; right:0;
-  background:white;
-  padding:18px 40px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:1000;
-}
+    /* HERO */
+    .hero{
+      height:80vh;
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding:70px 60px;
+      background-color:#dcdcdc; /* fallback */
+    }
+    .hero h1{
+      font-family:"Playfair Display", serif;
+      font-size:80px;
+      font-weight:700;
+      color:white;
+      text-shadow:0px 6px 40px rgba(0,0,0,0.7);
+      margin:0;
+    }
 
-.brand {
-  font-size:32px;
-  font-weight:600;
-  letter-spacing:1px;
-  font-family:"Cormorant Garamond", serif;
-}
+    /* SECTIONS */
+    section{
+      max-width:1200px;
+      margin:0 auto;
+      padding:90px 40px;
+    }
+    .section-title{
+      font-family:"Playfair Display", serif;
+      font-size:42px;
+      margin-bottom:20px;
+    }
 
-nav a {
-  margin-left:22px;
-  text-decoration:none;
-  font-family:"Montserrat", sans-serif;
-  font-size:13px;
-  text-transform:uppercase;
-  color:var(--muted);
-  letter-spacing:1px;
-}
+    /* INSTALACIONES */
+    #instGrid{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:16px;
+      grid-auto-rows:180px;
+    }
+    .tile{
+      background-size:cover;
+      background-position:center;
+      border-radius:8px;
+      border:1px solid var(--line);
+      cursor:pointer;
+    }
+    .tile.big{grid-column:span 4; grid-row:span 2;}
+    .tile.medium{grid-column:span 3;}
+    .tile.small{grid-column:span 2;}
 
-/* HERO */
-.hero {
-  height:75vh;
-  background-position:center;
-  background-size:cover;
-  display:flex;
-  align-items:end;
-  justify-content:left;
-  padding:60px;
-  background-color:#dcdcdc; /* Fallback si no carga imagen */
-}
+    @media(max-width:900px){
+      #instGrid{grid-template-columns:repeat(4,1fr);}
+      .tile.big{grid-column:span 4;}
+      .tile.medium{grid-column:span 2;}
+    }
+    @media(max-width:600px){
+      #instGrid{grid-template-columns:repeat(2,1fr);}
+      .tile.big{grid-column:span 2;}
+      .tile.medium{grid-column:span 2;}
+      .tile.small{grid-column:span 1;}
+    }
 
-.hero h1 {
-  font-size:72px;
-  font-weight:600;
-  color:white;
-  text-shadow:0px 5px 30px rgba(0,0,0,0.6);
-}
+    /* WORKS */
+    #worksGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      gap:22px;
+    }
+    .work-card img{
+      width:100%; 
+      height:300px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      border-radius:6px;
+      cursor:pointer;
+    }
 
-/* SECTIONS */
-section {
-  max-width:1200px;
-  margin:0 auto;
-  padding:90px 40px;
-}
+    /* MODAL */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.95);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:2000;
+    }
+    .modal img{
+      max-width:90vw;
+      max-height:90vh;
+    }
+    .close-modal{
+      position:absolute;
+      top:24px;
+      right:30px;
+      color:white;
+      font-size:40px;
+      cursor:pointer;
+    }
 
-.section-title {
-  font-size:42px;
-  margin-bottom:20px;
-  font-weight:600;
-}
-
-/* INSTALACIONES */
-#instGrid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
-  gap:25px;
-}
-
-.inst-item {
-  height:360px;
-  background-position:center;
-  background-size:cover;
-  border-radius:8px;
-  border:1px solid var(--line);
-  cursor:pointer;
-}
-
-/* OBRAS */
-#worksGrid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
-  gap:25px;
-}
-
-.work-card img {
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  border-radius:6px;
-  border:1px solid var(--line);
-  cursor:pointer;
-}
-
-/* AUDIOS */
-audio {
-  width:100%;
-  margin-top:5px;
-}
-
-/* FOOTER */
-footer {
-  padding:60px;
-  text-align:center;
-  font-family:"Montserrat", sans-serif;
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* MODAL */
-.modal {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:3000;
-}
-.modal img {
-  max-width:90vw;
-  max-height:90vh;
-}
-.close-modal {
-  position:absolute;
-  top:20px;
-  right:30px;
-  color:white;
-  font-size:40px;
-  cursor:pointer;
-}
-
-</style>
+    /* CONTACT */
+    footer{
+      padding:60px;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+      font-family:Montserrat, sans-serif;
+    }
+  </style>
 </head>
 
 <body>
@@ -166,12 +169,12 @@ footer {
     <a href="#statement">Statement</a>
     <a href="#installations">Instalaciones</a>
     <a href="#works">Obras</a>
-    <a href="#audios">Audio</a>
     <a href="#contact">Contacto</a>
   </nav>
 </header>
 
-<div id="hero" class="hero">
+<!-- HERO CON IMAGEN FIJA GARANTIZADA -->
+<div class="hero" id="hero" style="background-image:url('img/instalaciones/instalacion-1.jpg')">
   <h1>INTERSIDE</h1>
 </div>
 
@@ -179,16 +182,22 @@ footer {
 
 <section id="statement">
   <h2 class="section-title">Statement</h2>
-  <p style="max-width:880px; font-size:22px; line-height:1.5;">
-    Mi trabajo explora la relación entre espacio, gesto, memoria y presencia.  
-    La superficie se convierte en un territorio donde la ciudad, la materia y el tiempo dejan rastros.  
-    Me interesa la tensión entre lo permanente y lo efímero, lo espiritual y lo urbano,  
-    lo que aparece y desaparece.
+
+  <p style="max-width:900px;">
+    El proyecto se fundamenta en mi investigación artística sobre percepción, sistemas espaciales y 
+    epistemología de la materia. Concibo las estructuras —pictóricas o escultóricas— como campos 
+    dinámicos donde la atención, la memoria y el movimiento corporal negocian significado.
+  </p>
+
+  <p style="max-width:900px; margin-top:14px;">
+    Mis obras exploran la tensión entre lo urbano y lo espiritual, lo que aparece y desaparece, 
+    lo que persiste en la superficie como un eco del tiempo. Me interesa cómo el gesto, la capa 
+    y la vibración cromática pueden funcionar como sistemas perceptuales que revelan nuevas formas 
+    de relación con el espacio.
   </p>
 </section>
 
 <section id="installations">
-  <h2 class="section-title">Instalaciones</h2>
   <div id="instGrid"></div>
 </section>
 
@@ -197,16 +206,10 @@ footer {
   <div id="worksGrid"></div>
 </section>
 
-<section id="audios">
-  <h2 class="section-title">Audio pieces</h2>
-  <div id="audioList"></div>
-</section>
-
 <section id="contact">
   <h2 class="section-title">Contacto</h2>
-  <p style="font-family:Montserrat">
-    Instagram: <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank">@javier_torres_pinturas</a><br>
-    TikTok: <a href="https://www.tiktok.com/@javier_torres_art" target="_blank">@javier_torres_art</a>
+  <p style="font-family:Montserrat;">
+    Instagram: <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank">@javier_torres_pinturas</a>
   </p>
 </section>
 
@@ -214,6 +217,7 @@ footer {
 
 </main>
 
+<!-- MODAL -->
 <div id="modal" class="modal">
   <div class="close-modal" onclick="closeModal()">&times;</div>
   <img id="modalImg">
@@ -223,74 +227,71 @@ footer {
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
-
 function openModal(src){
   document.getElementById("modalImg").src=src;
   document.getElementById("modal").style.display="flex";
 }
 
-const owner="JavT2Bill";
-const repo="javier-torres-art";
-const branch="main";
+/* REPOSITORIO */
+const owner='JavT2Bill', repo='javier-torres-art', branch='main';
 
 async function listFolder(path){
-  const r=await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+  const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
   if(!r.ok) return [];
   return r.json();
 }
 
-async function loadHero(){
-  const imgs=await listFolder("img/instalaciones");
-  const valid=imgs.filter(f=>f.name.match(/\.(jpg|jpeg|png|webp)$/i));
-  const hero=document.getElementById("hero");
-  if(valid.length>0){
-    hero.style.backgroundImage=`url('${valid[0].download_url}')`;
+/* LISTA DE EXCLUSIÓN */
+function excluded(name){
+  const bad = [
+    "insta", "fragmento", "aparicion", "masterpiece", "buda", 
+    "nuevo", "ny", "1 ", "2 ", "3 ", "4 "
+  ];
+  const n = name.toLowerCase();
+  return bad.some(b => n.includes(b));
+}
+
+/* INSTALACIONES */
+async function loadInstallations(){
+  const grid=document.getElementById("instGrid");
+  const files=await listFolder("img/instalaciones");
+
+  let imgs=files.filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name) && !excluded(f.name));
+  imgs.sort((a,b)=>a.name.localeCompare(b.name));
+
+  if(imgs.length){
+    imgs.forEach((f,i)=>{
+      const div=document.createElement("div");
+      div.className="tile";
+      if(i===0) div.classList.add("big");
+      else if(i===1 || i===2) div.classList.add("medium");
+      else div.classList.add("small");
+
+      div.style.backgroundImage=`url('${f.download_url}')`;
+      div.onclick=()=>openModal(f.download_url);
+      grid.appendChild(div);
+    });
   }
 }
 
-async function loadInstallations(){
-  const grid=document.getElementById("instGrid");
-  const imgs=await listFolder("img/instalaciones");
-  imgs.filter(f=>f.name.match(/\.(jpg|jpeg|png|webp)$/i))
-      .forEach(f=>{
-        const div=document.createElement("div");
-        div.className="inst-item";
-        div.style.backgroundImage=`url('${f.download_url}')`;
-        div.onclick=()=>openModal(f.download_url);
-        grid.appendChild(div);
-      });
-}
-
+/* WORKS */
 async function loadWorks(){
   const grid=document.getElementById("worksGrid");
-  const imgs=await listFolder("img/obras");
-  imgs.filter(f=>f.name.match(/\.(jpg|jpeg|png|webp)$/i))
-      .forEach(f=>{
-        const img=document.createElement("img");
-        img.src=f.download_url;
-        img.onclick=()=>openModal(f.download_url);
-        grid.appendChild(img);
-      });
-}
+  const files=await listFolder("img/obras");
+  let imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
+  imgs.sort((a,b)=>a.name.localeCompare(b.name));
 
-async function loadAudios(){
-  const div=document.getElementById("audioList");
-  const audios=await listFolder("audios");
-  audios.filter(f=>f.name.match(/\.(mp3|wav|ogg)$/i))
-        .forEach(f=>{
-          div.innerHTML += `
-            <div style="margin-bottom:20px;">
-              <strong>${f.name.replace(/\.[^.]+$/, '')}</strong><br>
-              <audio controls src="${f.download_url}"></audio>
-            </div>`;
-        });
+  imgs.forEach(f=>{
+    const img=document.createElement("img");
+    img.src=f.download_url;
+    img.onclick=()=>openModal(f.download_url);
+    grid.appendChild(img);
+  });
 }
 
 (async()=>{
-  await loadHero();
   await loadInstallations();
   await loadWorks();
-  await loadAudios();
 })();
 </script>
 
