@@ -39,7 +39,7 @@
 
     .brand{
       font-size:22px;
-      font-weight:600;
+      font-weight:400;
       letter-spacing:1px;
     }
 
@@ -80,7 +80,7 @@
 
     .section-title{
       font-size:32px;
-      font-weight:600;
+      font-weight:400;
       margin-bottom:20px;
     }
 
@@ -247,8 +247,7 @@ async function listFolder(path){
 function excluded(name){
   const bad=[
     'fragmento de alice','fragmento','masterpiece','aparicion','la aparicion',
-    'aparicion de un nuevo buda','nuevo buda','un nuevo buda en ny',
-    'insta','instalacion-1'
+    'aparicion de un nuevo buda','nuevo buda','un nuevo buda en ny'
   ];
   const n=name.toLowerCase();
   return bad.some(b=>n.includes(b));
