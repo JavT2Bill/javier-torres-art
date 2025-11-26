@@ -1,290 +1,335 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>INTER - SIDE — Javier Torres</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <meta name="description" content="INTER - SIDE. Estas obras exploran la estética urbana y difuminan las fronteras entre espacio público y espacio expositivo."/>
-  <style>
-    :root{
-      --bg:#fff;--text:#0b0a10;--muted:#7b7f85;--accent:#111111;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--text);margin:0;line-height:1.45}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1200px;margin:0 auto;padding:28px}
-    header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:linear-gradient(180deg, rgba(255,255,255,0.62), rgba(255,255,255,0.12));backdrop-filter:blur(6px)}
-    .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:2px;font-size:18px}
-    nav{display:flex;gap:18px;align-items:center}
-    nav a{font-weight:600;color:var(--muted);font-size:14px}
-    .hero{height:85vh;display:grid;align-items:end;position:relative;overflow:hidden}
-    .hero .image{position:absolute;inset:0;background-size:cover;background-position:center;filter:contrast(0.98) saturate(0.94)}
-    .hero .overlay{position:relative;z-index:10;padding:48px;max-width:1100px;margin:0 auto;color:#fff;text-shadow:0 6px 30px rgba(10,10,12,0.65)}
-    .hero h1{font-family:'Playfair Display',serif;font-size:54px;line-height:0.95;margin:0}
-    .hero p.lead{margin-top:12px;color:rgba(255,255,255,0.9);max-width:720px;font-size:18px}
-    section{padding:72px 0}
-    .section-title{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .card{background:#fff;border-radius:8px;overflow:hidden;position:relative;border:1px solid rgba(10,10,12,0.06);box-shadow:0 6px 18px rgba(10,10,12,0.04);cursor:pointer}
-    .card .thumb{width:100%;height:260px;object-fit:cover;display:block}
-    .card .meta{padding:12px 16px}
-    .card .title{font-weight:700;margin-bottom:6px}
-    .card .sub{color:var(--muted);font-size:14px}
-    /* INSTALACIONES: collage (1 grande, 2 medianas, resto pequeñas) */
-    .inst-grid{
-      display:grid;
-      grid-template-columns:repeat(6,1fr); /* base grid: 6 columnas para controlar spans */
-      gap:16px;
-      grid-auto-rows: 180px; /* altura base para celdas pequeñas */
-      align-items:stretch;
-    }
-    .inst-grid .tile{
-      background-size:cover;
-      background-position:center;
-      border-radius:8px;
-      cursor:pointer;
-      border:1px solid rgba(0,0,0,0.05);
-      width:100%;
-      height:100%;
-      display:block;
-    }
-    /* patrón: primera imagen ocupa 2x2, las siguientes dos ocupan 3 columnas de ancho y 1 fila (medianas) */
-    .inst-grid .tile.big{
-      grid-column: span 4; /* ocupa 4/6 columnas = ancho grande */
-      grid-row: span 2;    /* ocupa 2 filas */
-      min-height:360px;
-    }
-    .inst-grid .tile.medium{
-      grid-column: span 3; /* ocupa mitad de ancho grande */
-      grid-row: span 1;
-      min-height:220px;
-    }
-    .inst-grid .tile.small{
-      grid-column: span 2;
-      grid-row: span 1;
-      min-height:180px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Javier Torres — Art & Installations</title>
+<meta name="description" content="Portfolio de Javier Torres. Pintura, instalaciones, audio piezas. Arte contemporáneo desde Guadalajara, México." />
 
-    /* responsive: simplificar en pantallas pequeñas */
-    @media(max-width:1000px){
-      .inst-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:150px}
-      .inst-grid .tile.big{grid-column:span 4; grid-row:span 2; min-height:320px}
-      .inst-grid .tile.medium{grid-column:span 2; min-height:180px}
-      .inst-grid .tile.small{grid-column:span 2}
-    }
-    @media(max-width:640px){
-      .inst-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
-      .inst-grid .tile.big{grid-column:span 2;grid-row:span 2;min-height:260px}
-      .inst-grid .tile.medium{grid-column:span 2;min-height:160px}
-      .inst-grid .tile.small{grid-column:span 1}
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-    /* modal */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
-    .modal .wrap{max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center;position:relative}
-    .modal img{max-width:90vw;max-height:90vh;object-fit:contain;display:block;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
-    .close{position:absolute;right:18px;top:18px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
-    .info{position:absolute;right:24px;top:24px;color:#fff;max-width:320px;text-align:right;font-size:14px}
-    footer{padding:48px 0;text-align:center;color:var(--muted);font-size:14px}
-    @media(max-width:900px){
-      .hero h1{font-size:36px}
-      .card .thumb{height:200px}
-    }
-  </style>
+<style>
+:root {
+  --bg:#f7f7f7;
+  --text:#111;
+  --muted:#555;
+  --line:#ddd;
+  --accent:#000;
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter, sans-serif;
+  line-height:1.55;
+}
+
+/* HEADER */
+header {
+  position:fixed;
+  top:0; left:0; right:0;
+  padding:22px 40px;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(8px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  border-bottom:1px solid var(--line);
+}
+.brand {
+  font-family:"Playfair Display", serif;
+  font-size:20px;
+  letter-spacing:1.5px;
+}
+nav a {
+  margin-left:24px;
+  font-size:14px;
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:500;
+}
+
+/* HERO */
+.hero {
+  height:88vh;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  display:flex;
+  align-items:end;
+  padding:60px;
+  margin-bottom:40px;
+}
+.hero h1 {
+  font-family:"Playfair Display", serif;
+  font-size:54px;
+  max-width:800px;
+  color:#fff;
+  text-shadow:0 5px 24px rgba(0,0,0,0.5);
+}
+
+/* SECTION */
+section {
+  padding:80px 60px;
+  max-width:1200px;
+  margin:0 auto;
+}
+.section-title {
+  font-family:"Playfair Display", serif;
+  font-size:30px;
+  margin-bottom:30px;
+}
+
+/* STATEMENT */
+.statement {
+  font-size:18px;
+  max-width:900px;
+  color:var(--muted);
+}
+
+/* INSTALLATIONS GRID */
+.inst-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.inst-item {
+  background-size:cover;
+  background-position:center;
+  border-radius:8px;
+  height:300px;
+  cursor:pointer;
+  border:1px solid var(--line);
+}
+
+/* WORKS */
+.works-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+.work-card {
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  cursor:pointer;
+}
+.work-card img {
+  width:100%;
+  height:280px;
+  object-fit:cover;
+}
+.work-card .meta {
+  padding:12px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* AUDIO */
+.audio-list {
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+audio {
+  width:100%;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:60px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+.modal img {
+  max-width:90vw;
+  max-height:90vh;
+  border-radius:6px;
+}
+.close-modal {
+  position:absolute;
+  top:20px;
+  right:30px;
+  color:#fff;
+  font-size:40px;
+  cursor:pointer;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <div class="brand">JAVIER <span style="letter-spacing:0.6px">TORRES</span></div>
-    <nav>
-      <a href="#install">Installations</a>
-      <a href="#about">About</a>
-      <a href="#works">Works</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <!-- HERO: instalacion-1 (tu preferida) -->
-  <section class="hero" aria-hidden="false">
-    <div class="image" id="heroImage" style="background-image:url('img/instalaciones/instalacion-1.jpg')"></div>
-    <div class="overlay">
-      <h1>INTER — SIDE</h1>
-      <p class="lead">Estas obras se nutren de la estética urbana y exploran el límite entre espacio público y espacio expositivo.</p>
-    </div>
-  </section>
+<header>
+  <div class="brand">JAVIER TORRES</div>
+  <nav>
+    <a href="#statement">Statement</a>
+    <a href="#installations">Instalaciones</a>
+    <a href="#works">Obras</a>
+    <a href="#audios">Audios</a>
+    <a href="#contact">Contacto</a>
+  </nav>
+</header>
 
-  <main class="container">
-    <!-- INSTALLATIONS (sin título visible, grid collage) -->
-    <section id="install">
-      <div id="instGrid" class="inst-grid" aria-live="polite"></div>
-    </section>
+<!-- HERO -->
+<div class="hero" style="background-image:url('img/instalaciones/instalacion-1.jpg');">
+  <h1>Arte Contemporáneo — Pintura · Instalación · Audio</h1>
+</div>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2 class="section-title">About</h2>
-      <div style="color:var(--muted);max-width:760px">
-        <p>Estas obras nacen de la energía y textura de la calle para cuestionar cómo la pintura transforma y se transforma al pasar del muro al taller. Son paisajes que retienen la memoria de gestos, capas y materiales del espacio urbano.</p>
-        <p style="margin-top:10px;color:var(--muted)">Nacido en Guadalajara, Jalisco (1977). Premio Nacional de Pintura José Atanasio Monroy (2007-2008). Beca PECDA (2009). Exhibiciones en Galería Ágora (Nueva York) y Art al Vento (Alicante, España). Exposiciones individuales en Guadalajara (Galería Cuarenta y Cinco, Galería Juan Soriano, Pitaya Gallery, Galería Jardín Americana).</p>
-      </div>
-    </section>
+<main>
 
-    <!-- WORKS -->
-    <section id="works">
-      <h2 class="section-title">Works</h2>
-      <div class="grid" id="worksGrid"></div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2 class="section-title">Contact</h2>
-      <div>
-        <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank" rel="noopener">Instagram — @javier_torres_pinturas</a>
-      </div>
-    </section>
-
-    <footer>
-      &copy; 2025 Javier Torres — Inter Side · Studio
-    </footer>
-  </main>
-
-  <!-- MODAL -->
-  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="close" aria-label="Cerrar" onclick="closeModal()">&times;</button>
-    <div class="wrap" onclick="toggleZoom(event)">
-      <img id="modalImg" src="" alt="">
-    </div>
-    <div class="info" id="modalInfo" aria-hidden="true"></div>
+<!-- STATEMENT -->
+<section id="statement">
+  <h2 class="section-title">Statement</h2>
+  <div class="statement">
+    Mi práctica se desarrolla entre la pintura, el gesto urbano y la memoria del espacio público.
+    Trabajo con capas, interferencias, rastros y ruido visual para revelar cómo la ciudad transforma
+    la superficie pictórica. Mis instalaciones exploran lo ritual, lo efímero y la relación entre cuerpo,
+    materia y espacio expositivo.
   </div>
+</section>
 
-  <script>
-    // Repo config (ajusta si cambias branch/owner/repo)
-    const owner='JavT2Bill', repo='javier-torres-art', branch='main';
+<!-- INSTALLATIONS -->
+<section id="installations">
+  <h2 class="section-title">Instalaciones</h2>
+  <div id="instGrid" class="inst-grid"></div>
+</section>
 
-    // List folder via GitHub API
-    async function listFolder(path){
-      try{
-        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
-        if(!res.ok) return [];
-        return res.json();
-      } catch(e){
-        return [];
-      }
-    }
+<!-- WORKS -->
+<section id="works">
+  <h2 class="section-title">Obras</h2>
+  <div id="worksGrid" class="works-grid"></div>
+</section>
 
-    // Exclude problematic files
-    function isExcluded(name){
-      const ln = name.toLowerCase();
-      return ln.includes('insta') || ln.includes('fragmento-de-alice') || ln.includes('aparicion') || ln.includes('nuevo-buda') || ln.includes('masterpiece');
-    }
+<!-- AUDIOS -->
+<section id="audios">
+  <h2 class="section-title">Audio pieces</h2>
+  <div id="audioList" class="audio-list"></div>
+</section>
 
-    // Build installations grid (robusto: intenta API, si falla usa fallback secuencial)
-    async function buildInstallations(){
-      const container = document.getElementById('instGrid');
-      container.innerHTML = '';
-      // 1. intentar vía API
-      const apiFiles = await listFolder('img/instalaciones');
-      let images = (apiFiles || []).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title">Contacto</h2>
+  <p>Sígueme en Instagram:  
+    <a href="https://www.instagram.com/javier_torres_pinturas/" target="_blank">@javier_torres_pinturas</a>
+  </p>
+</section>
 
-      // 2. fallback secuencial si la API no devolvió resultados
-      if(!images.length){
-        const candidate = [];
-        for(let i=1;i<=12;i++){
-          const name = `instalacion-${i}.jpg`;
-          const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/img/instalaciones/${encodeURIComponent(name)}`;
-          candidate.push({name, url: raw});
-        }
-        const checks = await Promise.all(candidate.map(async c=>{
-          try{
-            const r = await fetch(c.url, { method: 'HEAD' });
-            if(r.ok) return { name: c.name, download_url: c.url };
-          }catch(e){}
-          return null;
-        }));
-        images = checks.filter(Boolean).map(c=>({ name: c.name, download_url: c.download_url }));
-      }
+<footer>
+  &copy; 2025 Javier Torres — Contemporary Art
+</footer>
 
-      if(!images.length) return; // nada que mostrar
+</main>
 
-      // ordenar por nombre
-      images.sort((a,b) => a.name.localeCompare(b.name));
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="close-modal" onclick="closeModal()">&times;</div>
+  <img id="modalImg">
+</div>
 
-      // patrón: 1 grande, 2 medianas, resto pequeñas
-      images.forEach((f, i) => {
-        const div = document.createElement('div');
-        div.className = 'tile';
-        if(i === 0) div.classList.add('big');
-        else if(i === 1 || i === 2) div.classList.add('medium');
-        else div.classList.add('small');
+<script>
+const owner = "JavT2Bill";
+const repo = "javier-torres-art";
+const branch = "main";
 
-        div.style.backgroundImage = `url('${f.download_url}')`;
-        div.setAttribute('role','button');
-        div.setAttribute('tabindex','0');
-        div.addEventListener('click', () => openModal(f.download_url, f.name));
-        div.addEventListener('keydown', (e)=> { if(e.key === 'Enter') openModal(f.download_url, f.name); });
-        container.appendChild(div);
-      });
-    }
+async function listFolder(path){
+  try{
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+    if(!res.ok) return [];
+    return res.json();
+  }catch(e){ return []; }
+}
 
-    // Build works grid (img/obras) — si no hay imágenes queda vacío (sin mensajes)
-    async function buildWorks(){
-      const grid = document.getElementById('worksGrid');
-      grid.innerHTML = '';
-      const files = await listFolder('img/obras');
-      const images = (files||[]).filter(f => /\.(jpe?g|png|webp)$/i.test(f.name) && !isExcluded(f.name));
-      if(!images.length) return;
-      images.sort((a,b) => a.name.localeCompare(b.name));
-      images.forEach(f => {
-        const div = document.createElement('div'); div.className = 'card';
-        const img = document.createElement('img'); img.className = 'thumb'; img.loading = 'lazy'; img.decoding = 'async'; img.src = f.download_url; img.alt = f.name;
-        const meta = document.createElement('div'); meta.className = 'meta';
-        meta.innerHTML = `<div class="title">${f.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ')}</div><div class="sub">Click para ver detalles</div>`;
-        div.appendChild(img); div.appendChild(meta);
-        div.onclick = () => openModal(f.download_url, f.name);
-        grid.appendChild(div);
-      });
-    }
+function openModal(src){
+  const modal=document.getElementById("modal");
+  const img=document.getElementById("modalImg");
+  img.src=src;
+  modal.style.display="flex";
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
 
-    // Modal: mostrar imagen completa (contain) y toggle zoom
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
+async function buildInstallations(){
+  const grid=document.getElementById("instGrid");
+  const files=await listFolder("img/instalaciones");
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
 
-    function openModal(src, filename){
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden','false');
-      modalImg.src = src;
-      modalImg.alt = filename;
-      modalImg.style.transform = 'none';
-      modalImg.style.cursor = 'zoom-in';
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden','true');
-      modalImg.src = '';
-      document.body.style.overflow = '';
-    }
+  imgs.forEach(f=>{
+    const div=document.createElement("div");
+    div.className="inst-item";
+    div.style.backgroundImage=`url('${f.download_url}')`;
+    div.onclick=()=>openModal(f.download_url);
+    grid.appendChild(div);
+  });
+}
 
-    function toggleZoom(e){
-      if(e.target === modalImg){
-        if(modalImg.style.transform && modalImg.style.transform !== 'none'){
-          modalImg.style.transform = 'none';
-          modalImg.style.cursor = 'zoom-in';
-        } else {
-          modalImg.style.transform = 'scale(1.6)';
-          modalImg.style.cursor = 'zoom-out';
-        }
-      }
-    }
+async function buildWorks(){
+  const grid=document.getElementById("worksGrid");
+  const files=await listFolder("img/obras");
+  const imgs=files.filter(f=>/\.(jpg|jpeg|png|webp)$/i.test(f.name));
 
-    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
-    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+  imgs.forEach(f=>{
+    const card=document.createElement("div");
+    card.className="work-card";
+    card.onclick=()=>openModal(f.download_url);
 
-    // init
-    (async ()=> {
-      await buildInstallations();
-      await buildWorks();
-    })();
-  </script>
+    const img=document.createElement("img");
+    img.src=f.download_url;
+
+    const meta=document.createElement("div");
+    meta.className="meta";
+    meta.textContent=f.name.replace(/\.[^.]+$/,"").replace(/[-_]/g," ");
+
+    card.appendChild(img);
+    card.appendChild(meta);
+    grid.appendChild(card);
+  });
+}
+
+async function buildAudios(){
+  const list=document.getElementById("audioList");
+  const files=await listFolder("audios");
+  const audioFiles=files.filter(f=>/\.(mp3|wav|ogg)$/i.test(f.name));
+
+  audioFiles.forEach(f=>{
+    const wrap=document.createElement("div");
+    const title=document.createElement("div");
+    title.style.fontSize="15px";
+    title.style.color="var(--muted)";
+    title.textContent=f.name.replace(/\.[^.]+$/,"");
+
+    const player=document.createElement("audio");
+    player.controls=true;
+    player.src=f.download_url;
+
+    wrap.appendChild(title);
+    wrap.appendChild(player);
+    list.appendChild(wrap);
+  });
+}
+
+(async()=>{
+  await buildInstallations();
+  await buildWorks();
+  await buildAudios();
+})();
+</script>
+
 </body>
 </html>
