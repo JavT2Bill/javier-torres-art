@@ -10,14 +10,14 @@
     :root{ --bg:#fff; --text:#111; --muted:#6f6f6f; --line:#e5e5e5; }
     body{margin:0;font-family:"Montserrat",sans-serif;background:var(--bg);color:var(--text);}    
     header{position:fixed;top:0;left:0;right:0;padding:20px 40px;background:#fff;border-bottom:1px solid var(--line);z-index:1000;display:flex;justify-content:space-between;align-items:center;}
-    .brand{font-size:22px;font-weight:400;letter-spacing:1px;}
+    .brand{font-size:18px;font-weight:400;letter-spacing:1px;}
     nav a{margin-left:28px;font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);text-decoration:none;font-weight:400;}
 
     .hero{height:75vh;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:90px 60px;}
     .hero h1{font-size:60px;font-weight:400;color:white;margin:0;text-shadow:0 6px 40px rgba(0,0,0,0.7);}  
 
     section{max-width:1200px;margin:0 auto;padding:110px 40px;}
-    .section-title{font-size:32px;font-weight:400;margin-bottom:20px;text-transform:uppercase;}
+    .section-title{font-size:24px;font-weight:400;margin-bottom:18px;}
 
     /* INSTALACIONES */
     #instGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;grid-auto-rows:180px;}
@@ -76,6 +76,12 @@
 </section>
 
 <footer>&copy; 2025 Javier Torres</footer>
+<!-- AUDIO SECTION START -->
+<section id="audios" class="section">
+  <h2 class="section-title">AUDIOS</h2>
+  <div class="audio-grid" id="audio-container"></div>
+</section>
+<!-- AUDIO SECTION END -->
 </main>
 
 <div id="modal" class="modal"><div class="close-modal" onclick="closeModal()">&times;</div><img id="modalImg"></div>
