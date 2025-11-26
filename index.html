@@ -174,7 +174,7 @@
 <body>
 
 <header>
-  <div class="brand">Javier Torres</div>
+  <div class="brand">JAVIER TORRES</div>
   <nav>
     <a href="#statement">Statement</a>
     <a href="#installations">Instalaciones</a>
@@ -191,7 +191,7 @@
 <main>
 
 <section id="statement">
-  <h2 class="section-title">Statement</h2>
+  <h2 class="section-title">STATEMENT</h2>
 
   <p style="max-width:900px;">
     El proyecto se fundamenta en mi investigación artística sobre percepción,
@@ -212,7 +212,7 @@
 </section>
 
 <section id="works">
-  <h2 class="section-title">Obras</h2>
+  
   <div id="worksGrid"></div>
 </section>
 
@@ -245,6 +245,14 @@ async function listFolder(path){
 }
 
 function excluded(name){
+  const bad=[
+    'fragmento de alice','fragmento','masterpiece','aparicion','la aparicion',
+    'aparicion de un nuevo buda','nuevo buda','un nuevo buda en ny',
+    'insta','instalacion-1'
+  ];
+  const n=name.toLowerCase();
+  return bad.some(b=>n.includes(b));
+}{
   const bad=[
     'fragmento de alice','fragmento','masterpiece','aparicion','la aparicion',
     'aparicion de un nuevo buda','nuevo buda','un nuevo buda en ny',
